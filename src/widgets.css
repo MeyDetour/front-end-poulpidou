@@ -1,0 +1,259 @@
+.widget {
+	width: 55vw;
+}
+
+h3.widget-title {
+	padding-bottom: 10px;
+
+	color: var(--title-grey);
+}
+
+/* Searchbars */
+#searchbar .research__searchbar {
+	height: 40px;
+	padding: 5px;
+
+	border-radius: 5px;
+
+	background-color: var(--white);
+}
+#searchbar .research__searchbar input[type="search"] {
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+
+	font-size: 15px;
+}
+
+#searchbar .research__result {
+	height: 350px;
+	padding: 5px;
+	margin-top: 30px;
+
+	border-radius: 5px;
+
+	background: var(--white);
+
+	overflow: hidden;
+}
+#searchbar .research__result .scroll-container > div > div:last-child { width: 100%; }
+#searchbar .research__result .scroll-container > div { margin-top: 20px; }
+#searchbar .research__result .scroll-container > div:first-child { margin-top: 10px; }
+#searchbar .research__result .scroll-container .sub-container {
+	width: calc(100% - 5px);
+	gap: 5px 20px;
+}
+#searchbar .research__result .scroll-container .sub-container a { text-decoration: none; }
+
+#searchbar .long-result {
+	width: calc(100% - 30px);
+	height: 30px;
+	padding: 10px;
+	margin-block: 10px;
+
+	background-color: var(--grey-light-5);
+
+	border-radius: 5px;
+
+	line-height: 30px;
+
+	cursor: pointer;
+}
+#searchbar .short-result {
+	width: 150px;
+	height: 30px;
+	padding: 10px;
+	margin: 2.5px auto;
+
+	background-color: var(--grey-light-5);
+
+	border-radius: 5px;
+
+	text-align: center;
+	line-height: 30px;
+
+	cursor: pointer;
+}
+
+#searchbar kbd + p {
+	line-height: 62.5px;
+}
+/* --- Searchbars --- */
+/* Research clients */
+#researchClient {
+
+}
+#researchClient .research__client {
+	height: 40px;
+	padding: 5px;
+
+	border-radius: 5px;
+
+	background-color: var(--white);
+}
+#researchClient .research__client input[type="search"] {
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+
+	font-size: 15px;
+}
+
+#researchClient .research__result {
+	height: 350px;
+	padding: 5px;
+	margin-top: 30px;
+
+	border-radius: 5px;
+
+	background: var(--white);
+
+	overflow: hidden;
+}
+#researchClient .research__result .scroll-container > div > div:last-child { width: 100%; }
+#researchClient .research__result .scroll-container > div { margin-top: 20px; }
+#researchClient .research__result .scroll-container > div:first-child { margin-top: 10px; }
+#researchClient .research__result .scroll-container .sub-container {
+	width: calc(100% - 5px);
+	gap: 5px 20px;
+}
+#researchClient .research__result .scroll-container .sub-container a { text-decoration: none; }
+
+#researchClient .long-result {
+	width: calc(100% - 30px);
+	height: 60px;
+	padding: 10px;
+	margin-block: 10px;
+
+	background-color: var(--grey-light-5);
+
+	border-radius: 5px;
+
+	line-height: 30px;
+
+	cursor: pointer;
+}
+/* --- Research clients --- */
+
+/* Project creation */
+#createProject {
+	height: 80vh;
+	padding: 10px;
+
+	background-color: var(--white);
+
+	border-radius: 10px;
+}
+#createProject label {
+	color: var(--text-grey);
+
+	user-select: none;
+	cursor: pointer;
+}
+#createProject p.text-of-input {
+	line-height: 31px;
+}
+#createProject p sub { padding: 10px 0; }
+#createProject .data-separation:not(:first-child) { margin-top: 20px; }
+#createProject .scroll-container {
+	row-gap: 15px;
+	margin-top: 20px;
+}
+
+#createProject div.input-container  {
+	margin-bottom: 5px;
+}
+#createProject input[type="text"] {
+	width: calc(100% - 10px);
+	margin-left: 10px;
+}
+#createProject .date-section {
+	width: calc(100%);
+}
+#createProject input[type="time"], 
+#createProject input[type="date"] {
+	width: 200px;
+	margin-left: 10px;
+}
+#createProject input[type="number"] {
+	margin-left: 10px;
+}
+#createProject select {
+	width: calc(100% - 10px - 140px);
+	margin-left: 10px;
+}
+#createProject button {
+	width: 120px;
+	margin-left: 10px;
+}
+
+#createProject .compostion-data-title {
+	margin-bottom: 10px;
+}
+
+#createProject .cost-section {
+	width: 410px;
+	height: 50px;
+
+	font-size: 30px;
+	line-height: 50px;
+	text-align: center;
+}
+#createProject .cost-section h4 {
+	width: 200px;
+}
+#createProject .cost-section .vertical-line {
+	margin: 0;
+}
+#createProject .cost-section p {
+	height: 25px;
+	margin-top: -20px;
+}
+#createProject .cost-section p sub {
+/*	margin-top: -10px;*/
+	padding: 0;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+#createProject textarea {
+	width: calc(100% - 10px);
+	min-height: 200px;
+
+	resize: none;
+}
+/* --- Project creation --- */
+/* New client */
+#newClient {
+	height: 452px;
+	padding: 10px;
+
+	background-color: var(--white);
+
+	border-radius: 10px;
+}
+#newClient form { gap: 20px; }
+#newClient p {
+	min-width: fit-content;
+	line-height: 31px;
+}
+#newClient input[type="text"], #newClient input[type="mail"] {
+	width: calc(100% - 10px);
+	margin-left: 10px;
+}
+#newClient textarea {
+	width: calc(100% - 10px);
+	min-height: 107px;
+
+	resize: none;
+}
+/* --- New client --- */
+#addSpecifications {
+	height: 302px;
+	padding: 10px;
+
+	background-color: var(--white);
+
+	border-radius: 10px;
+}
+#addSpecifications form { gap: 20px; }
