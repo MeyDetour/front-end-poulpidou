@@ -36,8 +36,8 @@ const ResearchClient = () => {
 	return (
 		<>
 			<div id="researchClient" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
-				<div className="research__client">
-					<input type="search" value={search} placeholder="Search for a client..." onChange={(e) => setSearch(e.value)}/>
+				<div className="research__searchbar">
+					<input type="search" value={search} placeholder="Search for a chat..." onChange={(e) => setSearch(e.value)}/>
 				</div>
 				<div className="research__result">
 					<div className="scroll-container">

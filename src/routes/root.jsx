@@ -18,7 +18,7 @@ import AddSpecifications from '../components/widgets/addSpecifications';
 const Root = () => {
 	const token = createRef();
 
-	const [keyPressed, resetKeyPressed] = useKeyBindings(null, ['k', 'n', 'w'], true);
+	const [keyPressed, resetKeyPressed] = useKeyBindings(null, ['k', 'n'], true);
 	const [widget, setWidget] = useState(null);
 
 	useEffect(() => {

@@ -3,6 +3,7 @@
 	--white: #FCFCFC;
 	--bg-widget: rgba(0, 0, 0, .3);
 
+	--blue-light-5: #F4F6F9;
 	--blue-light-4: #E4E9F4;
 	--blue-light-3: #C7D1E7;
 	--blue-light-2: #ADB9D4;
@@ -13,6 +14,10 @@
 	--grey-light-3: #BCBCBC;
 	--grey-light-2: #B1B1B1;
 	--grey: #767676;
+	--black: #131313;
+
+	--grey-light-4-hover: #E0E0E0;
+	--grey-light-4-active: #CFCFCF;
 
 	--input-grey: #F7F7F7;
 	--button-hover-grey: #F0F0F0;
@@ -184,7 +189,7 @@ h2 {
 	padding-left: 15px;
 
 	font-size: 25px;
-	font-weight: 100;
+	font-weight: normal;
 
 	color:var(--text-grey);
 }
@@ -286,7 +291,6 @@ input[type="checkbox"]:checked + div.checkbox:after {
 	width: 8px;
 	height: 8px;
 
-/*	background-color: var(--grey-light-2);*/
 	background-color: var(--blue-light-2);
 
 	border-radius: 1px;
@@ -385,7 +389,7 @@ textarea {
 
 input[type="file"] { display: none; }
 div.input-file {
-	width: calc(100%);
+	width: calc(100% - 4px);
 	height: 200px;
 
 	background-color: var(--input-grey);

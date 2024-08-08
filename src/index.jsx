@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import './style.css';
-import './widgets.css';
+import './components/widgets/widgets.css';
 
 import Root from './routes/root';
 import ErrorPage from './ErrorPage';
@@ -33,6 +33,9 @@ const router = createBrowserRouter([
 		element: <Projects />,
 	}, {
 		path: "/projects/:id",
+		element: <Projects />,
+	}, {
+		path: "/projects/:id/:subpage",
 		element: <Projects />,
 	}, {
 		path: "/chats",

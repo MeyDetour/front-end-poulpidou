@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 
 import '../css/projects.css';
 
+import Specifications from '../components/subpages/projects/specifications';
+import Invoices from '../components/subpages/projects/invoices';
+import Tasks from '../components/subpages/projects/tasks';
+import AddTask from '../components/widgets/addTask';
+
 const Projects = () => {
-	const { id } = useParams();
+	const { id, subpage } = useParams();
+	
+	const [displayWidget, setDisplayWidget] = useState(false);
 
 	const [data, setData] = useState({
 		totalPrice: 14350,
@@ -18,17 +25,13 @@ const Projects = () => {
 	});
 
 	const fourLinks = [{
-		img: "pictures/icons/github.svg",
-		link: data.identity.githublink
+		img: "pictures/icons/github.svg", link: data.identity.githublink
 	}, {
-		img: "pictures/icons/figma.svg",
-		link: data.identity.figmalink
+		img: "pictures/icons/figma.svg", link: data.identity.figmalink
 	}, {
-		img: "pictures/icons/user.svg",
-		link: ""
+		img: "pictures/icons/user.svg", link: ""
 	}, {
-		img: "",
-		link: ""
+		img: "", link: "_"
 	}];
 
 	// Animation of the header
@@ -51,7 +54,7 @@ const Projects = () => {
 
 	return (
 		<>
-			<div className="flex-row-between projects__header">
+			<div className="flex-row-between project__header">
 				<div className="project__name">
 					<h6>PROJECT NAME</h6>
 					<h3>{data.identity.name}</h3>
@@ -87,6 +90,56 @@ const Projects = () => {
 					</motion.ul>
 				</div>
 			</div>
+
+			<div className="project__content">
+				<div className="flex-row-between">
+					<ul className="flex-row-between sub-nav">
+						<Link to={`/projects/${id}/specifications`}>
+							<li className={subpage === 'specifications' ? "selected" : null}>Technical specifications</li>
+						</Link>
+						<Link to={`/projects/${id}/edit`}>
+							<li className={subpage === 'edit' ? "selected" : null}>Edit project</li>
+						</Link>
+						<Link to={`/projects/${id}/invoices`}>
+							<li className={subpage === 'invoices' ? "selected" : null}>Invoices</li>
+						</Link>
+						<Link to={`/projects/${id}/tasks`}>
+							<li className={subpage === 'tasks' ? "selected" : null}>Tasks</li>
+						</Link>
+					</ul>
+
+					{
+						subpage === 'tasks' ? <button onClick={(e) => setDisplayWidget(true)}>+ New task</button> : null
+					}
+				</div>
+				<div className="scroll-container">
+					{
+						subpage === 'specifications'
+						? <Specifications />
+						: subpage === 'edit'
+						? null
+						: subpage === 'tasks'
+						? <Tasks />
+						: subpage === 'invoices'
+						? <Invoices />
+						: null
+					}
+				</div>
+			</div>
+
+			{
+				displayWidget ? 
+				<>
+					<div 
+						id="insideWidget"
+						className="grid-center"
+						onClick={() => setDisplayWidget(false)}
+						style={{cursor: "pointer"}}
+					>
+						<AddTask />
+					</div>
+				</> : null
+			}
 		</>
 	);
 }
