@@ -7,12 +7,13 @@ import '../css/projects.css';
 import Specifications from '../components/subpages/projects/specifications';
 import Invoices from '../components/subpages/projects/invoices';
 import Tasks from '../components/subpages/projects/tasks';
-import AddTask from '../components/widgets/addTask';
 
 const Projects = () => {
-	const { id, subpage } = useParams();
-	
 	const [displayWidget, setDisplayWidget] = useState(false);
+
+	const { id, subpage } = useParams();
+
+	const [registerFunc, setRegisterFunc] = useState(null);
 
 	const [data, setData] = useState({
 		totalPrice: 14350,
@@ -119,27 +120,13 @@ const Projects = () => {
 						: subpage === 'edit'
 						? null
 						: subpage === 'tasks'
-						? <Tasks />
+						? <Tasks displayWidget={displayWidget} setDisplayWidget={setDisplayWidget} />
 						: subpage === 'invoices'
 						? <Invoices />
 						: null
 					}
 				</div>
 			</div>
-
-			{
-				displayWidget ? 
-				<>
-					<div 
-						id="insideWidget"
-						className="grid-center"
-						onClick={() => setDisplayWidget(false)}
-						style={{cursor: "pointer"}}
-					>
-						<AddTask />
-					</div>
-				</> : null
-			}
 		</>
 	);
 }

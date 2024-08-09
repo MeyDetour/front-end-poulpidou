@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Reorder, useMotionValue } from 'framer-motion';
 
-const Task = ({ item, container }) => {
+const Task = ({ item, container, setValues, setDisplayWidget }) => {
 	const ownRef = useRef(null);
 
 	const handleDrag = (e) => {
@@ -25,7 +25,20 @@ const Task = ({ item, container }) => {
 			onDragEnd={handleDragEnd}
 			style={{ position: 'relative' }}
 		>
-			<div className="flex-col task" ref={ownRef}>
+			<div
+				className="flex-col task"
+				ref={ownRef}
+				onClick={() => {
+					setValues({
+						id: item.id,
+						title: item.title,
+						content: item.content,
+						category: item.category,
+						dueDate: item.dueDate
+					});
+					setDisplayWidget(true);
+				}}
+			>
 				<div className="flex-row-between">
 					<p>{item.title}</p>
 					<p className="category">[{item.category}]</p>

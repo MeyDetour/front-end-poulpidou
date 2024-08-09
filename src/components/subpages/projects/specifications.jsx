@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 import InputDropFile from '../../assets/inputDropFile';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-	'pdfjs-dist/build/pdf.worker.min.mjs',
-	import.meta.url,
-).toString();
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+// 	'pdfjs-dist/build/pdf.worker.min.mjs',
+// 	import.meta.url,
+// ).toString();
 
 
 const Specifications = () => {
@@ -27,7 +27,9 @@ const Specifications = () => {
 		watch,
 	} = methods;
 
-	const file = watch('file', './Facture SETUP - F&B-Database.pdf');
+	const file = watch('file', '/C:/Users/Maxence/Desktop/programmation/projects/poulpidou/poulpidou - app/front-end-poulpidou/src/components/subpages/projects/test-pdf.pdf');
+
+	const onLoadSuccess = ({ numPage }) => setNumPages(numPage);
 
 	return (
 		file === null ? <>
@@ -41,9 +43,16 @@ const Specifications = () => {
 			</div>
 		</> : <>
 			{/*<iframe src={file} width="800" height="600"/>*/}
-			<Document file={file}
-			onLoadError={(error) => console.error('Error loading document:', error)}>
-				<Page pageNumber={1} />
+			<Document 
+				file={file}
+				onLoadError={(error) => console.error('Error loading document:', error)}
+				onLoadSuccess={onLoadSuccess}
+			>
+			{
+				Array(numPages).fill().map((_, i) => (
+					<Page pageNumber={i+1}></Page>
+				))
+			}
 			</Document>
 		</>
 		

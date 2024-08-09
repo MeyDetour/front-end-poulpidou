@@ -249,6 +249,25 @@ kbd {
 
 /* Inputs styles */
 /* CHECKBOX, RADIO, TEXT, NUMBER, SLIDER, EMAIL, TIME, DATE, SELECT */
+img[src="pictures/icons/trash.svg"] {
+	width: 20px;
+	height: 20px;
+	padding: 5px;
+
+	border-radius: 10px;
+
+	display: block;
+
+	transition: .2s;
+
+	cursor: pointer;
+} 
+img[src="pictures/icons/trash.svg"]:hover {
+	background-color: rgba(0, 0, 0, .05);
+}
+img[src="pictures/icons/trash.svg"]:active {
+	background-color: rgba(0, 0, 0, .15);
+}
 input[type="text"],
 input[type="mail"], 
 input[type="search"], 

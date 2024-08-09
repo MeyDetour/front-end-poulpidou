@@ -5,6 +5,7 @@ import {
 	createBrowserRouter,
 	RouterProvider
 } from 'react-router-dom';
+import { pdfjs } from 'react-pdf'; 
 
 import './style.css';
 import './components/widgets/widgets.css';
@@ -15,6 +16,8 @@ import ErrorPage from './ErrorPage';
 import HomePage from './routes/homePage';
 import Projects from './routes/projects';
 import Chats from './routes/chats';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 // import reportWebVitals from './reportWebVitals';
 const router = createBrowserRouter([
@@ -52,9 +55,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<RouterProvider router={router} />
-	</React.StrictMode>
+	// </React.StrictMode>
 );
 
 // reportWebVitals();
