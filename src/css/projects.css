@@ -153,4 +153,49 @@
 
 	overflow: hidden;
 }
+
+/* Edit project */
+.edit-project { margin-top: 0; height: 0; }
+.edit-project input {
+	margin-left: 10px;
+}
+.edit-project input[type="text"] {
+	width: calc(100% - 10px);
+}
+.edit-project input[type="time"], 
+.edit-project input[type="date"] {
+	width: 200px;
+	margin-left: 10px;
+}
+.edit-project .cost-section h4 {
+	width: 200px;
+	font-size: 30px;
+}
+.edit-project form {
+	gap: 20px;
+}
+.edit-project .text-of-input {
+	line-height: 31px;
+}
+.edit-project input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 0;
+	box-shadow: -40rem 0 0 40rem var(--blue);
+}
+.edit-project input[type="range"]::-moz-range-thumb {
+	border: none;
+	width: 0;
+	box-shadow: -40rem 0 0 40rem var(--blue);
+}
+.edit-project .compostion-data-title {
+	margin-bottom: 10px;
+}
+.edit-project textarea {
+	width: calc(100% - 10px - 10px);
+	min-height: 100px;
+	margin-left: 10px;
+
+	resize: none;
+}
+/*  ---Edit project --- */
 /* --- Inside a project --- */

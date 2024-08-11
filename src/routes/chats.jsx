@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import '../css/chats.css';
 
-import ResearchClient from '../components/widgets/researchClient';
+import ResearchClientChat from '../components/widgets/researchClientChat';
 
 const Chats = (props) => {
 	const { id } = useParams();
@@ -253,9 +253,9 @@ const Chats = (props) => {
 						id="insideWidget"
 						className="grid-center"
 						onClick={toogleDisplayWidget}
-						style={{cursor: typeof id === "undefined" ? "default" : "cursor"}}
+						style={{cursor: typeof id === "undefined" ? "default" : "cursor", marginLeft: "-20px"}}
 					>
-						<ResearchClient />
+						<ResearchClientChat />
 					</div>
 				</> : null
 			}

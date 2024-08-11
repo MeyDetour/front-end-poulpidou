@@ -16,6 +16,8 @@ import ErrorPage from './ErrorPage';
 import HomePage from './routes/homePage';
 import Projects from './routes/projects';
 import Chats from './routes/chats';
+import Clients from './routes/clients';
+import Settings from './routes/settings';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -41,11 +43,23 @@ const router = createBrowserRouter([
 		path: "/projects/:id/:subpage",
 		element: <Projects />,
 	}, {
-		path: "/chats",
+		path: "/chats/",
 		element: <Chats />,
 	}, {
 		path: "/chats/:id",
 		element: <Chats />,
+	}, {
+		path: "/clients",
+		element: <Clients />,
+	}, {
+		path: "/clients/:id",
+		element: <Clients />,
+	}, {
+		path: "/clients/:id/:subpage",
+		element: <Clients />,
+	}, {
+		path: "/settings/:subpage",
+		element: <Settings />,
 	}],
 }, {
 	path: "*",

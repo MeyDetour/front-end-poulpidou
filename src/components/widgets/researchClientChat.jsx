@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-const ResearchClient = () => {
+const ResearchClientChat = () => {
 	const [search, setSearch] = useState('');
 
 	const [clients, setClients] = useState({
@@ -83,4 +83,4 @@ const ResearchClient = () => {
 	);
 }
 
-export default ResearchClient;
+export default ResearchClientChat;

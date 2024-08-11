@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 
-import { Link } from 'react-router-dom';
+import InputCheckbox from '../../assets/inputCheckbox';
+import InputRadio from '../../assets/inputRadio';
+import InputSlider from '../../assets/inputSlider';
 
-import InputCheckbox from '../assets/inputCheckbox';
-import InputRadio from '../assets/inputRadio';
-import InputSlider from '../assets/inputSlider';
-
-const CreateProject = (props) => {
+const EditProject = () => {
 	const [cost, setCost] = useState(0);
 
 	const [clients, setClients] = useState([{
@@ -112,10 +110,9 @@ const CreateProject = (props) => {
 	const maintenance = watch("project.composition.maintenance", '');
 
 	return (
-		<div id="createProject" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
-			<h2>New project</h2>
+		<div className="edit-project">
 			<FormProvider {...formMethods}>
-				<form className="flex-col scroll-container" onChange={() => calculateCost(getValues())} onSubmit={handleSubmit(onSubmit)}>
+				<form className="flex-col" onChange={() => calculateCost(getValues())} onSubmit={handleSubmit(onSubmit)}>
 					<div className="flex-col data-separation">
 						<p><sub>Project identity data</sub></p>
 						<div className="horizontal-line"></div>
@@ -137,7 +134,7 @@ const CreateProject = (props) => {
 						}
 						</datalist>
 
-						<button>Add a client</button>
+						<button style={{marginLeft: "10px", width: "120px"}}>Add a client</button>
 					</div>
 					<div className="flex-row-between date-section">
 						<div className="flex-row">
@@ -381,7 +378,7 @@ const CreateProject = (props) => {
 								<h4 style={{color: cost > 0 && isPaying === "true" ? "var(--blue)" : "var(--text-grey)"}}>
 									{isPaying === "true" ? cost : 0} €
 								</h4>
-								<p style={{marginTop: '-8px'}}><sub>Total cost</sub></p>	
+								<p style={{marginTop: '20px'}}><sub>Total cost</sub></p>	
 							</div>
 							<div className="vertical-line"></div>
 							<div className="flex-col">
@@ -398,7 +395,7 @@ const CreateProject = (props) => {
 										</span>
 									</h4>
 								}
-								<p><sub>Maintenance</sub></p>					
+								<p style={{marginTop: '20px'}}><sub>Maintenance</sub></p>					
 							</div>
 						</div>
 					</div>
@@ -419,4 +416,4 @@ const CreateProject = (props) => {
 	);
 }
 
-export default CreateProject;
+export default EditProject;

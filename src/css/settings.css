@@ -1,0 +1,167 @@
+nav {
+	gap: 20px;
+}
+nav a {
+	text-decoration: none;
+}
+nav h4 {
+	color: var(--text-grey-light);
+
+	font-size: 20px;
+
+	transition: .2s;
+}
+nav h4.selected {
+	color: var(--text-grey);
+}
+
+section span {
+	font-weight: bold !important;
+	color: var(--grey);
+}
+
+section span + p, section span + div {
+	margin-top: 5px;
+}
+
+
+.container {
+	height: calc(100% - 50px);
+}
+
+/* Configuration */
+.conditions-of-payement {
+	width: calc(48% + 20px);
+	height: 100%;
+
+	border-radius: 10px;
+	border: 1px solid var(--blue-light-2);
+
+	color: var(--grey);
+	font-size: 16px;
+}
+
+.conditions-of-payement .scroll-container { 
+	max-height: calc(100% - 54px - 10px);
+}
+
+.conditions-of-payement__header {
+	width: calc(100% - 30px);
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	background: var(--blue-light-4);
+
+	border-radius: 10px 10px 7px 7px;
+	border-bottom: 1px solid var(--blue-light-2);
+
+	padding: 15px;
+}
+
+.conditions-of-payement__header h3 {
+	font-size: 16px;
+	font-weight: bold !important;
+}
+
+.conditions-of-payement__content {
+	min-height: fit-content;
+	padding: 10px;
+
+	overflow-y: hidden;
+}
+.conditions-of-payement__content section {
+	margin-bottom: 20px;
+}
+
+.conditions-of-payement__content ul {
+	margin-top: 5px;
+}
+.conditions-of-payement__content ul li {
+	list-style-type: disc;
+}
+
+.conditions-of-payement-form__header {
+	width: calc(100% - 30px);
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	background: var(--blue-light-4);
+
+	border-radius: 10px 10px 7px 7px;
+	border-bottom: 1px solid var(--blue-light-2);
+
+	padding: 15px;
+}
+
+.conditions-of-payement-form {
+	width: calc(100%);
+	height: 70%;
+
+	border-radius: 10px;
+	border: 1px solid var(--blue-light-2);
+
+	color: var(--grey);
+	font-size: 16px;
+}
+.conditions-of-payement-form__header h3 {
+	font-size: 16px;
+	font-weight: bold !important;
+}
+
+.conditions-of-payement-form__content {
+	min-height: fit-content;
+	padding: 10px;
+
+	overflow-y: hidden;
+}
+.conditions-of-payement-form__content section {
+	margin-bottom: 20px;
+}
+
+.conditions-of-payement-form__content ul {
+	margin-top: 5px;
+}
+.conditions-of-payement-form__content ul li {
+	list-style-type: disc;
+}
+/* --- Configuration --- */
+
+/* Logs */
+.warn-message {
+	width: calc(100% - 10px);
+	height: 50px;
+	padding: 0 5px;
+	margin-bottom: 20px;
+
+	background-color: #F0DFDF;
+
+	border-radius: 5px;
+
+	line-height: 50px;
+}
+.warn-message p { color: #E33F3F; }
+
+.log-row {
+	width: calc(100% - 20px);
+	height: fit-content;
+	padding: 10px;
+
+	background-color: var(--grey-light-5);
+}
+.log-row:nth-child(2n) {
+	background-color: var(--grey-light-4);
+}
+p { color: var(--text-black); }
+p.type { font-weight: bold; }
+p.date, p.author { font-size: .75rem; line-height: 22px; }
+p.author { font-style: italic; }
+p.error-type {
+	color: #E33F3F;
+}
+/* --- Logs --- */

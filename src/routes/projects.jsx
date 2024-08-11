@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import '../css/projects.css';
 
 import Specifications from '../components/subpages/projects/specifications';
+import EditProject from '../components/subpages/projects/editProject';
 import Invoices from '../components/subpages/projects/invoices';
 import Tasks from '../components/subpages/projects/tasks';
 
@@ -20,19 +21,35 @@ const Projects = () => {
 		identity: {
 			name: "F&B-Database",
 			startDate: "17/02/2023",
-			githublink: "https://github.com/MeyDetour/front-end-poulpidou",
-			figmalink: "https://www.figma.com/proto/4kEDY8BclhjBu37t7hZ2J7/Poulpidou?node-id=0-1&t=WsN7wVOIOXh0Jc3R-1"
+			githubLink: "https://github.com/MeyDetour/front-end-poulpidou",
+			figmaLink: "https://www.figma.com/proto/4kEDY8BclhjBu37t7hZ2J7/Poulpidou?node-id=0-1&t=WsN7wVOIOXh0Jc3R-1"
 		}
 	});
 
+	const getLogoOfBrowser = () => {
+		var isFirefox = navigator.userAgent.includes("Mozzila");
+		if (isFirefox) return "pictures/icons/browser-firefox.svg";
+
+		var isEdge = navigator.userAgent.includes("E");
+		if (isEdge) return "pictures/icons/browser-edge.svg";
+
+		var isChrome = navigator.userAgent.includes("Chrome");
+		if (isChrome) return "pictures/icons/browser-chrome.svg";
+
+		var isSafari = navigator.userAgent.includes("Safari");
+		if (isSafari) return "pictures/icons/browser-safari.svg";
+
+		return "pictures/icons/globe.svg"
+	}
+
 	const fourLinks = [{
-		img: "pictures/icons/github.svg", link: data.identity.githublink
+		img: "pictures/icons/github.svg", link: data.identity.githubLink
 	}, {
-		img: "pictures/icons/figma.svg", link: data.identity.figmalink
+		img: "pictures/icons/figma.svg", link: data.identity.figmaLink
 	}, {
 		img: "pictures/icons/user.svg", link: ""
 	}, {
-		img: "", link: "_"
+		img: getLogoOfBrowser(), link: data.identity.websiteLink
 	}];
 
 	// Animation of the header
@@ -93,7 +110,7 @@ const Projects = () => {
 			</div>
 
 			<div className="project__content">
-				<div className="flex-row-between">
+				<nav className="flex-row-between">
 					<ul className="flex-row-between sub-nav">
 						<Link to={`/projects/${id}/specifications`}>
 							<li className={subpage === 'specifications' ? "selected" : null}>Technical specifications</li>
@@ -112,13 +129,13 @@ const Projects = () => {
 					{
 						subpage === 'tasks' ? <button onClick={(e) => setDisplayWidget(true)}>+ New task</button> : null
 					}
-				</div>
+				</nav>
 				<div className="scroll-container">
 					{
 						subpage === 'specifications'
 						? <Specifications />
 						: subpage === 'edit'
-						? null
+						? <EditProject />
 						: subpage === 'tasks'
 						? <Tasks displayWidget={displayWidget} setDisplayWidget={setDisplayWidget} />
 						: subpage === 'invoices'

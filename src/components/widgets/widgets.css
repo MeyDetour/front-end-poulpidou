@@ -271,6 +271,7 @@ h3.widget-title {
 	margin-left: 10px;
 }
 #addTask input[type="date"] { margin-left: 10px; }
+
 #addTask textarea {
 	width: calc(100% - 10px);
 	min-height: 100px;

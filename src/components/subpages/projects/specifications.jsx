@@ -42,6 +42,12 @@ const Specifications = () => {
 				</FormProvider>
 			</div>
 		</> : <>
+			<div className="grid-center" style={{marginBottom: "20px"}}>
+				<div className="flex-row-between">
+					<img src="pictures/icons/trash.svg" alt="trash" style={{margin: "auto"}}/>
+					<p style={{fontSize: "20px", textAlign: "center", fontStyle: "italic", margin: "0"}}>The file is open: {file}</p>
+				</div>
+			</div>
 			{/*<iframe src={file} width="800" height="600"/>*/}
 			<Document 
 				file={file}

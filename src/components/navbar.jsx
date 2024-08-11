@@ -28,7 +28,7 @@ const NavBar = () => {
 						</li>
 						<li>
 							<NavLink 
-								to={`/projects/1`} // TO DO : Do not add an id...
+								to={`/projects/1/specifications`} // TO DO : Do not add an id...
 								className={
 									location.pathname.startsWith("/projects") ? "selected" : ''
 								}>Projects</NavLink>
@@ -49,7 +49,7 @@ const NavBar = () => {
 						</li>
 						<li>
 							<NavLink 
-								to={`/settings`}
+								to={`/settings/configuration`}
 								className={
 									location.pathname.startsWith("/settings") ? "selected" : ''
 								}>Settings</NavLink>

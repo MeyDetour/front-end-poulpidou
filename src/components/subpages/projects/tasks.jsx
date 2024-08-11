@@ -141,7 +141,7 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 						id="insideWidget"
 						className="grid-center"
 						onClick={() => setDisplayWidget(false)}
-						style={{cursor: "pointer", top: "2vmin", right: "0"}}
+						style={{cursor: "pointer", top: "0", right: "0"}}
 					>
 						<AddTask 
 							values={values}
