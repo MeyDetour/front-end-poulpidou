@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import Axios from 'axios';
 
@@ -16,6 +16,8 @@ import NewClient from '../components/widgets/newClient';
 import AddSpecifications from '../components/widgets/addSpecifications';
 
 const Root = () => {
+	const location = useLocation();
+
 	const token = createRef();
 
 	const [keyPressed, resetKeyPressed] = useKeyBindings(null, ['k', 'n'], true);
@@ -43,7 +45,7 @@ const Root = () => {
 		<>
 			<Navbar />
 			{/*<React.Suspense fallack={<div id="content">Loading...</div>}>*/}
-				<div id="content" className="flex-col">
+				<div id="content" className={"flex-col " + (location.pathname.startsWith("/clients") ? "clientsContent" : null)}>
 					<Outlet />
 				</div>
 			{/*</React.Suspense>*/}

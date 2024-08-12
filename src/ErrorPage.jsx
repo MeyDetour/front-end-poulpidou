@@ -15,7 +15,7 @@ const ErrorPage = () => {
 				<div className="bottom">
 					<h1>PAGE 404 NOT FOUND</h1>
 					<p>You got lost among octopuses.</p>
-					<Link to={`/`}>Go back to home page</Link>
+					<Link to={`/`}><u>Go back to home page</u></Link>
 				</div>
 			</div>
 		</>

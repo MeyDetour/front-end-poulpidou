@@ -16,8 +16,8 @@ import ErrorPage from './ErrorPage';
 import HomePage from './routes/homePage';
 import Projects from './routes/projects';
 import Chats from './routes/chats';
-import Clients from './routes/clients';
 import Settings from './routes/settings';
+import Clients from './routes/clients';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 

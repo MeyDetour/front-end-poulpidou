@@ -143,9 +143,10 @@
 }
 
 .scroll-container {
-	width: calc(100% - 10px);
-	height: calc(100% - 10px);
+	width: calc(100% - 30px);
+	height: calc(100% - 30px);
 	max-height: calc(100% - 10px);
+	padding: 10px;
 	margin: 5px;
 
 	overflow-y: auto;
@@ -153,6 +154,16 @@
 }
 .sub-container {
 	margin-left: 5px;
+}
+.text-of-input {
+	min-width: fit-content;
+
+	color: var(--text-grey);
+	line-height: 31px;
+}
+.text-of-input + input {
+	width: calc(100% - 10px);
+	margin-left: 10px;
 }
 /* --- Basic classes --- */
 
@@ -212,6 +223,10 @@ p {
 	padding: 0;
 
 	color: var(--text-grey);
+}
+a {
+	text-decoration: none;
+	color: initial;
 }
 sub {
 	padding-inline: 5px;
@@ -288,6 +303,8 @@ select {
 	border-radius: 5px;
 
 	outline: none;
+
+	resize: none;
 }
 input[type="checkbox"], input[type="radio"] {
 	display: none;
@@ -432,8 +449,6 @@ div.input-file {
 	background-color: var(--white);
 
 	border-radius: 40px 20px 20px 40px;
-
-	transition: .2s;
 
 	position: absolute;
 }
