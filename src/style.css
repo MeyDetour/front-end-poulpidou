@@ -179,6 +179,8 @@ body {
 	background: 
 		url('../public/pictures/noisy-background.svg'),
 		var(--body-background);
+
+	overflow: hidden;
 }
 
 b { font-weight: bold; }
@@ -515,6 +517,7 @@ div.input-file {
 	cursor: pointer;
 
 	position: absolute;
+	z-index: 100;
 }
 #widget > * {
 	cursor: default;

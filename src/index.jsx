@@ -14,6 +14,7 @@ import Root from './routes/root';
 import ErrorPage from './ErrorPage';
 
 import HomePage from './routes/homePage';
+import Project from './routes/project';
 import Projects from './routes/projects';
 import Chats from './routes/chats';
 import Settings from './routes/settings';
@@ -37,25 +38,25 @@ const router = createBrowserRouter([
 		path: "/projects",
 		element: <Projects />,
 	}, {
-		path: "/projects/:id",
-		element: <Projects />,
+		path: "/project/:id",
+		element: <Project />,
 	}, {
-		path: "/projects/:id/:subpage",
-		element: <Projects />,
+		path: "/project/:id/:subpage",
+		element: <Project />,
 	}, {
 		path: "/chats/",
 		element: <Chats />,
 	}, {
-		path: "/chats/:id",
+		path: "/chat/:id",
 		element: <Chats />,
 	}, {
 		path: "/clients",
 		element: <Clients />,
 	}, {
-		path: "/clients/:id",
+		path: "/client/:id",
 		element: <Clients />,
 	}, {
-		path: "/clients/:id/:subpage",
+		path: "/client/:id/:subpage",
 		element: <Clients />,
 	}, {
 		path: "/settings/:subpage",

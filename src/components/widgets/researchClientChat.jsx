@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-const ResearchClientChat = () => {
+const ResearchClientChat = ({ setDisplayWidget }) => {
 	const [search, setSearch] = useState('');
 
 	const [clients, setClients] = useState({
 		unread: [
 			{	
+				id: 0,
 				firstName: "Gaëlle",
 				lastName: "GHIZOLI",
 				date: "01/01/2024",
@@ -15,6 +16,7 @@ const ResearchClientChat = () => {
 				online: true
 			},
 			{
+				id: 1,
 				firstName: "Maxence",
 				lastName: "ABRILE",
 				date: "07/09/2022",
@@ -24,6 +26,7 @@ const ResearchClientChat = () => {
 		],
 		read: [
 			{
+				id: 2,
 				firstName: "Personal",
 				lastName: "ABRILE",
 				date: "01/07/2024",
@@ -54,18 +57,20 @@ const ResearchClientChat = () => {
 													{
 														clients[list].map((elm) => {
 															return (
-																<div className="flex-row-between long-result">
-																	<div className="flex-col">
-																		<p><b>{elm.lastName} {elm.firstName}</b>
-																			<sub>- {elm.date}</sub>
-																		</p>
-																		<p><i>{elm.lastMessage}</i></p>
+																<Link to={`/chat/${elm.id}`}>
+																	<div className="flex-row-between long-result" onClick={() => setDisplayWidget(false)}>
+																		<div className="flex-col">
+																			<p><b>{elm.lastName} {elm.firstName}</b>
+																				<sub>- {elm.date}</sub>
+																			</p>
+																			<p><i>{elm.lastMessage}</i></p>
+																		</div>
+																		<div>
+																			<div className={ elm.online ? "online" : "offline" }></div>
+																			<p>{ elm.online ? "Online" : "Offline" }</p>
+																		</div>
 																	</div>
-																	<div>
-																		<div className={ elm.online ? "online" : "offline" }></div>
-																		<p>{ elm.online ? "Online" : "Offline" }</p>
-																	</div>
-																</div>
+																</Link>
 															);
 														})
 													}

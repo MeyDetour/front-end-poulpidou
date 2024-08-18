@@ -28,23 +28,23 @@ const NavBar = () => {
 						</li>
 						<li>
 							<NavLink 
-								to={`/projects/0/specifications`} // TO DO : Do not add an id...
+								to={`/projects`} // TO DO : Do not add an id...
 								className={
-									location.pathname.startsWith("/projects") ? "selected" : ''
+									location.pathname.startsWith("/project") ? "selected" : ''
 								}>Projects</NavLink>
 						</li>
 						<li>
 							<NavLink 
 								to={`/chats`}
 								className={
-									location.pathname.startsWith("/chats") ? "selected" : ''
+									location.pathname.startsWith("/chat") ? "selected" : ''
 								}>Chats</NavLink>
 						</li>
 						<li>
 							<NavLink 
-								to={`/clients/0`}
+								to={`/clients`}
 								className={
-									location.pathname.startsWith("/clients") ? "selected" : ''
+									location.pathname.startsWith("/client") ? "selected" : ''
 								}>Clients</NavLink>
 						</li>
 						<li>

@@ -1,0 +1,220 @@
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
+import { useForm, FormProvider } from "react-hook-form";
+
+import '../css/projects.css';
+
+import Specifications from '../components/subpages/projects/specifications';
+import EditProject from '../components/subpages/projects/editProject';
+import Invoices from '../components/subpages/projects/invoices';
+import Tasks from '../components/subpages/projects/tasks';
+import Note from '../components/subpages/projects/note';
+
+const Project = () => {
+	const [displayWidget, setDisplayWidget] = useState(false);
+	const [displayNoteId, setDisplayNoteId] = useState(null);
+	const [noteColor, setNoteColor] = useState(null);
+
+	const { id, subpage } = useParams();
+
+	const [registerFunc, setRegisterFunc] = useState(null);
+
+	const [data, setData] = useState({
+		totalPrice: 14350,
+		identity: {
+			name: "F&B-Database",
+			startDate: "17/02/2023",
+			githubLink: "https://github.com/MeyDetour/front-end-poulpidou",
+			figmaLink: "https://www.figma.com/proto/4kEDY8BclhjBu37t7hZ2J7/Poulpidou?node-id=0-1&t=WsN7wVOIOXh0Jc3R-1"
+		}
+	});
+
+	const getLogoOfBrowser = () => {
+		var isFirefox = navigator.userAgent.includes("Mozzila");
+		if (isFirefox) return "pictures/icons/browser-firefox.svg";
+
+		var isEdge = navigator.userAgent.includes("E");
+		if (isEdge) return "pictures/icons/browser-edge.svg";
+
+		var isChrome = navigator.userAgent.includes("Chrome");
+		if (isChrome) return "pictures/icons/browser-chrome.svg";
+
+		var isSafari = navigator.userAgent.includes("Safari");
+		if (isSafari) return "pictures/icons/browser-safari.svg";
+
+		return "pictures/icons/globe.svg"
+	}
+
+	const fourLinks = [{
+		img: "pictures/icons/github.svg", link: data.identity.githubLink
+	}, {
+		img: "pictures/icons/figma.svg", link: data.identity.figmaLink
+	}, {
+		img: "pictures/icons/user.svg", link: ""
+	}, {
+		img: getLogoOfBrowser(), link: data.identity.websiteLink
+	}];
+
+	// Animation of the header
+	const container = {
+		hidden: { opacity: 1, scale: 0 },
+		visible: {
+			opacity: 1,
+			scale: 1,
+			transition: {
+				delayChildren: 0.3,
+				staggerChildren: 0.2
+			}
+		}
+	};
+
+	const item = {
+		hidden: { y: 10, opacity: 0 },
+		visible: { y: 0, opacity: 1 }
+	};
+
+	const formMethods = useForm();
+	const { 
+		register,
+		handleSubmit,
+		formState: {
+			errors
+		},
+		setValue,
+		setError, getValues,
+		clearErrors,
+		watch,
+	} = formMethods;
+
+	const onSubmit = (data) => {
+		setDisplayNoteId(null);
+		setNoteColor(null);
+		console.log(data)
+	}
+
+	return (
+		<>
+			<div className="flex-row-between project__header">
+				<div className="project__name">
+					<h6>PROJECT NAME</h6>
+					<h3>{data.identity.name}</h3>
+				</div>
+				<div className="project__date">
+					<h6>PROJECT DATE</h6>
+					<h3>{data.identity.startDate}</h3>
+				</div>
+				<div className="project__price">
+					<h6>PROJECT PRICE</h6>
+					<h3>{data.totalPrice.toLocaleString()}€</h3>
+				</div>
+				<div className="project__link">
+					<motion.ul
+						className="links-container"
+						variants={container}
+						initial="hidden"
+						animate="visible"
+					>
+						{
+							fourLinks.map((elm) => (
+								<motion.li
+									key={elm.link}
+									className="grid-center link"
+									variants={item}
+
+									onClick={(e) => window.open(elm.link, '_blank')}
+								>
+									<img src={elm.img} alt=""/>
+								</motion.li>
+							))
+						}
+					</motion.ul>
+				</div>
+			</div>
+
+			<div className="project__content">
+				<nav className="flex-row-between">
+					<ul className="flex-row-between sub-nav">
+						<Link to={`/project/${id}/specifications`}>
+							<li className={subpage === 'specifications' ? "selected" : null}>Technical specifications</li>
+						</Link>
+						<Link to={`/project/${id}/edit`}>
+							<li className={subpage === 'edit' ? "selected" : null}>Edit project</li>
+						</Link>
+						<Link to={`/project/${id}/invoices`}>
+							<li className={subpage === 'invoices' ? "selected" : null}>Invoices</li>
+						</Link>
+						<Link to={`/project/${id}/tasks`}>
+							<li className={subpage === 'tasks' ? "selected" : null}>Tasks</li>
+						</Link>
+					</ul>
+
+					{
+						subpage === 'tasks' ? <button onClick={(e) => setDisplayWidget(true)} style={{margin: "auto 20px"}}>+ New task</button> : null
+					}
+				</nav>
+				<div className="scroll-container">
+					{
+						subpage === 'specifications'
+						? <Specifications />
+						: subpage === 'edit'
+						? <EditProject />
+						: subpage === 'tasks'
+						? <Tasks displayWidget={displayWidget} setDisplayWidget={setDisplayWidget} />
+						: subpage === 'invoices'
+						? <Invoices />
+						: null
+					}
+				</div>
+			</div>
+			<FormProvider {...formMethods}>
+				<AnimatePresence>
+				{
+					displayNoteId &&
+					<div 
+						id="insideWidget"
+						className="grid-center"
+						onClick={() => {
+							setDisplayNoteId(null);
+							setNoteColor(null);
+						}}
+						style={{cursor: "pointer", top: "0", right: "0"}}
+					>
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<motion.div layoutId={displayNoteId} transition={{duration: .2}}>
+								<Note color={noteColor} index={displayNoteId} />
+							</motion.div>
+						</form>
+					</div>
+				}
+				</AnimatePresence>
+			</FormProvider>
+			<div className="flex-col notes" style={{gap: "15px"}}>
+				{
+					[null, "#FF9A9A", "#FFB48A", "#FFD66E", "#DFFF84", "#AFECFF"].map((color, index) => {
+						if (!color) return;
+						return (
+							<motion.div 
+								layoutId={index}
+								className="note"
+								style={{
+									backgroundColor: color,
+									visibility: displayNoteId === index ? "hidden" : "visible"
+								}}
+								key={"note-" + color}
+								onClick={() => {
+									setDisplayNoteId(index);
+									setNoteColor(color);
+								}}
+							>
+								
+							</motion.div>
+						)
+					})
+				}
+			</div>
+		</>
+	);
+}
+
+export default Project;

@@ -1,3 +1,18 @@
+.projects h3 {
+	font-size: 40px;
+	padding-bottom: 20px;
+}
+.project-box {
+	width: 275px;
+	height: fit-content;
+	padding: 10px;
+
+	background-color: #F8F9FF;
+
+	border: 2px solid #F2F4FA;
+
+	border-radius: 10px;
+}
 /* Inside a project */
 .project__header {
 	width: calc(100% - 20px - 100px);
@@ -20,7 +35,6 @@
 	font-size: 35px;
 	font-weight: bold;
 }
-
 .links-container {
 	width: 110px;
 	height: 110px;
@@ -78,7 +92,7 @@
 	color: var(--blue);
 }
 .project__content .scroll-container {
-	height: calc(100% - 25px - 70px);
+	height: calc(100% - 25px - 90px);
 	margin-top: 30px;
 }
 .project__content h3 {
@@ -198,4 +212,139 @@
 	resize: none;
 }
 /*  ---Edit project --- */
+/* Invoices */
+.invoiceListContainer .titleContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.invoiceListContainer  h2{
+    font-weight: bold;
+    width: fit-content;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.invoiceListContainer .alignEnd {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.invoiceListContainer {
+	width: 100%;
+}
+.invoiceListContainer .payed {
+    background-color: #e3fbc6;
+    color: #75b426;
+    width: 133px;
+    display: block;
+    padding: 7px 0px;
+    border-radius: 4px;
+}
+
+.invoiceListContainer .unpayed {
+    background-color: #feeee9;
+    color: #fb612f;
+    width: 133px;
+    display: block;
+    padding: 7px 0px;
+    border-radius: 4px;
+}
+
+.invoiceListContainer table {
+    width: 100%;
+    background: var(--white);
+
+    border: 1px solid var(--grey-light-3);
+    border-spacing: 0;
+    border-radius: 10px;
+    border-collapse: separate;
+}
+
+.invoiceListContainer table tbody tr th, .invoiceListContainer table tbody tr td, .invoiceListContainer table thead tr th {
+    text-align: center;
+    padding: 14px 39px;
+
+    border-bottom: 1px solid var(--grey-light-3);
+}
+.invoiceListContainer table tbody tr:last-child td, .invoiceListContainer table tbody tr:last-child th{
+    border-bottom: 0 !important;
+}
+/* --- Invoices --- */
 /* --- Inside a project --- */
+
+/* Notes */
+.notes {
+	top: calc(50vh - 250px);
+	right: -15px;
+
+	position: fixed;
+	z-index: 10;
+}
+.note {
+	width: 45px;
+	height: 115px;
+
+	border-radius: 5px;
+
+	box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+
+	transition: .2s margin-left box-shadow opacity;
+
+	cursor: pointer;
+	z-index: 10;
+}
+.note:hover {
+	margin-left: -10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+}
+.bigNote {
+	width: 55vw;
+	height: 500px;
+	padding: 10px;
+
+	border-radius: 10px;
+}
+.bigNote input[type="text"] {
+	width: calc(100% - 6px);
+	height: 30px;
+
+	background-color: rgba(0, 0, 0, .0);
+
+	border: 0;
+
+	color: rgba(0, 0, 0, .7);
+	font-size: 30px;
+
+	transition: .2s background-color;
+}
+.bigNote input[type="text"]::placeholder {
+	color: rgba(50, 50, 50, .2);
+}
+.bigNote textarea::placeholder {
+	color: rgba(50, 50, 50, .2);
+}
+.bigNote input[type="text"]:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+.bigNote textarea {
+	height: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	background-color: transparent;
+
+	border: 2px solid rgba(0, 0, 0, .1);
+
+	color: black;
+	font-size: 17px;
+}
+.bigNote input[type="submit"] {
+	background-color: rgba(0, 0, 0, .2);
+
+	color: rgba(255, 255, 255, .8);
+	font-weight: bold;
+}
+/* --- Notes --- */

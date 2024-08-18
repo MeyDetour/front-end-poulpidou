@@ -54,19 +54,43 @@ const Invoices = () => {
 
 			<FormProvider {...methods}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<div className="table">
-						<div className="flex-row-around table__header">
-							<div className="table__cell"></div>
-							<div>ID</div>
-							<div>Date</div>
-							<div>Client name</div>
-							<div>Total cost</div>
-							<div>Titles</div>
-							<div>Status</div>
-						</div>
-						<div className="flex-row-around table__content">
-							
-						</div>
+					<div class="invoiceListContainer">
+						<table>
+
+							<thead>
+							<tr>
+								<th scope="col">Invoice #</th>
+								<th scope="col">Date</th>
+								<th scope="col">Client Name</th>
+								<th scope="col">Total Price</th>
+								<th scope="col">Titles</th>
+								<th scope="col"></th>
+								<th scope="col">Pay</th>
+							</tr>
+							</thead>
+							<tbody>
+							{
+								invoices.length > 0 &&
+								invoices.map((invoice) => {
+									return (
+										<tr>
+											<th scope="row" className="alignCenter">
+												<input type="checkbox"/>
+										  		<span>#{ invoice.id }</span>  
+										  	</th>
+											<td><span>{ invoice.date }</span></td>
+											<td><span>{ invoice.client.firstName } { invoice.client.lastName }</span></td>
+											<td><span>{ invoice.price } €</span></td>
+											<td><span>{ invoice.nbTitles } titles</span></td>
+											<td></td>
+											<td className="alignEnd"> <span className={ invoice.isPaid ? 'payed' : 'unpayed'}>{ invoice.isPaid ? 'Payed' : 'Unpayed' }</span></td>
+										</tr>
+									);
+								})
+							}
+							</tbody>
+
+						</table>
 					</div>
 				</form>
 			</FormProvider>

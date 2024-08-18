@@ -9,10 +9,10 @@ import ResearchClientChat from '../components/widgets/researchClientChat';
 
 const Chats = (props) => {
 	const { id } = useParams();
-	const [displayWidget, setDisplayWidget] = useState(typeof id === "undefined");
+	const [displayWidget, setDisplayWidget] = useState(id == undefined);
 
 	const toogleDisplayWidget = () => {
-		if (typeof id === "undefined") return;
+		if (id == undefined) return;
 		setDisplayWidget(!displayWidget);
 	}
 
@@ -247,7 +247,7 @@ const Chats = (props) => {
 				: null
 			}
 			{
-				displayWidget ? 
+				displayWidget || id == undefined ? 
 				<>
 					<div 
 						id="insideWidget"
@@ -255,7 +255,7 @@ const Chats = (props) => {
 						onClick={toogleDisplayWidget}
 						style={{cursor: typeof id === "undefined" ? "default" : "cursor", marginLeft: "-20px"}}
 					>
-						<ResearchClientChat />
+						<ResearchClientChat setDisplayWidget={setDisplayWidget} />
 					</div>
 				</> : null
 			}
