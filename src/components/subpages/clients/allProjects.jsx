@@ -1,28 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useToast } from '../../../hooks/useToast';
+
+import { getClientProjects } from '../../../requests/clients/getClientProjects';
+
+import { useParams } from 'react-router-dom';
+
 const AllProjects = () => {
-	const [projects, setProject] = useState([{
-		name: "F&B-Database",
-		date: '31/08/24',
-		tasksDone: '7',
-		totalTasks: '10'
-	}, {
-		name: "SQL-Grapher",
-		date: 'undefined',
-		tasksDone: '2',
-		totalTasks: '10'
-	}]);
+	const { id } = useParams();
+
+	const toast = useToast();
+
+	const [projects, setProjects] = useState([]);
 
 	const [scrollBarWidth, setScrollBarWidth] = useState(0);
 
 	const scrollBar = useRef(null);
 
 	useEffect(() => {
-		if (scrollBar.current === null) return;
+		if (id == undefined) return;
 
-		setScrollBarWidth(scrollBar.current.clientWidth);
-	}, [scrollBar.current]);
+		getClientProjects(id)
+		.then(res => setProjects(res.value))
+		.catch(res => toast(res.state, res.value));
+	}, [id]);
 
 	return (
 		<>
@@ -31,9 +33,10 @@ const AllProjects = () => {
 					{
 						projects.length !== 0 ?
 						projects.map((project) => {
-							const percentage = Math.round(project.tasksDone / project.totalTasks * 100, 2);
+							const percentage = project.totalTasks === 0 ? 100 : Math.round(project.doneTasks / project.totalTasks * 100, 2);
+
 							return (
-								<Link>
+								<Link to={`/project/${project.id}/specifications`}>
 									<div className="flex-col project" style={{gap: "5px"}}>
 										<div className="flex-row-between">
 											<div className="flex-row" style={{gap: "10px"}}>
@@ -49,10 +52,10 @@ const AllProjects = () => {
 										<div className="flex-row-between">
 											<div className="flex-row progres__task">
 												<img src="pictures/icons/tasks-icon.svg" alt="tasks"/>
-												<p>{project.tasksDone}/{project.totalTasks}</p>
+												<p>{project.doneTasks}/{project.totalTasks}</p>
 											</div>
 											<div className="progress__bar" ref={scrollBar}>
-												<div className="progress__bar-value" style={{width: percentage * scrollBarWidth/100}}></div>
+												<div className="progress__bar-value" style={{width: `calc(${percentage} * 100%/100`}}></div>
 											</div>
 											<p className="progress__value">
 												{percentage}%

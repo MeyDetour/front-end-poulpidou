@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useToast } from '../../../hooks/useToast';
+
+import { getClientChats } from '../../../requests/clients/getClientChats';
+
+import { useParams } from 'react-router-dom';
+
 const AllChats = () => {
-	const [chats, setChats] = useState([{
-		id: 0,
-		name: "F&B-Database",
-		lastMessage: {
-			content: "Lorem ipsum laborum et aute sint elit culpa consectetur irure minim non sed ut nulla.",
-			date: "17/08/2024",
-			time: "10:50"
-		}
-	}, {
-		id: 0,
-		name: "Poulpidou",
-		lastMessage: {
-			content: "Lorem ipsum anim incididunt laborum minim dolor velit enim veniam irure duis labore.",
-			date: "18/08/2024",
-			time: "08:00"
-		}
-	}]);
+	const { id } = useParams();
+
+	const toast = useToast();
+
+	const [chats, setChats] = useState([]);
+
+	useEffect(() => {
+		if (id == undefined) return;
+
+		getClientChats(id)
+		.then(res => setChats(res.value))
+		.catch(res => toast(res.state, res.value));
+	}, [id]);
 
 	return (
 		<>
@@ -28,7 +30,7 @@ const AllChats = () => {
 						chats.length !== 0 ?
 						chats.map((chat) => {
 							return (
-								<Link>
+								<Link to={`/chats/${chat.id}`}>
 									<div className="flex-col chat" style={{gap: "5px"}}>
 										<div className="flex-row-between">
 											<p className="chat__name">{chat.name}</p>

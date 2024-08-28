@@ -1,19 +1,29 @@
-
 import Axios from 'axios';
 
-const getChats = () => {
+const putClient = (data, id) => {
+	console.log(data)
 	return new Promise((resolve, reject) => {
-		Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/chats`, {
+		Axios.put(`${process.env.REACT_APP_API_ADRESS}/api/client/edit/${id}`, {
+			firstName: data.firstName || null,
+			lastName: data.lastName || null,
+			job: data.job || "",
+			age: data.age || "",
+			location: data.location || "",
+			mail: data.mail || "",
+			siret: data.siret || "",
+			phone: data.phone || ""
+		},
+		{
 			headers: {
 				'Authorization': 'Bearer ' + sessionStorage.getItem("token")
 			}
 		})
-		.then((res) => {
-			return resolve({state: "OK", value: res.data.value});
+		.then(res => {
+			return resolve({state: "OK", value: "Client info were successfuly saved."})
 		})
 		.catch(error => {
 			if (error.response) {
-				
+				console.log(error)
 			}
 			if (error.request) {
 				// No API response
@@ -27,8 +37,8 @@ const getChats = () => {
 				state: "error",
 				value: "An error occured. Please try to reload the page."
 			});
-		})
+		});
 	});
 }
 
-export { getChats };
+export { putClient };

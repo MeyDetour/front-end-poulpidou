@@ -8,12 +8,15 @@ import {getChats} from "../../requests/globals/getChats";
 const ResearchClientChat = ({ setDisplayWidget }) => {
 	const [search, setSearch] = useState('');
 
-
 	const [chats, setChats] = useState([]);
+
 	useEffect(() => {
 		getChats()
-			.then(res => setChats(res.value))
-			.catch(res => toast(res.state, res.value));
+		.then(res => {
+			setChats(res.value);
+			console.log(res.value)
+		})
+		.catch(res => toast(res.state, res.value));
 	}, [])
 	return (
 		<>
@@ -39,7 +42,7 @@ const ResearchClientChat = ({ setDisplayWidget }) => {
 																<Link to={`/chat/${elm.id}`}>
 																	<div className="flex-row-between long-result" onClick={() => setDisplayWidget(false)}>
 																		<div className="flex-col">
-																			<p><b>{elm.client.lastName} {elm.client.firstName}</b>
+																			<p><b>{elm.client.lastName} {elm.client.firstName}: {elm.name}</b>
 																				<sub>- {elm.date}</sub>
 																			</p>
 																			<p><i>{elm.lastMessage ? elm.lastMessage : "No messages here"}</i></p>

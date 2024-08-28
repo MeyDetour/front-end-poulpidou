@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useToast } from '../../../hooks/useToast';
+
+import { getClientInvoices } from '../../../requests/clients/getClientInvoices';
+
+import { useParams } from 'react-router-dom';
+
 const AllInvoices = () => {
-	const [invoices, setInvoices] = useState([{
-		id: 0,
-		projectName: "F&B-Database",
-		date: "17/08/2024",
-		reason: "Laboris sit consectetur irure aute eiusmod dolor dolor magna magna non dolor consectetur consectetur minim sunt ut."
-	}]);
+	const { id } = useParams();
+
+	const toast = useToast();
+
+	const [invoices, setInvoices] = useState([]);
+
+	useEffect(() => {
+		if (id == undefined) return;
+
+		getClientInvoices(id)
+		.then(res => setInvoices(res.value))
+		.catch(res => toast(res.state, res.value));
+	}, [id]);
 
 	return (
 		<>
@@ -17,7 +30,7 @@ const AllInvoices = () => {
 						invoices.length !== 0 ?
 						invoices.map((invoice) => {
 							return (
-								<Link>
+								<Link to={``}>
 									<div className="flex-col invoice" style={{gap: "5px"}}>
 										<div className="flex-row-between">
 											<div className="flex-row" style={{gap: "10px"}}>

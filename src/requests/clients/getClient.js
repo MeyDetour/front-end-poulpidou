@@ -1,9 +1,8 @@
-
 import Axios from 'axios';
 
-const getChats = () => {
+const getClient = (id) => {
 	return new Promise((resolve, reject) => {
-		Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/chats`, {
+		Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/client/${id}`, {
 			headers: {
 				'Authorization': 'Bearer ' + sessionStorage.getItem("token")
 			}
@@ -31,4 +30,4 @@ const getChats = () => {
 	});
 }
 
-export { getChats };
+export { getClient };

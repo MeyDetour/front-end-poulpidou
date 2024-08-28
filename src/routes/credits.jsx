@@ -15,20 +15,20 @@ const Credits = () => {
 				<div className="animationContainer">
 					<div className="bubbleContainer">
 
-						<figure className=" circle1 grandCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle2 grandCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle3 grandCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle4 petitCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle5 petitCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle6 petitCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle7 petitCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle8 grandCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle9 petitCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle10 grandCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle11 petitCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle12 miniCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle13 miniCircle"><span className="reflet">    </span></figure>
-						<figure className=" circle14 miniCircle"><span className="reflet">    </span></figure>
+						<figure className=" circle1 grandCircle"><span className="reflet"></span></figure>
+						<figure className=" circle2 grandCircle"><span className="reflet"></span></figure>
+						<figure className=" circle3 grandCircle"><span className="reflet"></span></figure>
+						<figure className=" circle4 petitCircle"><span className="reflet"></span></figure>
+						<figure className=" circle5 petitCircle"><span className="reflet"></span></figure>
+						<figure className=" circle6 petitCircle"><span className="reflet"></span></figure>
+						<figure className=" circle7 petitCircle"><span className="reflet"></span></figure>
+						<figure className=" circle8 grandCircle"><span className="reflet"></span></figure>
+						<figure className=" circle9 petitCircle"><span className="reflet"></span></figure>
+						<figure className=" circle10 grandCircle"><span className="reflet"></span></figure>
+						<figure className=" circle11 petitCircle"><span className="reflet"></span></figure>
+						<figure className=" circle12 miniCircle"><span className="reflet"></span></figure>
+						<figure className=" circle13 miniCircle"><span className="reflet"></span></figure>
+						<figure className=" circle14 miniCircle"><span className="reflet"></span></figure>
 						<div className="corail1"></div>
 						<div className="volcan1"></div>
 						<div className="corail2"></div>
@@ -48,8 +48,8 @@ const Credits = () => {
 						needs. Do not hesitate to contact us at the following addresses if you have any suggestion for
 						improvement or to report a bug: abrilemaxence@gmail.com, meydetour@gmail.com</p>
 
-					<a href="https://github.com/MeyDetour/backend-poulpidou">Github Backend</a>
-					<a href="https://github.com/MeyDetour/front-end-poulpidou">Github Front-End</a>
+					<a href="https://github.com/MeyDetour/backend-poulpidou" target="_blank">Github Backend</a>
+					<a href="https://github.com/MeyDetour/front-end-poulpidou" target="_blank">Github Front-End</a>
 					<img src="pictures/icons/x.svg" alt="x" onClick={() => window.location = '/'}/>
 				</div>
 

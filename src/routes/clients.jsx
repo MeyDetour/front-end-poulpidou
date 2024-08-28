@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useParams, Link } from 'react-router-dom';
+
+import { useToast } from '../hooks/useToast';
+
+import { getClient } from '../requests/clients/getClient';
 
 import '../css/clients.css';
 
@@ -12,8 +16,12 @@ import AllInvoices from '../components/subpages/clients/allInvoices';
 import ResearchClient from '../components/widgets/researchClient';
 
 const Clients = () => {
+	const [reload, setReload] = useState(0);
+
 	const { id, subpage } = useParams();
-	console.log(id)
+
+	const toast = useToast();
+
 	const [displayWidget, setDisplayWidget] = useState(id === undefined);
 
 	const [displayPanel, setDisplayPanel] = useState(true);
@@ -29,6 +37,16 @@ const Clients = () => {
 		mail: "meydetour@gmail.com",
 		phone: "... really ..."
 	});
+
+	useEffect(() => {
+		if (id == undefined) return;
+		
+		getClient(id)
+		.then(res => {
+			setClient(res.value);
+		})
+		.catch(res => toast(res.state, res.value));
+	}, [id, reload]);
 
 	const displayClientSelection = () => {
 
@@ -78,7 +96,11 @@ const Clients = () => {
 								<div className="sub-page">
 									{
 										subpage === 'edit'
-										? <EditProfile />
+										? <EditProfile 
+											data={client} 
+											reload={reload}
+											setReload={setReload}
+										/>
 										: subpage === 'chats' 
 										? <AllChats />
 										: subpage === 'projects'
@@ -109,19 +131,19 @@ const Clients = () => {
 								<div className="flex-col client-info__data" style={{gap: "30px"}}>
 									<div className="flex-row">
 										<p><b>Client since: </b></p>
-										<p>{client.since}</p>
+										<p>{client.createdAt}</p>
 									</div>
 									<div className="flex-row">
 										<p><b>Location: </b></p>
-										<p>{client.location}</p>
+										<p>{client.location ? client.location : <i>(Not specified)</i>}</p>
 									</div>
 									<div className="flex-row">
 										<p><b>Mail: </b></p>
-										<p>{client.mail}</p>
+										<p>{client.mail ? client.mail : <i>(Not specified)</i>}</p>
 									</div>
 									<div className="flex-row">
 										<p><b>Phone number: </b></p>
-										<p>{client.phone}</p>
+										<p>{client.phone ? client.phone : <i>(Not specified)</i>}</p>
 									</div>
 								</div>
 							</div>
