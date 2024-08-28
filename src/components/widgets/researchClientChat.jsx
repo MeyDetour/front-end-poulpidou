@@ -1,41 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
+import {getLogs} from "../../requests/globals/getLogs";
+import {toast} from "react-toastify";
+import {getChats} from "../../requests/globals/getChats";
 
 const ResearchClientChat = ({ setDisplayWidget }) => {
 	const [search, setSearch] = useState('');
 
-	const [clients, setClients] = useState({
-		unread: [
-			{	
-				id: 0,
-				firstName: "Gaëlle",
-				lastName: "GHIZOLI",
-				date: "01/01/2024",
-				lastMessage: "Last message 1",
-				online: true
-			},
-			{
-				id: 1,
-				firstName: "Maxence",
-				lastName: "ABRILE",
-				date: "07/09/2022",
-				lastMessage: "Last message 2",
-				online: false
-			}
-		],
-		read: [
-			{
-				id: 2,
-				firstName: "Personal",
-				lastName: "ABRILE",
-				date: "01/07/2024",
-				lastMessage: "Last message 3",
-				online: true
-			}
-		]
-	});
 
+	const [chats, setChats] = useState([]);
+	useEffect(() => {
+		getChats()
+			.then(res => setChats(res.value))
+			.catch(res => toast(res.state, res.value));
+	}, [])
 	return (
 		<>
 			<div id="researchClient" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
@@ -45,9 +24,9 @@ const ResearchClientChat = ({ setDisplayWidget }) => {
 				<div className="research__result">
 					<div className="scroll-container">
 						{
-							clients.length !== 0 ?
+							chats.length !== 0 ?
 							["unread", "read"].map((list) => {
-								if (clients[list].length !== 0) {
+								if (chats[list].length !== 0) {
 									return (
 										<div className="flex-row">
 											<div className="vertical-line"></div>
@@ -55,15 +34,15 @@ const ResearchClientChat = ({ setDisplayWidget }) => {
 												<h3 className="widget-title">{list === "read" ? "Read" : "Unread"}</h3>
 												<div className="flex-col sub-container">
 													{
-														clients[list].map((elm) => {
+														chats[list].map((elm) => {
 															return (
 																<Link to={`/chat/${elm.id}`}>
 																	<div className="flex-row-between long-result" onClick={() => setDisplayWidget(false)}>
 																		<div className="flex-col">
-																			<p><b>{elm.lastName} {elm.firstName}</b>
+																			<p><b>{elm.client.lastName} {elm.client.firstName}</b>
 																				<sub>- {elm.date}</sub>
 																			</p>
-																			<p><i>{elm.lastMessage}</i></p>
+																			<p><i>{elm.lastMessage ? elm.lastMessage : "No messages here"}</i></p>
 																		</div>
 																		<div>
 																			<div className={ elm.online ? "online" : "offline" }></div>
