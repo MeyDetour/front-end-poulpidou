@@ -6,12 +6,15 @@ import { useParams } from 'react-router-dom';
 import '../css/chats.css';
 
 import ResearchClientChat from '../components/widgets/researchClientChat';
-import {getChats} from "../requests/globals/getChats";
-import {toast} from "react-toastify";
-import {getChat} from "../requests/globals/getChat";
+import { getChats } from "../requests/globals/getChats";
+import { useToast } from "../hooks/useToast";
+import { getChat } from "../requests/globals/getChat";
 
 const Chats = (props) => {
 	const { id } = useParams();
+
+	const toast = useToast();
+
 	const [displayWidget, setDisplayWidget] = useState(id == undefined);
 
 	const toogleDisplayWidget = () => {
@@ -46,7 +49,7 @@ const Chats = (props) => {
 
 	useEffect(() => {
 		if (id == undefined) return;
-		
+
 		getChat(id)
 		.then(res => {
 			setClient(res.value.client);
