@@ -1,59 +1,63 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Reorder } from 'framer-motion';
+import { useParams } from 'react-router-dom';
+
+import { getTasks } from '../../../requests/projects/getTasks';
+import { putOrderTaks } from '../../../requests/projects/putOrderTaks';
 
 import Task from './task';
 import AddTask from '../../widgets/addTask';
 
+import { useToast } from '../../../hooks/useToast';
+
 const Tasks = ({ displayWidget, setDisplayWidget }) => {
+	const { id } = useParams();
+
+	const toast = useToast();
+
 	const [values, setValues] = useState({});
 
-	console.log(values)
+	const [isDragging, setIsDragging] = useState(false);
 
-	const [tasksWaiting, setTasksWaiting] = useState([{
-		id: 0,
-		title: "New task",
-		content: "Labore fugiat amet voluptate sit quis reprehenderit dolor eiusmod ad fugiat mollit officia est minim ut sint officia voluptate ut laboris aute consectetur labore minim eiusmod sint aute in sed incididunt.",
-		category: "dev",
-		dueDate: "2024-07-08",
-		author: {
-			firstName: "Maxence",
-			lastName: "ABRILE"
-		}
-	}, {
-		id: 1,
-		title: "New task (2)",
-		content: "Quis ut.",
-		category: "design",
-		dueDate: "2024-07-08",
-		author: {
-			firstName: "Maxence",
-			lastName: "ABRILE"
-		}
-	}]);
+	const [tasksWaiting, setTasksWaiting] = useState([]);
+	const [tasksProgress, setTasksProgress] = useState([]);
+	const [tasksDone, setTasksDone] = useState([]);
 
-	const [tasksProgress, setTasksProgress] = useState([{
-		id: 2,
-		title: "New task (3)",
-		content: "Dolore sed laborum reprehenderit.",
-		category: "design",
-		dueDate: "2024-07-08",
-		author: {
-			firstName: "Maxence",
-			lastName: "ABRILE"
-		}
-	}]);
+	const modifiedList = useRef(null);
 
-	const [tasksDone, setTasksDone] = useState([{
-		id: 3,
-		title: "New task (4)",
-		content: "Lorem ipsum velit sit eiusmod sed id proident ad ex voluptate sunt ut nulla pariatur nulla aute occaecat voluptate.",
-		category: "dev",
-		dueDate: "2024-07-08",
-		author: {
-			firstName: "Maxence",
-			lastName: "ABRILE"
+	const [draggedTask, setDraggedTask] = useState(null);
+
+	useEffect(() => {
+		getTasks(id)
+		.then(res => {
+			setTasksWaiting(res.value.waiting != undefined ? res.value.waiting : []);
+			setTasksProgress(res.value.progress != undefined ? res.value.progress : []);
+			setTasksDone(res.value.done != undefined ? res.value.done : []);
+		})
+		.catch(res => toast(res.state, res.value));
+	}, [displayWidget]);
+
+	useEffect(() => {
+		if (isDragging) return;
+		if (!draggedTask) return;
+
+		if (modifiedList.current === "waiting") {
+			putOrderTaks(draggedTask, tasksWaiting.map(elm => elm.id).indexOf(draggedTask))
+			.catch(res => toast(res.state, res.value));
 		}
-	}]);
+
+		if (modifiedList.current === "progress") {
+			putOrderTaks(draggedTask, tasksProgress.map(elm => elm.id).indexOf(draggedTask))
+			.catch(res => toast(res.state, res.value));
+		}
+
+		if (modifiedList.current === "done") {
+			putOrderTaks(draggedTask, tasksDone.map(elm => elm.id).indexOf(draggedTask))
+			.catch(res => toast(res.state, res.value));
+		}
+		
+		setDraggedTask(null);
+	}, [isDragging]);
 
 	const waiting_ref = useRef(null);
 	const progress_ref = useRef(null);
@@ -62,7 +66,6 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 	useEffect(() => {
 		if (!displayWidget) {
 			setValues({});
-			console.log("DELETE", displayWidget)
 		}
 	}, [displayWidget]);
 
@@ -76,17 +79,30 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 					</div>
 					<Reorder.Group
 						axis="y" 
-						onReorder={setTasksWaiting}
+						onReorder={(e) => {
+							setTasksWaiting(e);
+							modifiedList.current = "waiting"
+						}}
 						values={tasksWaiting} 
 						ref={waiting_ref}
 						style={{height: "100%", overflowY: "auto"}} 
 						layoutScroll
 					>
 						{
-							tasksWaiting.length !== 0 ?
+							tasksWaiting.length !== 0 &&
 							tasksWaiting.map((task, index) => (
-								<Task key={task.id} item={task} container={waiting_ref} setValues={setValues} setDisplayWidget={setDisplayWidget}/>
-							)) : null
+								<Task 
+									key={task.id}
+									item={task}
+									container={waiting_ref}
+									setValues={setValues}
+									setDisplayWidget={setDisplayWidget}
+									list={"waiting"}
+									setDraggedTask={setDraggedTask}
+									isDragging={isDragging}
+									setIsDragging={setIsDragging}
+								/>
+							))
 						}
 					</Reorder.Group>
 				</div>
@@ -97,17 +113,30 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 					</div>
 					<Reorder.Group
 						axis="y" 
-						onReorder={setTasksProgress}
+						onReorder={(e) => {
+							setTasksProgress(e);
+							modifiedList.current = "progress"
+						}}
 						values={tasksProgress} 
 						ref={waiting_ref}
 						style={{height: "100%", overflowY: "auto"}} 
 						layoutScroll
 					>
 						{
-							tasksProgress.length !== 0 ?
+							tasksProgress.length !== 0 &&
 							tasksProgress.map((task, index) => (
-								<Task key={task.id} item={task} container={waiting_ref} setValues={setValues} setDisplayWidget={setDisplayWidget}/>
-							)) : null
+								<Task 
+									key={task.id}
+									item={task}
+									container={waiting_ref}
+									setValues={setValues}
+									setDisplayWidget={setDisplayWidget}
+									list={"progress"}
+									setDraggedTask={setDraggedTask}
+									isDragging={isDragging}
+									setIsDragging={setIsDragging}
+								/>
+							))
 						}
 					</Reorder.Group>
 				</div>
@@ -118,17 +147,30 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 					</div>
 					<Reorder.Group
 						axis="y" 
-						onReorder={setTasksDone}
+						onReorder={(e) => {
+							setTasksDone(e);
+							modifiedList.current = "done"
+						}}
 						values={tasksDone} 
 						ref={waiting_ref}
 						style={{height: "100%", overflowY: "auto"}} 
 						layoutScroll
 					>
 						{
-							tasksDone.length !== 0 ?
+							tasksDone.length !== 0 &&
 							tasksDone.map((task, index) => (
-								<Task key={task.id} item={task} container={waiting_ref} setValues={setValues} setDisplayWidget={setDisplayWidget}/>
-							)) : null
+								<Task 
+									key={task.id}
+									item={task}
+									container={waiting_ref}
+									setValues={setValues}
+									setDisplayWidget={setDisplayWidget}
+									list={"done"}
+									setDraggedTask={setDraggedTask}
+									isDragging={isDragging}
+									setIsDragging={setIsDragging}
+								/>
+							))
 						}
 					</Reorder.Group>
 				</div>
@@ -145,6 +187,7 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 					>
 						<AddTask 
 							values={values}
+							setDisplayWidget={setDisplayWidget}
 						/>
 					</div>
 				</> : null

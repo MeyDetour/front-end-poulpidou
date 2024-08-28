@@ -20,6 +20,9 @@ import Chats from './routes/chats';
 import Settings from './routes/settings';
 import Clients from './routes/clients';
 
+import { connectUser } from './requests/connectUser';
+connectUser()
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 // import reportWebVitals from './reportWebVitals';

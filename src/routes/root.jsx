@@ -1,5 +1,8 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import Axios from 'axios';
 
@@ -23,9 +26,9 @@ const Root = () => {
 	const [keyPressed, resetKeyPressed] = useKeyBindings(null, ['k', 'n'], true);
 	const [widget, setWidget] = useState(null);
 
-	useEffect(() => {
-		console.log("Keys pressed: Ctrl+" + keyPressed);
-	}, [keyPressed]);
+	// useEffect(() => {
+	// 	console.log("Keys pressed: Ctrl+" + keyPressed);
+	// }, [keyPressed]);
 
 	useEffect(() => {
 		const handleKeyDown = (e) => {
@@ -63,6 +66,7 @@ const Root = () => {
 					: null
 				}
 			</div>
+			<ToastContainer />
 		</>
 	);
 }

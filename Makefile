@@ -21,6 +21,9 @@ download_dependencies:
 	@npm install axios@latest --save
 
 	@echo [Downloading]: react-pdf
-	@npm i react-pdf@latest
+	@npm i react-pdf@latest --save
+
+	@echo [Downloading]: react-toastify
+	@npm install react-toastify@latest --save
 
 	@echo [STATE]: Operation successful

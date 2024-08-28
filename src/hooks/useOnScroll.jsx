@@ -2,10 +2,7 @@ import React from 'react';
 
 const useOnScroll = (handleScroll) => {
 	const listenToScroll = React.useCallback(
-        (e) => {
-            requestAnimationFrame(() => handleScroll(e));
-            console.log("Scrolling")
-        },
+        (e) => requestAnimationFrame(() => handleScroll(e)),
         [handleScroll]
     );
     

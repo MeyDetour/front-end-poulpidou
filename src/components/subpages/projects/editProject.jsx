@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
+import { useParams } from 'react-router-dom';
 
 import InputCheckbox from '../../assets/inputCheckbox';
 import InputRadio from '../../assets/inputRadio';
 import InputSlider from '../../assets/inputSlider';
 
-const EditProject = () => {
-	const [cost, setCost] = useState(0);
+import { putProject } from '../../../requests/projects/putProject';
+
+import { useToast } from '../../../hooks/useToast';
+
+const EditProject = ({ data }) => {
+	const { id } = useParams();
+
+	const toast = useToast();
+
+	// const [cost, setCost] = useState(0);
 
 	const [clients, setClients] = useState([{
 		name: "Gaëlle GHIZOLI",
@@ -19,7 +28,7 @@ const EditProject = () => {
 	}]);
 
 	const formMethods = useForm();
-	const { 
+	const {
 		register,
 		handleSubmit,
 		formState: {
@@ -30,6 +39,45 @@ const EditProject = () => {
 		clearErrors,
 		watch,
 	} = formMethods;
+
+	const cost = watch("project.estimatedPrice", 0);
+	const sliderValue = watch("project.composition.maintenanceRange", 0);
+
+	useEffect(() => {
+		if (data == undefined || data == null) return;
+		if (Object.keys(data.composition).length === 0) return;
+
+		console.log(data)
+
+		// Identity
+		setValue("project.identity.name", data.identity?.name);
+		setValue("project.identity.startDate", data.identity?.startDateBaseFormat);
+		setValue("project.identity.endDate", data.identity?.endDateBaseFormat);
+		setValue("project.identity.githubLink", data.identity?.githubLink);
+		setValue("project.identity.figmaLink", data.identity?.figmaLink);
+		setValue("project.identity.websiteLink", data.identity?.websiteLink);
+		setValue("project.notes", data.identity?.note);
+
+		// Composition
+		console.log(data.composition?.isPaying)
+		setValue("project.composition.isPaying", data.composition?.isPaying ? "true" : "false");
+		setValue("project.composition.database", data.composition?.database ? "true" : "false");
+		setValue("project.composition.maquette", data.composition?.maquette ? "true" : "false");
+		setValue("project.composition.maintenance", data.composition?.maintenance  ? "true" : "false");
+
+		setValue("project.composition.framework", data.composition?.framework);
+		setValue("project.composition.type", data.composition?.type);
+		setValue("project.composition.options", data.composition?.options);
+		setValue("project.composition.devices", data.composition?.devices);
+
+
+		// console.log("data.maintenancePercentage", data.maintenancePercentage)
+		setValue("project.composition.maintenanceRange", data.maintenancePercentage);
+
+		setValue("project.estimatedPrice", data.estimatedPrice);
+
+		// calculateCost({project: data});
+	}, [data]);
 
 	const calculateCost = (data) => {
 		// if (!data.isPaying) return 0;
@@ -89,23 +137,20 @@ const EditProject = () => {
 			if (data.composition.devices.indexOf('printer') !== -1) deviceCost += 400;
 		}
 
-		// return database + typeCost + frameworkCost + optionsCost + deviceCost + maquette;
-		setCost(database + typeCost + frameworkCost + optionsCost + deviceCost + maquette);
+		setValue("project.estimatedPrice", database + typeCost + frameworkCost + optionsCost + deviceCost + maquette)
+
+		return database + typeCost + frameworkCost + optionsCost + deviceCost + maquette;
 	}
 
 	const onSubmit = (data) => {
-		console.log(data)
-		data.project.identity["client_id"] = null; 
-		clients.forEach(object => {
-			if (object.name + " - " + object.mail === data.project.identity.clientName) data.project.identity["client_id"] = object.id;
-		})
-		if (data.project.identity["client_id"] === null) return alert("Error !");
+		putProject(data, id)
+		.then(res => toast(res.state, res.value))
+		.catch(res => toast(res.state, res.value));
 
-		console.log(errors)
+		// TO DO: Errors
 	}
 
 	// For price estimation
-	const sliderValue = watch("project.composition.maintenanceRange", 33);
 	const isPaying = watch("project.composition.isPaying", '');
 	const maintenance = watch("project.composition.maintenance", '');
 
@@ -122,20 +167,6 @@ const EditProject = () => {
 						<p className="text-of-input" title="This field is required"><b>Name*: </b></p>
 						<input type="text" {...register("project.identity.name", {required: true})}/>
 					</div>
-					<div className="flex-row">
-						<p className="text-of-input" title="This field is required"><b>Client*: </b></p>
-						<input list="clients" type="text" {...register("project.identity.clientName", {required: true})}/>
-						<datalist id="clients">
-						{
-							clients.length > 0 ? 
-							clients.map((client) => {
-								return <option value={client.name + " - " + client.mail} key={client.mail}/>
-							}) : null
-						}
-						</datalist>
-
-						<button style={{marginLeft: "10px", width: "120px"}}>Add a client</button>
-					</div>
 					<div className="flex-row-between date-section">
 						<div className="flex-row">
 							<p className="text-of-input"><b>Start date: </b></p>
@@ -146,10 +177,6 @@ const EditProject = () => {
 							<p className="text-of-input"><b>End date: </b></p>
 							<input type="date" {...register("project.identity.endDate")}/>
 						</div>
-					</div>
-					<div className="flex-row">
-						<p className="text-of-input" title="This field is required"><b>Page number*: </b></p>
-						<input type="number" {...register("project.identity.pageNumber", {required: true})}/>
 					</div>
 					<div className="flex-row">
 						<p className="text-of-input" style={{minWidth: "fit-content"}}><b>Github link: </b></p>
@@ -170,7 +197,7 @@ const EditProject = () => {
 					</div>
 
 					<div className="flex-row-between" style={{width: '100%'}}>
-						<div className="flex-col" style={{width: "25%"}}>
+						<div className="flex-col" style={{width: '25%'}}>
 							<p className="compostion-data-title"><b>Is a paying project</b></p>
 							{
 								[true, false].map((value) => {
@@ -365,7 +392,7 @@ const EditProject = () => {
 							name="project.composition.maintenanceRange"
 							min={1}
 							max={100}
-							defaultValue={33}
+							defaultValue={getValues("project.composition.maintenanceRange")}
 							getValues={getValues}
 							unit="%"
 							step={1}
@@ -376,13 +403,13 @@ const EditProject = () => {
 						<div className="flex-row-around cost-section">
 							<div>
 								<h4 style={{color: cost > 0 && isPaying === "true" ? "var(--blue)" : "var(--text-grey)"}}>
-									{isPaying === "true" ? cost : 0} €
+									{isPaying === "true" ? Math.round(cost, 0) : 0} €
 								</h4>
 								<p style={{marginTop: '20px'}}><sub>Total cost</sub></p>	
 							</div>
 							<div className="vertical-line"></div>
 							<div className="flex-col">
-								{ 
+								{
 									maintenance === "true" && isPaying === "true" ?
 										<h4 style={{color: cost > 0 ? "var(--blue)" : "var(--text-grey)"}}>
 											+{Math.round(sliderValue * cost/100, 0)} € <span style={{verticalAlign: "sub", fontSize: "15px", color: "var(--text-grey)"}}>
@@ -405,10 +432,10 @@ const EditProject = () => {
 						<div className="horizontal-line"></div>
 					</div>
 
-					<textarea name="" id=""></textarea>
+					<textarea {...register("project.notes")}></textarea>
 
 					<div>
-						<input type="submit" value="Create the project"/>
+						<input type="submit" value="Update the project"/>
 					</div>
 				</form>
 			</FormProvider>

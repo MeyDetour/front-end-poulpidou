@@ -1,16 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Reorder, useMotionValue } from 'framer-motion';
 
-const Task = ({ item, container, setValues, setDisplayWidget }) => {
+const Task = ({ item, container, setValues, setDisplayWidget, list, setDraggedTask, isDragging, setIsDragging }) => {
 	const ownRef = useRef(null);
 
 	const handleDrag = (e) => {
 		if (ownRef.current === null) return;
 
+		// console.log(item.id)
+
 		ownRef.current.style.boxShadow = "0 5px 5px rgba(0,0,0,0.2)";
 	}
 
 	const handleDragEnd = (e) => {
+		setIsDragging(false);
 		if (ownRef.current === null) return;
 
 		ownRef.current.style.boxShadow = "none";
@@ -19,29 +22,37 @@ const Task = ({ item, container, setValues, setDisplayWidget }) => {
 	return (
 		<Reorder.Item 
 			value={item}
-			id={item}
+			id={item.id}
 			dragConstrains={container}
 			onDrag={handleDrag}
-			onDragEnd={handleDragEnd}
+
+			onDragStart={() => {
+				setIsDragging(true);
+				setDraggedTask(item.id);
+			}}
+     		onDragEnd={handleDragEnd}
+     		onClick={() => {
+     			if (!isDragging) {
+	 				setValues({
+						id: item.id,
+						title: item.name,
+						content: item.content,
+						category: item.category,
+						dueDate: item.dueDate,
+						list: list
+					});
+					setDisplayWidget(true);
+				}
+			}}
 			style={{ position: 'relative' }}
 		>
 			<div
 				className="flex-col task"
 				ref={ownRef}
-				onClick={() => {
-					setValues({
-						id: item.id,
-						title: item.title,
-						content: item.content,
-						category: item.category,
-						dueDate: item.dueDate
-					});
-					setDisplayWidget(true);
-				}}
 			>
 				<div className="flex-row-between">
-					<p>{item.title}</p>
-					<p className="category">[{item.category}]</p>
+					<p>{item.name}</p>
+					<p className="category">{(item.category != undefined && item.category?.length > 0) && `[${item.category}]`}</p>
 				</div>
 				<p className="content">{item.content}</p>
 			</div>

@@ -49,7 +49,7 @@ const Specifications = () => {
 				</div>
 			</div>
 			{/*<iframe src={file} width="800" height="600"/>*/}
-			<Document 
+			{/*<Document 
 				file={file}
 				onLoadError={(error) => console.error('Error loading document:', error)}
 				onLoadSuccess={onLoadSuccess}
@@ -59,7 +59,7 @@ const Specifications = () => {
 					<Page pageNumber={i+1}></Page>
 				))
 			}
-			</Document>
+			</Document>*/}
 		</>
 		
 	);

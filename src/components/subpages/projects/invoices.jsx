@@ -1,30 +1,25 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
+import { useParams } from 'react-router-dom';
+
+import { getInvoices } from '../../../requests/projects/getInvoices';
 
 import InputCheckbox from '../../assets/inputCheckbox';
 
+import { useToast } from '../../../hooks/useToast';
+
 const Invoices = () => {
-	const [invoices, setInvoices] = useState([{
-		id: 0,
-		title: 3,
-		date: "03/08/2024",
-		price: 11000,
-		isPaid: false,
-		client: {
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}, {
-		id: 1,
-		title: 1,
-		date: "03/08/2024",
-		price: 120,
-		isPaid: true,
-		client: {
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}]);
+	const { id } = useParams();
+
+	const toast = useToast();
+
+	const [invoices, setInvoices] = useState([]);
+
+	useEffect(() => {
+		getInvoices(id)
+		.then(res => setInvoices(res.value))
+		.catch(res => toast(res.state, res.value))
+	}, []);
 
 	const methods = useForm();
 	const { 
@@ -54,7 +49,7 @@ const Invoices = () => {
 
 			<FormProvider {...methods}>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<div class="invoiceListContainer">
+					<div className="invoiceListContainer">
 						<table>
 
 							<thead>

@@ -1,52 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
 import ProjectBox from '../components/subpages/projects/projectBox';
 
+import { getAllProjects } from '../requests/projects/getAllProjects';
+
+import { useToast } from '../hooks/useToast';
+
 const Projects = () => {
+	const toast = useToast();
+
 	const [projects, setProjects] = useState({
-		current: [{
-			id: 0,
-			name: "F&B-Database",
-			date: '31/08/24',
-			tasksDone: '7',
-			totalTasks: '10'
-		}, {
-			id: 1,
-			name: "F&B-Database",
-			date: '31/08/24',
-			tasksDone: '8',
-			totalTasks: '10'
-		}],
-		others: [{
-			id: 2,
-			name: "F&B-Database",
-			date: '31/08/24',
-			tasksDone: '10',
-			totalTasks: '10'
-		}, {
-			id: 2,
-			name: "F&B-Database",
-			date: '31/08/24',
-			tasksDone: '10',
-			totalTasks: '10'
-		}, {
-			id: 2,
-			name: "F&B-Database",
-			date: '31/08/24',
-			tasksDone: '10',
-			totalTasks: '10'		
-		}]
+		currents: [],
+		others: []
 	});
+
+	console.log(projects)
+
+	useEffect(() => {
+		getAllProjects()
+		.then((res) => {
+			setProjects(res.value);
+		})
+		.catch((res) => toast("Error", "Projects couldn't be load."));
+	}, []);
 
 	return (
 		<div className="scroll-container projects">
 			<h3>Current projects</h3>
 			<div className="flex-row" style={{gap: "20px"}}>
 				{
-					projects.current.length > 0 &&
-					projects.current.map((elm) => {
+					projects.currents.length > 0 &&
+					projects.currents.map((elm) => {
 						return (
 							<Link to={`/project/${elm.id}/specifications`}>
 								<ProjectBox project={elm} />

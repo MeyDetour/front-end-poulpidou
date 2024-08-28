@@ -151,10 +151,6 @@ const CreateProject = (props) => {
 						</div>
 					</div>
 					<div className="flex-row">
-						<p className="text-of-input" title="This field is required"><b>Page number*: </b></p>
-						<input type="number" {...register("project.identity.pageNumber", {required: true})}/>
-					</div>
-					<div className="flex-row">
 						<p className="text-of-input" style={{minWidth: "fit-content"}}><b>Github link: </b></p>
 						<input type="text" {...register("project.identity.githubLink")}/>
 					</div>

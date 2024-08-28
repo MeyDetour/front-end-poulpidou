@@ -4,33 +4,36 @@ import { useFormContext } from 'react-hook-form';
 import useOnScroll from '../../hooks/useOnScroll';
 
 const InputSlider = ({ name, defaultValue, unit, min, max, step }) => {
-  const { register, setValue } = useFormContext();
+	const { register, setValue } = useFormContext();
 
-  const [sliderValue, setSliderValue] = useState(defaultValue);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const [opacity, setOpacity] = useState(0);
-  const [isHover, setIsHover] = useState(false);
+	const [sliderValue, setSliderValue] = useState(defaultValue);
+	console.log(defaultValue)
+	const [x, setX] = useState(0);
+	const [y, setY] = useState(0);
+	const [opacity, setOpacity] = useState(0);
+	const [isHover, setIsHover] = useState(false);
 
-  const slider = useRef();
+	const slider = useRef();
 
-  useEffect(() => {
-	setValue(name, defaultValue);
-  }, [name, defaultValue, setValue]);
+	useEffect(() => {
+		setValue(name, defaultValue);
+		console.log(defaultValue)
+	}, [name, defaultValue, setValue]);
 
-  const moveValueDisplay = () => {
-	setIsHover(true);
-	setOpacity(1);
-	const rect = slider.current?.getBoundingClientRect();
-	const offsetX = (sliderValue / 100) * slider.current.offsetWidth;
+	const moveValueDisplay = () => {
+		setIsHover(true);
+		setOpacity(1);
+		
+		const rect = slider.current?.getBoundingClientRect();
+		const offsetX = (sliderValue / 100) * slider.current.offsetWidth;
 
-	setX(rect.left + offsetX - 10);
-	setY(rect.top - 30);
-  };
+		setX(rect.left + offsetX - 10);
+		setY(rect.top - 30);
+	};
 
-  useOnScroll(() => {
-	if (!isHover) setOpacity(0);
-  });
+	useOnScroll(() => {
+		if (!isHover) setOpacity(0);
+	});
 
   return (
 	<div 
@@ -47,11 +50,12 @@ const InputSlider = ({ name, defaultValue, unit, min, max, step }) => {
 					min={min}
 					max={max}
 					step={step}
-					defaultValue={defaultValue}
+					defaultValue={sliderValue}
 					{...register(name)}
+					
 					onChange={(e) => {
-					setSliderValue(e.target.value);
-					setValue(name, e.target.value);
+						setSliderValue(e.target.value);
+						setValue(name, e.target.value);
 					}}
 					ref={slider}
 				/>

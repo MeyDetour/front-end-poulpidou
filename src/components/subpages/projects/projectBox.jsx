@@ -11,7 +11,7 @@ const ProjectBox = ({ project }) => {
 		setScrollBarWidth(scrollBar.current.clientWidth);
 	}, [scrollBar.current]);
 
-	const percentage = Math.round(project.tasksDone / project.totalTasks * 100, 2);
+	const percentage = project.totalTasks === 0 ? 100 : Math.round(project.doneTasks / project.totalTasks * 100, 2);
 
 	return (
 		<div className="flex-col project-box" style={{gap: "15px"}}>
@@ -27,7 +27,7 @@ const ProjectBox = ({ project }) => {
 			<div className="flex-row-between">
 				<div className="flex-row progres__task">
 					<img src="pictures/icons/tasks-icon.svg" alt="tasks"/>
-					<p>{project.tasksDone}/{project.totalTasks}</p>
+					<p>{project.doneTasks}/{project.totalTasks}</p>
 				</div>
 				<div className="progress__bar" ref={scrollBar}>
 					<div className="progress__bar-value" style={{width: percentage * scrollBarWidth/100}}></div>

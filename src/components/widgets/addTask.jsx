@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
-const AddTask = ({ values }) => {
+import { postTask } from '../../requests/projects/postTask';
+import { putTask } from '../../requests/projects/putTask';
+import { delTask } from '../../requests/projects/delTask';
+
+import { useToast } from '../../hooks/useToast';
+
+const AddTask = ({ values, setDisplayWidget }) => {
+	const { id } = useParams();
+	const toast = useToast();
+
 	const [isNew, _] = useState(Object.keys(values).length === 0);
 
 	const [categories, setCategories] = useState([{
@@ -25,31 +35,47 @@ const AddTask = ({ values }) => {
 		watch,
 	} = methods;
 
-	const onSubmit = (data) => {
-		data["category_id"] = null;
+	useEffect(() => {
+		console.log("VALUES", values.list)
+		setValue("title", values.title);
+		setValue("category", values.category);
+		setValue("content", values.content);
+		setValue("dueDate", values.dueDate);
+		values.list != undefined && setValue("status", values.list);
+	}, []);
 
-		categories.forEach(category => {
-			if (data.category === category.name) data["category_id"] = category.name;
-		});
+	const onSubmit = (data) => {
+		data["id"] = values.id;
 
 		if (isNew) {
-			// Post request + return
+			return postTask(data, id)
+			.then(res => toast("OK", "The operation was successful."))
+			.catch(res => toast(res.state, res.value));
 		}
-		// Put request 
+		putTask(data, id)
+		.then(res => toast("OK", "The operation was successful."))
+		.catch(res => toast(res.state, res.value)); 
+
+		setDisplayWidget(false)
+	}
+
+	const onError = (error) => {
+		console.log(error)
+		if (error.title) return toast("warning", "The title field is required.");
 	}
 
 	const deleteTask = () => {
-		// values.id
-	}
+		setValue("id", values.id);
 
-	setValue("title", values.title);
-	setValue("category", values.category);
-	setValue("content", values.content);
-	setValue("dueDate", values.dueDate);
+		delTask(getValues(), id)
+		.then(res => toast("OK", "The operation was successful."))
+		.catch(res => toast(res.state, res.value)); 
+		setDisplayWidget(false)
+	}
 
 	return (
 		<div id="addTask" className="widget" onClick={(e) => e.stopPropagation()}>
-			<form className="flex-col" onSubmit={handleSubmit(onSubmit)}>
+			<form className="flex-col" onSubmit={handleSubmit(onSubmit, onError)}>
 				<div className="flex-row-between">
 					{
 						isNew 
@@ -68,14 +94,14 @@ const AddTask = ({ values }) => {
 					<input type="text" {...register("title", {required: true})}/>
 				</div>
 				<div className="flex-row">
-					<p className="text-of-input" title="This field is required"><b>Category*: </b></p>
-					<input list="categories" type="text" {...register("category", {required: true})}/>
+					<p className="text-of-input" title="This field is required"><b>Category: </b></p>
+					<input list="categories" type="text" {...register("category")}/>
 					<datalist id="categories">
 					{
-						categories.length > 0 ? 
+						categories.length > 0 &&
 						categories.map((category) => {
 							return <option value={category.name} key={category.id}/>
-						}) : null
+						})
 					}
 					</datalist>
 				</div>
@@ -87,8 +113,16 @@ const AddTask = ({ values }) => {
 					<p className="text-of-input"><b>Due date: </b></p>
 					<input type="date" {...register("dueDate", {valueAsDate: true})} />
 				</div>
+				<div className="flex-col">
+					<p className="text-of-input"><b>State: </b></p>
+					<select {...register("status")} defaultValue="waiting">
+						<option value="waiting">Waiting</option>
+						<option value="progress">In progress</option>
+						<option value="done">Done</option>
+					</select>
+				</div>
 				<div>
-					<input type="submit" value={isNew ? "Add task" : "Modify task"} />
+					<input type="submit" value={isNew ? "Add task" : "Modify task"}/>
 				</div>
 			</form>
 		</div>

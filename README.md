@@ -1,7 +1,6 @@
 # front-end-poulpidou:
 ## TODO list:
 ### CSS:
-[x] Add a max-with on media queries for `#content`
 [ ] Remade style of the button in `projects/tasks`
 [ ] Reposition the value upper the slider in `projects/edit`
 
@@ -14,13 +13,12 @@
 [x] framer-motion
 
 ## TODAY:
-[ ] Continue widgets
+[ ] Add total price in project forms
 
 ## Bugs:
 - Slider component, display value when stop scrolling (without momentum)
+- Slider value display
 
 ## Features to add:
-- Toast
-- All errors / not filled fields / minimum and maximum on react-hook-form
 - Delete button
 - Disabled buttons/inputs
