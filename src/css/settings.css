@@ -43,6 +43,7 @@ section span + p, section span + div {
 
 .conditions-of-payement .scroll-container { 
 	max-height: calc(100% - 54px - 10px);
+	height: calc(94% - 34px) !important;
 }
 
 .conditions-of-payement__header {

@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {getClients} from "../../../requests/widgets/getClients";
+import {toast} from "react-toastify";
+import {getLogs} from "../../../requests/globals/getLogs";
 
 const Logs = () => {
 	const [logs, setLogs] = useState([{
@@ -116,7 +119,11 @@ const Logs = () => {
 		message: "Create new client (15 | Bonjour ABRILE) ",
 		type: "POST|PUT"
 	}]);
-
+	useEffect(() => {
+		getLogs()
+			.then(res => setLogs(res.value))
+			.catch(res => toast(res.state, res.value));
+	}, [])
 	return (
 		<>
 			<div className="warn-message">
