@@ -45,15 +45,17 @@ const Chats = (props) => {
 	}
 
 	useEffect(() => {
+		if (id == undefined) return;
+		
 		getChat(id)
-			.then(res => {
-				setClient(res.value.client);
-			 	setChat(res.value.client);
-				setMessages(res.value.messages);
+		.then(res => {
+			setClient(res.value.client);
+		 	setChat(res.value.client);
+			setMessages(res.value.messages);
 
-			})
-			.catch(res => toast(res.state, res.value));
-	}, [])
+		})
+		.catch(res => toast(res.state, res.value));
+	}, [id]);
 
 	const input = useRef();
 	const scrollContainer = useRef();
