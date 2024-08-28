@@ -42,13 +42,13 @@ const Credits = () => {
 
 				<div className="textContainer">
 					<h1>Poulpidou</h1>
-					<span>Made by Maxence Abrile and Mey Detour</span>
+					<span>Made by Mey DETOUR and Maxence ABRILE <br/> or, Maxence ABRILE and Mey DETOUR 🦑</span>
 					<p>July 2024. This site was made with love by computer enthusiasts. it is there to serve you and
 						meet your
 						needs. Do not hesitate to contact us at the following addresses if you have any suggestion for
 						improvement or to report a bug: abrilemaxence@gmail.com, meydetour@gmail.com</p>
 
-					<a href="https://github.com/MeyDetour/backend-poulpidou" target="_blank">Github Backend</a>
+					<a href="https://github.com/MeyDetour/backend-poulpidou" target="_blank">Github Back-end</a>
 					<a href="https://github.com/MeyDetour/front-end-poulpidou" target="_blank">Github Front-End</a>
 					<img src="pictures/icons/x.svg" alt="x" onClick={() => window.location = '/'}/>
 				</div>
