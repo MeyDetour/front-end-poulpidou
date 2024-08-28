@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {getLogs} from "../../requests/globals/getLogs";
 import {toast} from "react-toastify";
 import {getChats} from "../../requests/globals/getChats";
+import {getClients} from "../../requests/widgets/getClients";
 
 const ResearchClientChat = ({ setDisplayWidget }) => {
 	const [search, setSearch] = useState('');
@@ -18,6 +19,8 @@ const ResearchClientChat = ({ setDisplayWidget }) => {
 		})
 		.catch(res => toast(res.state, res.value));
 	}, [])
+
+
 	return (
 		<>
 			<div id="researchClient" className="flex-col widget" onClick={(event) => event.stopPropagation()}>

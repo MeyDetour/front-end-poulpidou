@@ -6,6 +6,9 @@ import { useParams } from 'react-router-dom';
 import '../css/chats.css';
 
 import ResearchClientChat from '../components/widgets/researchClientChat';
+import {getChats} from "../requests/globals/getChats";
+import {toast} from "react-toastify";
+import {getChat} from "../requests/globals/getChat";
 
 const Chats = (props) => {
 	const { id } = useParams();
@@ -22,144 +25,10 @@ const Chats = (props) => {
 	const user_firstName = "Maxence";
 	const user_lastName = "ABRILE";
 
-	const [client, setClient] = useState({
-		id: "",
-		firstName: "Maxence",
-		lastName: "ABRILE",
-		online: false,
-		date: "12/08/2023",
-		currentProjects: 0
-	});
+	const [chat, setChat] = useState({});
+	const [client, setClient] = useState({});
 
-	const [messages, setMessages] = useState([{
-		content: "Cillum in elit occaecat ut sunt ut cupidatat nostrud consectetur ad ut ea ad aliquip pariatur dolor.",
-		datetime: "02/08/2024 15:10",
-		author: {
-			id: 0,
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Cillum in elit occaecat ut sunt ut cupidatat nostrud consectetur ad ut ea ad aliquip pariatur dolor.",
-		datetime: "02/08/2024 15:10",
-		author: {
-			id: 0,
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Cillum in elit occaecat ut sunt ut cupidatat nostrud consectetur ad ut ea ad aliquip pariatur dolor.",
-		datetime: "02/08/2024 15:10",
-		author: {
-			id: 0,
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	}, {
-		content: "Cillum in elit occaecat ut sunt ut cupidatat nostrud consectetur ad ut ea ad aliquip pariatur dolor.",
-		datetime: "02/08/2024 15:10",
-		author: {
-			id: 0,
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}, {
-		content: "Amet sit laboris veniam nostrud cillum do incididunt est deserunt deserunt dolor et. Lorem ipsum in nulla dolore dolor amet elit consequat ex labore fugiat.",
-		datetime: "02/08/2024 16:00",
-		author: {
-			id: 1,
-			firstName: "Mey",
-			lastName: "DETOUR",
-		}
-	},{
-		content: "Cillum in elit occaecat ut sunt ut cupidatat nostrud consectetur ad ut ea ad aliquip pariatur dolor.",
-		datetime: "02/08/2024 15:10",
-		author: {
-			id: 0,
-			firstName: "Maxence",
-			lastName: "ABRILE",
-		}
-	}]);
+	const [messages, setMessages] = useState([]);
 
 	const addMessage = () => {
 		if (input.current === null) return;
@@ -174,6 +43,17 @@ const Chats = (props) => {
 			}
 		}]);
 	}
+
+	useEffect(() => {
+		getChat(id)
+			.then(res => {
+				setClient(res.value.client);
+			 	setChat(res.value.client);
+				setMessages(res.value.messages);
+
+			})
+			.catch(res => toast(res.state, res.value));
+	}, [])
 
 	const input = useRef();
 	const scrollContainer = useRef();
@@ -200,8 +80,8 @@ const Chats = (props) => {
 								</div>
 							</div>
 							<p>
-								<sub style={{fontWeight: "normal"}}>Since {client.date} 
-									<b> - {client.currentProjects} current project{client.currentProjects == 1 ? null : "s"}</b>
+								<sub style={{fontWeight: "normal"}}>Since {client.date}
+									<b> {/*- {client.currentProjects} current project{client.currentProjects == 1 ? null : ""}*/}  </b>
 								</sub>
 							</p>
 						</div>
