@@ -53,6 +53,12 @@ const NavBar = () => {
 								className={
 									location.pathname.startsWith("/settings") ? "selected" : ''
 								}>Settings</NavLink>
+						</li>	<li>
+							<NavLink
+								to={`/credits`}
+								className={
+									location.pathname.startsWith("/credits") ? "selected" : ''
+								}>Credits</NavLink>
 						</li>
 					</ul>
 				</div>

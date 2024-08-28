@@ -19,6 +19,7 @@ import Projects from './routes/projects';
 import Chats from './routes/chats';
 import Settings from './routes/settings';
 import Clients from './routes/clients';
+import Credits from "./routes/credits";
 
 import { connectUser } from './requests/connectUser';
 connectUser()
@@ -68,7 +69,10 @@ const router = createBrowserRouter([
 }, {
 	path: "*",
 	element: <ErrorPage />,
-}
+}, {
+		path: "/credits",
+		element: <Credits />,
+	}
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
