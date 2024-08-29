@@ -9,6 +9,7 @@ import ResearchClientChat from '../components/widgets/researchClientChat';
 import { getChats } from "../requests/globals/getChats";
 import { useToast } from "../hooks/useToast";
 import { getChat } from "../requests/globals/getChat";
+import {sendMessage} from "../requests/globals/sendMessage";
 
 const Chats = (props) => {
 	const { id } = useParams();
@@ -45,6 +46,14 @@ const Chats = (props) => {
 				lastName: user_lastName,
 			}
 		}]);
+		console.log(chat)
+		sendMessage(input.current.value,chat.project_id)
+			.then(res => {
+				toast(res.state, "message send")
+			})
+			.catch(res => toast(res.state, res.value));
+
+		input.current.value = ""
 	}
 
 	useEffect(() => {
@@ -53,7 +62,7 @@ const Chats = (props) => {
 		getChat(id)
 		.then(res => {
 			setClient(res.value.client);
-		 	setChat(res.value.client);
+		 	setChat(res.value.chat);
 			setMessages(res.value.messages);
 
 		})
