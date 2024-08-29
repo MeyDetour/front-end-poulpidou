@@ -22,7 +22,10 @@ const AllProjects = () => {
 		if (id == undefined) return;
 
 		getClientProjects(id)
-		.then(res => setProjects(res.value))
+		.then(res => {
+			setProjects(res.value)
+			console.log(res.value)
+		})
 		.catch(res => toast(res.state, res.value));
 	}, [id]);
 
@@ -41,7 +44,11 @@ const AllProjects = () => {
 										<div className="flex-row-between">
 											<div className="flex-row" style={{gap: "10px"}}>
 												<img src="pictures/icons/folder-icon.svg" alt="folder"/>
-												<img src="pictures/icons/link-icon.svg" alt="folder" style={{width: "24px", height: "24px"}}/>
+												<img src="pictures/icons/link-icon.svg" alt="folder" style={{width: "24px", height: "24px"}} onClick={(e) => {
+													navigator.clipboard.writeText("/client-access/" + project.uuid);
+													toast("OK", "The last client project page link was copied to your clipboard.");
+													e.preventDefault();
+												}}/>
 												<p>{project.name}</p>
 											</div>
 											<div className="flex-row project__date" style={{gap: "5px"}}>

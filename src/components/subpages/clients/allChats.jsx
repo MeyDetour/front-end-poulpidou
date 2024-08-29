@@ -18,7 +18,10 @@ const AllChats = () => {
 		if (id == undefined) return;
 
 		getClientChats(id)
-		.then(res => setChats(res.value))
+		.then(res => {
+			setChats(res.value);
+			console.log(res.value)
+		})
 		.catch(res => toast(res.state, res.value));
 	}, [id]);
 

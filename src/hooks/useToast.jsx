@@ -4,7 +4,7 @@ const useToast = () => {
 	// Calling toast method by passing string
 	const displayToast = (type, message) => {
 		if (type === "OK") {
-			toast.success("The operation was successful.", {
+			toast.success(message, {
 				position: "bottom-left",
 				autoClose: 3000,
 			});

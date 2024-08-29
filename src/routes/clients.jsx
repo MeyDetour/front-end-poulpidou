@@ -44,6 +44,7 @@ const Clients = () => {
 		getClient(id)
 		.then(res => {
 			setClient(res.value);
+			console.log(res.value)
 		})
 		.catch(res => toast(res.state, res.value));
 	}, [id, reload]);
@@ -71,7 +72,10 @@ const Clients = () => {
 									Click the icon to copy the link to the client page. Client will be able to view information about the project and its progresses.<br/>
 									You can find this icon on each project thumbnail. Go to Client -> All Projects -> Choose a project and click the icon.
 								</p>
-								<img src="pictures/icons/link-icon.svg" alt="link" />
+								<img src="pictures/icons/link-icon.svg" alt="link" onClick={() => {
+									navigator.clipboard.writeText("/client-access/" + client.lastUuidProject);
+									toast("OK", "The last client project page link was copied to your clipboard.")
+								}}/>
 							</div>
 							<div className="flex-row-between client-data__data">
 								<nav>
