@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import '../css/chats.css';
 
 import ResearchClientChat from '../components/widgets/researchClientChat';
+import { getUser } from "../requests/globals/getUser";
 import { getChats } from "../requests/globals/getChats";
 import { useToast } from "../hooks/useToast";
 import { getChat } from "../requests/globals/getChat";
@@ -25,7 +26,7 @@ const Chats = (props) => {
 
 	console.log(displayWidget)
 
-	const userID = 0;
+	const [userID, setUserID] = useState(null);
 	const user_firstName = "Maxence";
 	const user_lastName = "ABRILE";
 
@@ -36,6 +37,7 @@ const Chats = (props) => {
 
 	const addMessage = () => {
 		if (input.current === null) return;
+		if (userID === null) return toast("error", "An error occured, please reload the page.");
 
 		setMessages([...messages, {
 			content: input.current.value,
@@ -55,6 +57,12 @@ const Chats = (props) => {
 
 		input.current.value = ""
 	}
+
+	useEffect(() => {
+		getUser()
+		.then(res => setUserID(res.value.id))
+		.catch(res => toast(res.state, res.value));
+	}, []);
 
 	useEffect(() => {
 		if (id == undefined) return;
@@ -108,6 +116,7 @@ const Chats = (props) => {
 						{
 							messages.length > 0 ?
 							messages.map((message, index) => {
+								console.log(message.author.id, userID)
 								const isOwnMessage = message.author.id === userID;
 								const needToDisplayName = isLastMessageOwn.current !== isOwnMessage;
 
