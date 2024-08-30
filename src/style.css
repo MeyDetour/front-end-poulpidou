@@ -106,6 +106,9 @@
 	flex-direction: column;
 	justify-content: space-evenly;
 }
+.alignCenter{
+	align-items: center;
+}
 
 .flex-end {
 	display: flex;
@@ -623,6 +626,18 @@ div.input-file {
 	line-height: 34px;
 }
 /* --- Online/Offline --- */
+/* Button */
+.redButton {
+	background-color: #feeee9;
+	color: #fb612f;
+	width: 133px;
+	display: block;
+	padding: 7px 10px;
+	border-radius: 4px;
+}
+.redButton:hover {
+	background-color: #f9e6e0 !important;}
+/* --- Button --- */
 
 /* Error page */
 #error-page .img-container {

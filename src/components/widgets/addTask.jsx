@@ -7,6 +7,7 @@ import { putTask } from '../../requests/projects/putTask';
 import { delTask } from '../../requests/projects/delTask';
 
 import { useToast } from '../../hooks/useToast';
+import Logs from "../subpages/settings/logs";
 
 const AddTask = ({ values, setDisplayWidget }) => {
 	const { id } = useParams();
@@ -14,16 +15,10 @@ const AddTask = ({ values, setDisplayWidget }) => {
 
 	const [isNew, _] = useState(Object.keys(values).length === 0);
 
-	const [categories, setCategories] = useState([{
-		id: 0,
-		name: "dev",
-	}, {
-		id: 1,
-		name: "design",
-	}]);
+	const [categories, setCategories] = useState([]);
 
 	const methods = useForm();
-	const { 
+	const {
 		register,
 		handleSubmit,
 		formState: {
@@ -41,12 +36,12 @@ const AddTask = ({ values, setDisplayWidget }) => {
 		setValue("category", values.category);
 		setValue("content", values.content);
 		setValue("dueDate", values.dueDate);
+        console.log("VALUES", values.list)
 		values.list != undefined && setValue("status", values.list);
 	}, []);
 
 	const onSubmit = (data) => {
 		data["id"] = values.id;
-
 		if (isNew) {
 			return postTask(data, id)
 			.then(res => {
@@ -60,7 +55,7 @@ const AddTask = ({ values, setDisplayWidget }) => {
 			toast("OK", "The operation was successful.");
 			setDisplayWidget(false);
 		})
-		.catch(res => toast(res.state, res.value)); 
+		.catch(res => toast(res.state, res.value));
 	}
 
 	const onError = (error) => {
@@ -75,7 +70,7 @@ const AddTask = ({ values, setDisplayWidget }) => {
 			toast("OK", "The operation was successful.");
 			setDisplayWidget(false);
 		})
-		.catch(res => toast(res.state, res.value)); 
+		.catch(res => toast(res.state, res.value));
 	}
 
 	return (
@@ -83,7 +78,7 @@ const AddTask = ({ values, setDisplayWidget }) => {
 			<form className="flex-col" onSubmit={handleSubmit(onSubmit, onError)}>
 				<div className="flex-row-between">
 					{
-						isNew 
+						isNew
 						? <h2>Add a new task to the current project:</h2>
 						: (
 							<>

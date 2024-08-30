@@ -1,290 +1,348 @@
 #content.clientsContent {
-	width: calc(80vw - 2vmin);
-	height: calc(100vh - 2vmin);
-	padding: 0;
+    width: calc(80vw - 2vmin);
+    height: calc(100vh - 2vmin);
+    padding: 0;
 
-	overflow: hidden;
+    overflow: hidden;
 }
+
 .client-data {
-	width: calc(70% - 40px);
-	min-height: calc(100vh - 2vmin - 60px);
-	padding: 30px;
+    width: calc(70% - 40px);
+    min-height: calc(100vh - 2vmin - 60px);
+    padding: 30px;
 
-	background-color: var(--grey-light-5);
+    background-color: var(--grey-light-5);
 }
+
 .client-data__link-info {
-	width: calc(100% - 40px);
-	height: fit-content;
-	padding: 20px;
+    width: calc(100% - 40px);
+    height: fit-content;
+    padding: 20px;
 
-	background-color: white;
+    background-color: white;
 
-	border-radius: 20px;
-	border: 2px solid var(--grey-light-4);
+    border-radius: 20px;
+    border: 2px solid var(--grey-light-4);
 }
+
 .client-data__link-info h3 {
-	color: var(--blue);
-	font-size: 30px;
+    color: var(--blue);
+    font-size: 30px;
 
-	text-align: center;
+    text-align: center;
 }
+
 .client-data__link-info p {
-	margin-top: 20px;
+    margin-top: 20px;
 
-	color: var(--text-grey-light);
-	font-weight: 300;
+    color: var(--text-grey-light);
+    font-weight: 300;
 
-	text-align: center;
+    text-align: center;
 }
+
 .client-data__link-info img {
-	margin: auto;
-	margin-top: 20px;
+    margin: auto;
+    margin-top: 20px;
 
-	display: block;
+    display: block;
 
-	cursor: pointer;
+    cursor: pointer;
 
-	transition: .2s;
+    transition: .2s;
 }
+
 .client-data__link-info img:hover {
-	filter: saturate(200%);
+    filter: saturate(200%);
 }
+
 .client-data__link-info img:active {
-	filter: saturate(200%) contrast(80%);
+    filter: saturate(200%) contrast(80%);
 }
+
 .client-data__data {
-	height: 100%;
+    height: 100%;
 }
-.client-data__data nav { margin: auto 0; }
-.client-data__data .sub-nav { gap: 40px; }
-.client-data__data .sub-nav { padding: 0; }
-.client-data__data .sub-nav li {
-	width: 150px;
-	height: 65px;
 
-	background-color: white;
-
-	border-radius: 10px;
-	border: 2px solid var(--grey-light-4);
-
-	color: var(--text-grey);
-
-	line-height: 65px;
-	text-align: center;
-
-	transition: .2s;
+.client-data__data nav {
+    margin: auto 0;
 }
-.client-data__data .sub-nav li.selected {
-	background-color: var(--blue-light-5);
-	border-color: var(--blue-light-4);
 
-	color: var(--blue);
-	font-weight: bold;
-}
 .client-data__data .sub-nav {
-	margin: auto;
+    gap: 40px;
 }
+
+.client-data__data .sub-nav {
+    padding: 0;
+}
+
+.client-data__data .sub-nav li {
+    width: 150px;
+    height: 65px;
+
+    background-color: white;
+
+    border-radius: 10px;
+    border: 2px solid var(--grey-light-4);
+
+    color: var(--text-grey);
+
+    line-height: 65px;
+    text-align: center;
+
+    transition: .2s;
+}
+
+.client-data__data .sub-nav li.selected {
+    background-color: var(--blue-light-5);
+    border-color: var(--blue-light-4);
+
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.client-data__data .sub-nav {
+    margin: auto;
+}
+
 .client-data__data .sub-page {
-	width: calc(100% - 200px);
-	height: calc(100% - 20px);
-	margin: auto 0 0 0;
+    width: calc(100% - 200px);
+    height: calc(100% - 20px);
+    margin: auto 0 0 0;
 
-	background-color: var(--white);
+    background-color: var(--white);
 
-	border-radius: 10px;
-	border: 2px solid var(--grey-light-4);
+    border-radius: 10px;
+    border: 2px solid var(--grey-light-4);
 }
 
 .client-info {
-	max-width: calc(30% - 40px);
-	min-width: calc(30% - 40px);
-	min-height: calc(100vh - 2vmin - 60px);
-	padding: 30px;
+    max-width: calc(30% - 40px);
+    min-width: calc(30% - 40px);
+    min-height: calc(100vh - 2vmin - 60px);
+    padding: 30px;
 
-	background-color: #FFF;
+    background-color: #FFF;
 }
+
 .client-info h3 {
-	color: var(--blue);
-	font-size: 30px;
+    color: var(--blue);
+    font-size: 30px;
 
-	text-align: center;
+    text-align: center;
 }
+
 .client-info p.sub-title {
-	color: var(--text-grey-light);
-	text-align: center;
+    color: var(--text-grey-light);
+    text-align: center;
 }
+
 .client-info .horizontal-line {
-	height: 3px;
-	margin: 20px auto;
+    height: 3px;
+    margin: 51px auto 93px auto;
 }
-.client-info .status { margin-left: 10px; margin-top: auto; }
+
+.client-info .status {
+    margin-left: 10px;
+    margin-top: auto;
+}
+
 .client-info .online + p {
-	font-size: 12px;
-	line-height: 20px;
+    font-size: 12px;
+    line-height: 20px;
 }
-.client-info .offline + p { margin-bottom: -10px; }
-.client-info__data p { 
-	padding-left: 10px;
-	font-size: 17px;
-	line-height: 19px;
+
+.client-info .offline + p {
+    margin-bottom: -10px;
 }
+
+.client-info__data p {
+    padding-left: 10px;
+    font-size: 15px;
+    line-height: 19px;
+}
+
 .client-info__data p b {
-	color: var(--blue);
-	font-size: 19px;
+    color: var(--blue);
+    font-size: 17px;
 }
+
 .client-info img[src="pictures/icons/x.svg"] {
-	padding: 5px;
+    padding: 5px;
 
-	transition: .2s background-color;
+    transition: .2s background-color;
 
-	cursor: pointer;
+    cursor: pointer;
 }
+
 .client-info img[src="pictures/icons/x.svg"]:hover {
-	padding: 5px;
-	background-color: rgba(0, 0, 0, .05);
+    padding: 5px;
+    background-color: rgba(0, 0, 0, .05);
 
-	border-radius: 5px;
+    border-radius: 5px;
 }
+.client-info button{
+    border: 1px solid #bdc9e7 !important;
 
+    color: var(--blue) !important;
+    font-weight: 900 !important;
+}
 .show-panel {
-	top: 25px;
-	right: 0px;
-	width: 40px;
-	height: 40px;
-	
-	background-color: var(--blue);
+    top: 25px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
 
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
+    background-color: var(--blue);
 
-	position: absolute;
-	z-index: 100;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 
-	cursor: pointer;
+    position: absolute;
+    z-index: 100;
+
+    cursor: pointer;
 }
+
 .change-client {
-	top: 75px;
-	right: 0px;
-	width: 40px;
-	height: 40px;
-	
-	background-color: var(--blue);
+    top: 75px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
 
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
+    background-color: var(--blue);
 
-	position: absolute;
-	z-index: 100;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 
-	cursor: pointer;
+    position: absolute;
+    z-index: 100;
+
+    cursor: pointer;
 }
+
 /* All chats */
-.chat { 
-	width: calc(100% - 14px);
-	height: fit-content;
-	padding: 7px;
+.chat {
+    width: calc(100% - 14px);
+    height: fit-content;
+    padding: 7px;
 
-	border: 1.5px solid var(--grey-light-4);
-	border-radius: 5px;
+    border: 1.5px solid var(--grey-light-4);
+    border-radius: 5px;
 
-	line-height: 24px;
+    line-height: 24px;
 }
+
 .chat__name {
-	font-weight: bold;
-	color: var(--blue);
+    font-weight: bold;
+    color: var(--blue);
 }
 
 .chat__last-message-date {
-	color: #939CAE;
-	font-size: .8rem;
+    color: #939CAE;
+    font-size: .8rem;
 }
+
 .chat__last-message {
-	max-width: calc(100%);
-	height: 22px;
+    max-width: calc(100%);
+    height: 22px;
 
-	overflow: hidden;
+    overflow: hidden;
 
-	color: var(--text-grey);
-	font-size: 15px;
+    color: var(--text-grey);
+    font-size: 15px;
 }
+
 /* --- All chats --- */
 
 /* Projects  */
 .project {
-	width: calc(100% - 14px);
-	height: fit-content;
-	padding: 7px;
+    width: calc(100% - 14px);
+    height: fit-content;
+    padding: 7px;
 
-	border: 1.5px solid var(--grey-light-4);
-	border-radius: 5px;
+    border: 1.5px solid var(--grey-light-4);
+    border-radius: 5px;
 
-	line-height: 24px;
+    line-height: 24px;
 }
+
 .project__date p {
-	color: #939CAE;
+    color: #939CAE;
 }
+
 .progres__task {
-	padding: 1px 5px;
-	border: 2px solid var(--grey-light-4);
-	border-radius: 5px;
+    padding: 1px 5px;
+    border: 2px solid var(--grey-light-4);
+    border-radius: 5px;
 
-	line-height: 18px;
+    line-height: 18px;
 }
+
 .progres__task p {
-	padding-left: 5px;
+    padding-left: 5px;
 
-	color: var(--text-grey);
+    color: var(--text-grey);
 }
+
 .progress__bar {
-	width: 75%;
-	height: 5px;
-	margin: auto 10px 10px 10px;
+    width: 75%;
+    height: 5px;
+    margin: auto 10px 10px 10px;
 
-	background-color: var(--grey-light-4);
-	border-radius: 5px;
+    background-color: var(--grey-light-4);
+    border-radius: 5px;
 
-	overflow: hidden;
+    overflow: hidden;
 }
+
 .progress__bar-value {
-	width: 0;
-	height: 100%;
+    width: 0;
+    height: 100%;
 
-	background-color: var(--blue);
+    background-color: var(--blue);
 }
+
 .progress__value {
-	color: var(--text-grey);
+    color: var(--text-grey);
 }
+
 /* --- Projects */
 
 /* Invoices */
 .invoice {
-	width: calc(100% - 14px);
-	height: fit-content;
-	padding: 7px;
+    width: calc(100% - 14px);
+    height: fit-content;
+    padding: 7px;
 
-	border: 1.5px solid var(--grey-light-4);
-	border-radius: 5px;
+    border: 1.5px solid var(--grey-light-4);
+    border-radius: 5px;
 
-	line-height: 24px;
+    line-height: 24px;
 }
-.invoice__id { 
-	color: var(--text-grey);
-	font-weight: bold;
+
+.invoice__id {
+    color: var(--text-grey);
+    font-weight: bold;
 }
-.invoice__project-name { 
-	color: var(--blue);
-	font-weight: bold;
+
+.invoice__project-name {
+    color: var(--blue);
+    font-weight: bold;
 }
+
 .invoice__date {
-	color: #939CAE;
+    color: #939CAE;
 }
+
 .invoice__reason {
-	max-width: calc(100%);
-	height: 22px;
+    max-width: calc(100%);
+    height: 22px;
 
-	overflow: hidden;
+    overflow: hidden;
 
-	color: var(--text-grey);
-	font-size: 15px;
+    color: var(--text-grey);
+    font-size: 15px;
 }
+
 /* --- Invoices --- */
