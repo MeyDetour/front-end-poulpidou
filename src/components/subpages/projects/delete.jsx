@@ -13,14 +13,11 @@ const Delete = () => {
 
 	const toast = useToast();
 
-
 	useEffect(() => {
 		getInvoices(id)
-		.then(res => toast(res.state, ""))
+		.then(res => {})
 		.catch(res => toast(res.state, res.value))
 	}, []);
-
-
 
 	return (
 		<>	

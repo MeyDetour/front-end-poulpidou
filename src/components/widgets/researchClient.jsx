@@ -1,75 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { getClients } from '../../requests/widgets/getClients';
 
 import { Link } from 'react-router-dom';
 
 import { useToast } from '../../hooks/useToast';
+import { useSearchbar } from '../../hooks/useSearchbar';
 
 const ResearchClient = ({ setDisplayWidget }) => {
 	const [search, setSearch] = useState('');
 
 	const toast = useToast();
 
-	const [clients, setClients] = useState([
-	// {
-	// 	id: 0,
-	// 	firstName: "Gaëlle",
-	// 	lastName: "GHIZOLI",
-	// 	date: "01/01/2024",
-	// 	currentProjects: 0,
-	// 	online: true
-	// },
-	// {
-	// 	id: 1,
-	// 	firstName: "Maxence",
-	// 	lastName: "ABRILE",
-	// 	date: "07/09/2022",
-	// 	currentProjects: 2,
-	// 	online: false
-	// },
-	// {
-	// 	id: 2,
-	// 	firstName: "Personal",
-	// 	lastName: "ABRILE",
-	// 	date: "01/07/2024",
-	// 	currentProjects: 1,
-	// 	online: true
-	// }
-	]);
+	const [clients, setClients] = useState([]);
+	const [clientsDisplay, setClientsDisplay] = useState([]);
 
-	/* 
-	{
-    "id": 1,
-    "firstName": "Coralie",
-    "lastName": "DUPONT",
-    "job": null,
-    "age": null,
-    "siret": null,
-    "location": null,
-    "mail": "meydetour@gmail.com",
-    "phone": null,
-    "createdAt": "20/08/2024",
-    "state": "active",
-    "online": false
-}
-	*/
+	const searchAmong = useSearchbar();
 
-	useEffect(() => {
-		console.log(clients)
-	}, [clients])
+	const searchbar = useRef(null);
 
 	useEffect(() => {
 		getClients()
-		.then(res => setClients(res.value))
+		.then(res => {
+			setClients(res.value)
+			console.log(res.value)
+			setClientsDisplay(res.value)
+		})
 		.catch(res => toast(res.state, res.value));
-	}, [])
+	}, []);
+
+	useEffect(() => {
+		const research = searchAmong(clients, ["firstName", "lastName"], search, "i");
+		setClientsDisplay([...new Set(research)]);
+	}, [search]);
+
+	useEffect(() => {
+		if (!searchbar.current) return;
+
+		searchbar.current.focus();
+	}, [searchbar]);
 
 	return (
 		<>
 			<div id="researchClient" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
 				<div className="research__searchbar">
-					<input type="search" value={search} placeholder="Search for a client..." onChange={(e) => setSearch(e.value)}/>
+					<input
+						type="search"
+						value={search}
+						placeholder="Search for a client..."
+						ref={searchbar}
+						onChange={(e) => setSearch(e.target.value)}
+					/>
 				</div>
 				<div className="research__result">
 					<div className="scroll-container">
@@ -78,7 +59,7 @@ const ResearchClient = ({ setDisplayWidget }) => {
 							<div>
 								<div className="flex-col sub-container">
 									{
-										clients.map((elm) => {
+										clientsDisplay.map((elm) => {
 											return (
 												<Link to={`/client/${elm.id}`}>
 													<div className="flex-row-between long-result" onClick={() => setDisplayWidget(false)}>

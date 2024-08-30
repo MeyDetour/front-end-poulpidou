@@ -49,18 +49,21 @@ const AddTask = ({ values, setDisplayWidget }) => {
 
 		if (isNew) {
 			return postTask(data, id)
-			.then(res => toast("OK", "The operation was successful."))
+			.then(res => {
+				toast("OK", "The operation was successful.");
+				setDisplayWidget(false);
+			})
 			.catch(res => toast(res.state, res.value));
 		}
 		putTask(data, id)
-		.then(res => toast("OK", "The operation was successful."))
+		.then(res => {
+			toast("OK", "The operation was successful.");
+			setDisplayWidget(false);
+		})
 		.catch(res => toast(res.state, res.value)); 
-
-		setDisplayWidget(false)
 	}
 
 	const onError = (error) => {
-		console.log(error)
 		if (error.title) return toast("warning", "The title field is required.");
 	}
 
@@ -68,9 +71,11 @@ const AddTask = ({ values, setDisplayWidget }) => {
 		setValue("id", values.id);
 
 		delTask(getValues(), id)
-		.then(res => toast("OK", "The operation was successful."))
+		.then(res => {
+			toast("OK", "The operation was successful.");
+			setDisplayWidget(false);
+		})
 		.catch(res => toast(res.state, res.value)); 
-		setDisplayWidget(false)
 	}
 
 	return (

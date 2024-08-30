@@ -45,7 +45,7 @@ const AllProjects = () => {
 											<div className="flex-row" style={{gap: "10px"}}>
 												<img src="pictures/icons/folder-icon.svg" alt="folder"/>
 												<img src="pictures/icons/link-icon.svg" alt="folder" style={{width: "24px", height: "24px"}} onClick={(e) => {
-													navigator.clipboard.writeText("/client-access/" + project.uuid);
+													navigator.clipboard.writeText(window.location.origin + "/client-access/" + project.uuid);
 													toast("OK", "The last client project page link was copied to your clipboard.");
 													e.preventDefault();
 												}}/>

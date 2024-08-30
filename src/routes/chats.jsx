@@ -24,8 +24,6 @@ const Chats = (props) => {
 		setDisplayWidget(!displayWidget);
 	}
 
-	console.log(displayWidget)
-
 	const [userID, setUserID] = useState(null);
 	const user_firstName = "Maxence";
 	const user_lastName = "ABRILE";
@@ -48,7 +46,7 @@ const Chats = (props) => {
 				lastName: user_lastName,
 			}
 		}]);
-		console.log(chat)
+		
 		sendMessage(input.current.value,chat.project_id)
 			.then(res => {
 				toast(res.state, "message send")
@@ -82,7 +80,6 @@ const Chats = (props) => {
 	const isLastMessageOwn = useRef(false);
 
 	useEffect(() => {
-		console.log(scrollContainer.current)
 		if (scrollContainer.current === null || !scrollContainer.current) return;
 		scrollContainer.current.scrollTop = scrollContainer.current.scrollHeight;
 	}, [scrollContainer.current]);
@@ -116,7 +113,6 @@ const Chats = (props) => {
 						{
 							messages.length > 0 ?
 							messages.map((message, index) => {
-								console.log(message.author.id, userID)
 								const isOwnMessage = message.author.id === userID;
 								const needToDisplayName = isLastMessageOwn.current !== isOwnMessage;
 

@@ -1,23 +1,29 @@
 const useSearchbar = () => {
-	const research = (dicts, keys, keywords, flags = "", exclusive = false) => {
+	const research = (dicts, keys, keywords, flags = "") => {
 		const res = [];
 
 		// Delete all doubles in keywords
 		const keywordsList = [...new Set(keywords.split(' '))];
 
 		dicts.forEach(dict => {
-			if (exclusive) {
-				const isValueAccepted = keys.every(key => {
-					const regex = new RegExp(keywordsList.join('|'), flags);
-					return dict[key]?.search(regex) !== -1
-				});
-			}
-			if (!exclusive) {
-				const isValueAccepted = keys.some(key => {
-					const regex = new RegExp(keywordsList.join('|'), flags);
-					return dict[key]?.search(regex) !== -1
-				});
-			}
+			const isValueAccepted = keys.some(key => {
+				const deepKeys = key.split('.');
+				const regex = new RegExp(keywordsList.join('|'), flags);
+
+				let cell = dict;
+				let keysStr = "";
+
+				try {
+					deepKeys.forEach(deepKey => {
+						cell = cell[deepKey];
+						keysStr += deepKey + "."
+					});
+
+					return cell?.search(regex) !== -1
+				} catch(e) {
+					console.log(`The keys path you gave for the searchbar is uncorrect: ${keysStr.slice(0, -1)}.`);
+				}
+			});
 
 			if (isValueAccepted) res.push(dict);
 		});

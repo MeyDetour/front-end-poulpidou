@@ -17,6 +17,7 @@ import Specifications from '../components/subpages/projects/specifications';
 import EditProject from '../components/subpages/projects/editProject';
 import Invoices from '../components/subpages/projects/invoices';
 import Tasks from '../components/subpages/projects/tasks';
+import Delete from '../components/subpages/projects/delete';
 import Note from '../components/subpages/projects/note';
 
 const Project = () => {
@@ -177,6 +178,9 @@ const Project = () => {
 							</Link>
 							<Link to={`/project/${id}/tasks`}>
 								<li className={subpage === 'tasks' ? "selected" : null}>Tasks</li>
+							</Link>
+							<Link to={`/project/${id}/delete`}>
+								<li className={subpage === 'delete' ? "selected" : null}>Delete project</li>
 							</Link>
 						</ul>
 
