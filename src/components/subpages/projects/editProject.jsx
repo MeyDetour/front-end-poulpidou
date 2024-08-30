@@ -437,6 +437,7 @@ const EditProject = ({ data }) => {
 					<div>
 						<input type="submit" value="Update the project"/>
 					</div>
+					
 				</form>
 			</FormProvider>
 		</div>

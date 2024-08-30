@@ -24,7 +24,7 @@ const Logs = () => {
 							return (
 								<div className="flex-col log-row">
 									<div className="flex-row" style={{gap: "10px"}}>
-										<p className={"type " + (log.type === "Error" ? "error-type" : null)}>{log.type}</p>
+										<p className={"type " + (log.type === "ERROR" ? "error-type" : null)}>{log.type}</p>
 										<p className="date">{log.date}</p>
 										<p className="author">by {log.author}</p>
 									</div>

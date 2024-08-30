@@ -39,7 +39,7 @@ const AllChats = () => {
 											<p className="chat__name">{chat.name}</p>
 											<p className="chat__last-message-date">{chat.lastMessage.date} {chat.lastMessage.time}</p>
 										</div>
-										<p className="chat__last-message">{chat.lastMessage.content}</p>
+											<p className="chat__last-message">{chat.lastMessage.content ?chat.lastMessage.content : "There are no messages sent in this chat yet." }</p>
 									</div>
 								</Link>
 							)
