@@ -71,12 +71,12 @@ const Searchbar = () => {
 		// We get all the clients name (and only their name)
 		const clientsName = clientsResearch.map(elm => elm.firstName + ' ' + elm.lastName).join(' ').split(' ').join(' ');
 		// We get all project with as name those of the last research
-		const projectsFromClient = clientsName.length > 0 ? searchAmong(projectsResult, ["firstName", "lastName"], clientsName, "i") : [];
+		const projectsFromClient = clientsName.length > 0 ? searchAmong(projectsResult, ["firstName", "lastName"], clientsName, "i", true) : [];
 
 		// We get the name of all owners of each projects
 		const projectsClientName = projectsResearch.map(elm => elm.firstName + ' ' + elm.lastName).join(' ').split(' ').join(' ');
 		// We get the clients of the last research
-		const clientsFromProject = projectsClientName.length > 0 ? searchAmong(clientsResult, ["firstName", "lastName"], projectsClientName, "i") : [];
+		const clientsFromProject = projectsClientName.length > 0 ? searchAmong(clientsResult, ["firstName", "lastName"], projectsClientName, "i", true) : [];
 
 		setProjectsResultDisplay([...new Set([...projectsResearch, ...projectsFromClient])]);
 		setClientsResultDisplay([...new Set([...clientsResearch, ...clientsFromProject])]);
