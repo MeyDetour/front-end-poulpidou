@@ -194,7 +194,9 @@ const Project = () => {
 						? <Tasks displayWidget={displayWidget} setDisplayWidget={setDisplayWidget} />
 						: subpage === 'invoices'
 						? <Invoices />
-						: null
+						: subpage === 'delete'
+						? <Delete />
+						:null
 					}
 					</div>
 				</div>
