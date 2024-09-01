@@ -170,7 +170,7 @@ const Clients = () => {
 			</> : null
 		}
 		{
-			displayWidget === "allClients"  ?
+			displayWidget === "allClients" || (id == undefined && displayWidget !== "newClient") ?
 			<>
 				<div 
 					id="insideWidget"
@@ -181,7 +181,7 @@ const Clients = () => {
 					<ResearchClient setDisplayWidget={setDisplayWidget}/>
 
 				</div>
-			</> :	displayWidget === "newClient"  ?
+			</> : displayWidget === "newClient" ?
 			<>
 				<div
 					id="insideWidget"

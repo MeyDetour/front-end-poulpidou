@@ -16,23 +16,25 @@ const CreateProject = ({ setDisplayWidget }) => {
 	const onError = (error) => {
 		if (error.title) return toast("warning", "The names fields and email field are required.");
 	}
-	const [clients, setClients] = useState([
-]);
+	const [clients, setClients] = useState([]);
 
 	useEffect(() => {
 		getClients()
-			.then(res => {
-				res.value.forEach((client) => {
-					clients.push({
-						name: client.firstName+" "+client.lastName,
-						mail: client.mail,
-						id: client.id
-					})
+		.then(res => {
+			const newClientsList = [];
+			res.value.forEach((client) => {
+				newClientsList.push({
+					name: client.firstName + " " + client.lastName,
+					mail: client.mail,
+					id: client.id
 				})
-				console.log(clients)
 			})
-			.catch(res => toast(res.state, res.value));
+			console.log(newClientsList)
+			setClients(newClientsList)
+		})
+		.catch(res => toast(res.state, res.value));
 	}, []);
+
 	const formMethods = useForm();
 	const { 
 		register,
@@ -115,6 +117,7 @@ const CreateProject = ({ setDisplayWidget }) => {
 			if (object.name + " - " + object.mail === data.project.identity.clientName) data.project.identity["client_id"] = object.id;
 		})
 		if (data.project.identity["client_id"] === null) return alert("Error !");
+		
 		newProject(data)
 		.then(res => toast(res.state, res.value))
 		.catch(res => toast(res.state, res.value));
@@ -133,7 +136,11 @@ const CreateProject = ({ setDisplayWidget }) => {
 		<div id="createProject" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
 			<h2>New project</h2>
 			<FormProvider {...formMethods}>
-				<form className="flex-col scroll-container" onChange={() => calculateCost(getValues())} onSubmit={handleSubmit(onSubmit,onError)}>
+				<form
+					className="flex-col scroll-container"
+					onChange={() => calculateCost(getValues())}
+					onSubmit={handleSubmit(onSubmit, console.log)}
+				>
 					<div className="flex-col data-separation">
 						<p><sub>Project identity data</sub></p>
 						<div className="horizontal-line"></div>

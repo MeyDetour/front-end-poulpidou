@@ -89,7 +89,7 @@ h3.widget-title {
 	background-color: var(--white);
 }
 #researchClient .research__searchbar input[type="search"] {
-	width: 84%;
+	width: 100%;
 	height: 40px;
 	padding: 10px;
 

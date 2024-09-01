@@ -16,7 +16,7 @@ const newProject = (data, id) => {
 				websiteLink: data.project.identity.websiteLink || null,
 				startDate: data.project.identity.startDate.split('-').reverse().join('/') || null,
 				endDate: data.project.identity.startDate.split('-').reverse().join('/') || null,
-
+				client_id: data.project.identity.client_id
 			},
 			composition: {
 				isPaying: String(data.project.composition.isPaying) || null,

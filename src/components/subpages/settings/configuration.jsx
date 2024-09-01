@@ -41,7 +41,7 @@ const Configuration = () => {
 		if (data == undefined) return toast("error", "Please reload the page, an error occured");
 
 		putSettings(data)
-		.then(res =>  toast(res.state, res.value))
+		.then(res => toast(res.state, res.value))
 		.catch(res => toast(res.state, res.value));
 	}
 
@@ -171,15 +171,17 @@ const Configuration = () => {
 													["CHEQUE", "CASH", "BANKTRANSFER"].map((val) => {
 														return (
 															<div className="flex-row" key={val}>
-																<InputCheckbox id={"payments-" + val} name="payments"
-																			   value={val}/>
+																<InputCheckbox 
+																	id={"payments-" + val}
+																	name="payments"
+																   value={val}/>
 																<label htmlFor={"payments-" + val}>
 																	{
 																		val === "CHEQUE"
-																			? "Cheque"
-																			: val === "CASH"
-																				? "Cash"
-																				: "Bank transfer"
+																		? "Cheque"
+																		: val === "CASH"
+																		? "Cash"
+																		: "Bank transfer"
 																	}
 																</label>
 															</div>
@@ -200,19 +202,12 @@ const Configuration = () => {
 												<div className="flex-row" key={val}>
 													<InputRadio id={"date-" + val} name="formatDate" value={val}/>
 													<label htmlFor={"date-" + val}>
-														{
-															val === "UE"
-																? "dd/mm/yyyy"
-																: val === "SUI"
-																	? "dd.mm.yyyy"
-																	: val === "PB"
-																		? "dd-mm-yyyy"
-																		: val === "US"
-																			? "mm/dd/yyyy"
-																			: val === "AS"
-																				? "yyyy/mm/dd"
-																				: "yyyy-mm-dd"
-														}
+														{ val === "UE" && "dd/mm/yyyy" }
+														{ val === "SUI" && "dd.mm.yyyy" }
+														{ val === "PB" && "dd-mm-yyyy" }
+														{ val === "US" && "mm/dd/yyyy" }
+														{ val === "AS" && "yyyy/mm/dd" }
+														{ val === "ISO" && "yyyy-mm-dd" }
 													</label>
 												</div>
 											);

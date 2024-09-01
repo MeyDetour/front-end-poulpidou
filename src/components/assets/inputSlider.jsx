@@ -7,7 +7,6 @@ const InputSlider = ({ name, defaultValue, unit, min, max, step }) => {
 	const { register, setValue } = useFormContext();
 
 	const [sliderValue, setSliderValue] = useState(defaultValue);
-	console.log(defaultValue)
 	const [x, setX] = useState(0);
 	const [y, setY] = useState(0);
 	const [opacity, setOpacity] = useState(0);
