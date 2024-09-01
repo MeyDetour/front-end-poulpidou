@@ -13,6 +13,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 
 	const toast = useToast();
 
+	const [reset, setReset] = useState(false);
 	const formMethods = useForm();
 	const { 
 		register,
@@ -31,7 +32,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 
 		let values = {};
 
-		if (data == undefined) {
+		if (data == undefined || reset) {
 			getClient(id)
 			.then(res => {
 				values["firstName"] = res.value.firstName;
@@ -41,6 +42,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 				values["job"] = res.value.job;
 				values["location"] = res.value.location;
 				values["siret"] = res.value.siret;
+				setReset(false)
 			})
 			.catch(res => toast(res.state, res.value));
 		} else { values = data; }
@@ -48,7 +50,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 		Object.keys(values).forEach(key => {
 			setValue(key, values[key]);
 		});
-	}, [data]);
+	}, [data,reset]);
 
 	const onSubmit = (data) => {
 		if (data == undefined) return toast("error", "Please reload the page, an error occured");
@@ -117,7 +119,9 @@ const EditProfile = ({ data, reload, setReload }) => {
 					</div>
 					<div className="flex-row" style={{marginBottom: "20px", gap: "10px"}}>
 						<input type="submit" value="Save changes"/>
-						<input type="submit" value="Abort changes"/>
+						<input type="reset" className={"resetButton"} onClick={() => setReset(true)}
+							   value="Abort changes"/>
+
 					</div>
 				</form>
 			</div>

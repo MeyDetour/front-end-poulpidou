@@ -637,6 +637,16 @@ div.input-file {
 }
 .redButton:hover {
 	background-color: #f9e6e0 !important;}
+
+.resetButton {
+	border: 0;
+	background: #ffe5e5;
+	color: #b94949;
+	border-radius: 6px;
+}
+.resetButton:hover{
+	background: #ffdde5;
+}
 /* --- Button --- */
 
 /* Error page */
