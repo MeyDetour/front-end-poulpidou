@@ -3,14 +3,11 @@ import {useForm, FormProvider} from "react-hook-form";
 
 import InputRadio from '../../assets/inputRadio';
 import InputCheckbox from '../../assets/inputCheckbox';
-import {putClient} from "../../../requests/clients/putClient";
 import {useToast} from "../../../hooks/useToast";
 import {putSettings} from "../../../requests/settings/putSettings";
-import {getClient} from "../../../requests/clients/getClient";
 import {getSettings} from "../../../requests/settings/getSettings";
 
 const Configuration = () => {
-	const [values, setValues] = useState(null);
 
 	const toast = useToast();
 	const formMethods = useForm();

@@ -80,20 +80,21 @@ h3.widget-title {
 }
 /* --- Searchbars --- */
 /* Research clients */
-#researchClient .research__searchbar {
+#researchClient .research__searchbar  {
+	width: 84%;
 	height: 40px;
 	padding: 5px;
 
 	border-radius: 5px;
-
 	background-color: var(--white);
 }
 #researchClient .research__searchbar input[type="search"] {
-	width: 100%;
+	width: 84%;
 	height: 40px;
 	padding: 10px;
 
 	font-size: 15px;
+
 }
 
 #researchClient .research__result {

@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 
 import { useToast } from '../../hooks/useToast';
 import { useSearchbar } from '../../hooks/useSearchbar';
+import {removeClient} from "../../requests/clients/removeClient";
 
-const ResearchClient = ({ setDisplayWidget }) => {
+const ResearchClient = ({ setDisplayWidget  }) => {
+
 	const [search, setSearch] = useState('');
 
 	const toast = useToast();
@@ -43,15 +45,21 @@ const ResearchClient = ({ setDisplayWidget }) => {
 	return (
 		<>
 			<div id="researchClient" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
-				<div className="research__searchbar">
-					<input
-						type="search"
-						value={search}
-						placeholder="Search for a client..."
-						ref={searchbar}
-						onChange={(e) => setSearch(e.target.value)}
-					/>
+				<div className={"flex-row-between"}>
+					<div className="research__searchbar">
+						<input
+							type="search"
+							value={search}
+							placeholder="Search for a client..."
+							ref={searchbar}
+							onChange={(e) => setSearch(e.target.value)}
+						/>
+
+					</div>
+					<button onClick={()=>{setDisplayWidget("newClient")}
+					}>New client</button>
 				</div>
+
 				<div className="research__result">
 					<div className="scroll-container">
 						<div className="flex-row">
@@ -62,16 +70,19 @@ const ResearchClient = ({ setDisplayWidget }) => {
 										clientsDisplay.map((elm) => {
 											return (
 												<Link to={`/client/${elm.id}`}>
-													<div className="flex-row-between long-result" onClick={() => setDisplayWidget(false)}>
+													<div className="flex-row-between long-result"
+														 onClick={() => setDisplayWidget(null)}>
 														<div className="flex-col">
 															<p><b>{elm.lastName} {elm.firstName}</b>
 																<sub>- {elm.createdAt}</sub>
 															</p>
-															<p><i>We don't know how many {elm.currentProjects} current project{elm.currentProjects !== 1 && "s" } the client has.</i></p>
+															<p><i>We don't know how many {elm.currentProjects} current
+																project{elm.currentProjects !== 1 && "s"} the client
+																has.</i></p>
 														</div>
 														<div>
-															<div className={ elm.online ? "online" : "offline" }></div>
-															<p>{ elm.online ? "Online" : "Offline" }</p>
+															<div className={elm.online ? "online" : "offline"}></div>
+															<p>{elm.online ? "Online" : "Offline"}</p>
 														</div>
 													</div>
 												</Link>
@@ -80,7 +91,7 @@ const ResearchClient = ({ setDisplayWidget }) => {
 									}
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</div>

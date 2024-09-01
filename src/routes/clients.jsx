@@ -14,6 +14,8 @@ import AllProjects from '../components/subpages/clients/allProjects';
 import AllInvoices from '../components/subpages/clients/allInvoices';
 
 import ResearchClient from '../components/widgets/researchClient';
+import Delete from "../components/subpages/clients/delete";
+import NewClient from "../components/widgets/newClient";
 
 const Clients = () => {
 	const [reload, setReload] = useState(0);
@@ -22,32 +24,26 @@ const Clients = () => {
 
 	const toast = useToast();
 
-	const [displayWidget, setDisplayWidget] = useState(id === undefined);
+	const [displayWidget, setDisplayWidget] = useState(id === undefined ? "allClients" : null);
 
 	const [displayPanel, setDisplayPanel] = useState(true);
 
-	const [client, setClient] = useState({
-		firstName: "Mey",
-		lastName: "DETOUR",
-		id: 0,
-		job: "Décoratrice d'interrieur",
-		online: true,
-		since: "3 years",
-		location: "France",
-		mail: "meydetour@gmail.com",
-		phone: "... really ..."
-	});
+	const [client, setClient] = useState({ });
+	useEffect(() => {
+		console.log("displayWidget changed:", displayWidget);
+	}, [displayWidget]);
 
+	console.log(id,displayPanel,displayWidget,client)
 	useEffect(() => {
 		if (id == undefined) return;
-		
+		console.log('use effect',displayPanel);
 		getClient(id)
 		.then(res => {
 			setClient(res.value);
 			console.log(res.value)
 		})
 		.catch(res => toast(res.state, res.value));
-	}, [id, reload]);
+	}, [id, reload, displayWidget]);
 
 	const displayClientSelection = () => {
 
@@ -55,7 +51,10 @@ const Clients = () => {
 
 	const toogleDisplayWidget = () => {
 		if (typeof id === "undefined") return;
-		setDisplayWidget(!displayWidget);
+		setDisplayWidget(null);
+	}
+	const closeNewClientAndDisplayWidget = () => {
+		 setDisplayWidget("allClients");
 	}
 
 	return (
@@ -83,6 +82,9 @@ const Clients = () => {
 										<Link to={`/client/${id}/edit`}>
 											<li className={subpage === 'edit' ? "selected" : null}>Edit profile</li>
 										</Link>
+										<Link to={`/client/${id}/delete`}>
+											<li className={subpage === 'delete' ? "selected" : null}>Delete client</li>
+										</Link>
 										<Link to={`/client/${id}/chats`}>
 											<li className={subpage === 'chats' ? "selected" : null}>All chats</li>
 										</Link>
@@ -92,9 +94,10 @@ const Clients = () => {
 										<Link to={`/client/${id}/invoices`}>
 											<li className={subpage === 'invoices' ? "selected" : null}>Invoices</li>
 										</Link>
-										<Link to={`/client/${id}/whyDidYouClickedHere`}>
+
+										{/*<Link to={`/client/${id}/whyDidYouClickedHere`}>
 											<li className={subpage === 'whyDidYouClickedHere' ? "selected" : null}>Don't know</li>
-										</Link>
+										</Link>*/}
 									</ul>
 								</nav>
 								<div className="sub-page">
@@ -105,7 +108,9 @@ const Clients = () => {
 											reload={reload}
 											setReload={setReload}
 										/>
-										: subpage === 'chats' 
+										: subpage === 'delete'
+										? <Delete />
+										: subpage === 'chats'
 										? <AllChats />
 										: subpage === 'projects'
 										? <AllProjects />
@@ -165,7 +170,7 @@ const Clients = () => {
 			</> : null
 		}
 		{
-			displayWidget || id == undefined ? 
+			displayWidget === "allClients"  ?
 			<>
 				<div 
 					id="insideWidget"
@@ -174,6 +179,17 @@ const Clients = () => {
 					style={{cursor: typeof id === "undefined" ? "default" : "cursor"}}
 				>
 					<ResearchClient setDisplayWidget={setDisplayWidget}/>
+
+				</div>
+			</> :	displayWidget === "newClient"  ?
+			<>
+				<div
+					id="insideWidget"
+					className="grid-center"
+					onClick={closeNewClientAndDisplayWidget}
+					style={{cursor: typeof id === "undefined" ? "default" : "cursor"}}
+				>
+					<NewClient displayWidget={displayWidget} setDisplayWidget={setDisplayWidget} />
 				</div>
 			</> : null
 		}

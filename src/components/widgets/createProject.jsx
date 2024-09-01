@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 
+import { useToast } from '../../hooks/useToast';
 import { Link } from 'react-router-dom';
 
 import InputCheckbox from '../assets/inputCheckbox';
 import InputRadio from '../assets/inputRadio';
 import InputSlider from '../assets/inputSlider';
+import {newProject} from "../../requests/projects/newProject";
+import {getClients} from "../../requests/widgets/getClients";
 
-const CreateProject = (props) => {
+const CreateProject = ({ setDisplayWidget }) => {
 	const [cost, setCost] = useState(0);
+	const toast = useToast();
+	const onError = (error) => {
+		if (error.title) return toast("warning", "The names fields and email field are required.");
+	}
+	const [clients, setClients] = useState([
+]);
 
-	const [clients, setClients] = useState([{
-		name: "Gaëlle GHIZOLI",
-		mail: "gaëlle.ghizoli@outlook.com",
-		id: 0
-	}, {
-		name: "Maxence ABRILE",
-		mail: "maxenceabrile@icloud.com",
-		id: 1
-	}]);
-
+	useEffect(() => {
+		getClients()
+			.then(res => {
+				res.value.forEach((client) => {
+					clients.push({
+						name: client.firstName+" "+client.lastName,
+						mail: client.mail,
+						id: client.id
+					})
+				})
+				console.log(clients)
+			})
+			.catch(res => toast(res.state, res.value));
+	}, []);
 	const formMethods = useForm();
 	const { 
 		register,
@@ -102,6 +115,11 @@ const CreateProject = (props) => {
 			if (object.name + " - " + object.mail === data.project.identity.clientName) data.project.identity["client_id"] = object.id;
 		})
 		if (data.project.identity["client_id"] === null) return alert("Error !");
+		newProject(data)
+		.then(res => toast(res.state, res.value))
+		.catch(res => toast(res.state, res.value));
+
+			// TO DO: Errors
 
 		console.log(errors)
 	}
@@ -115,7 +133,7 @@ const CreateProject = (props) => {
 		<div id="createProject" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
 			<h2>New project</h2>
 			<FormProvider {...formMethods}>
-				<form className="flex-col scroll-container" onChange={() => calculateCost(getValues())} onSubmit={handleSubmit(onSubmit)}>
+				<form className="flex-col scroll-container" onChange={() => calculateCost(getValues())} onSubmit={handleSubmit(onSubmit,onError)}>
 					<div className="flex-col data-separation">
 						<p><sub>Project identity data</sub></p>
 						<div className="horizontal-line"></div>
@@ -130,14 +148,15 @@ const CreateProject = (props) => {
 						<input list="clients" type="text" {...register("project.identity.clientName", {required: true})}/>
 						<datalist id="clients">
 						{
+
 							clients.length > 0 ? 
 							clients.map((client) => {
-								return <option value={client.name + " - " + client.mail} key={client.mail}/>
+								return <option value={client.name + " - " + client.mail} key={client.id}/>
 							}) : null
 						}
 						</datalist>
 
-						<button>Add a client</button>
+						<button onClick={()=>window.location="/clients"}>Add a client</button>
 					</div>
 					<div className="flex-row-between date-section">
 						<div className="flex-row">

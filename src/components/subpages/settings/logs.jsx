@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {getClients} from "../../../requests/widgets/getClients";
-import {toast} from "react-toastify";
+
+import { useToast } from '../../../hooks/useToast';
 import {getLogs} from "../../../requests/globals/getLogs";
 
 const Logs = () => {
 	const [logs, setLogs] = useState([]);
+	const toast = useToast();
 	useEffect(() => {
 		getLogs()
 			.then(res => setLogs(res.value))

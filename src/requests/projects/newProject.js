@@ -1,9 +1,9 @@
 import Axios from 'axios';
 
-const putProject = (data, id) => {
+const newProject = (data, id) => {
 	console.log(data.project)
 	return new Promise((resolve, reject) => {
-		Axios.put(`${process.env.REACT_APP_API_ADRESS}/api/project/edit/${id}`, 
+		Axios.post(`${process.env.REACT_APP_API_ADRESS}/api/project/new`,
 		{
 			totalPrice: null,
 			estimatedPrice: data.project.estimatedPrice || null,
@@ -56,4 +56,4 @@ const putProject = (data, id) => {
 	});
 }
 
-export { putProject };
+export { newProject };

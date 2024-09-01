@@ -40,6 +40,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 				values["phone"] = res.value.phone;
 				values["job"] = res.value.job;
 				values["location"] = res.value.location;
+				values["siret"] = res.value.siret;
 			})
 			.catch(res => toast(res.state, res.value));
 		} else { values = data; }
@@ -52,7 +53,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 	const onSubmit = (data) => {
 		if (data == undefined) return toast("error", "Please reload the page, an error occured");
 
-		if (!(data.mail || data.phone)) return toast("warning", "Mail or phone must be field.");
+		if (!(data.mail)) return toast("warning", "Mail must be field.");
 
 		putClient(data, id)
 		.then(res => {
@@ -71,7 +72,8 @@ const EditProfile = ({ data, reload, setReload }) => {
 	return (
 		<>	
 			<div className="scroll-container" style={{height: "100%"}}>
-				<form onSubmit={handleSubmit(onSubmit, onError)} className="flex-col" style={{height: "100%", gap: "30px"}}>
+				<form onSubmit={handleSubmit(onSubmit, onError)} className="flex-col"
+					  style={{height: "100%", gap: "30px"}}>
 					<h2>Edit client profile</h2>
 
 					<div className="flex-row">
@@ -85,7 +87,7 @@ const EditProfile = ({ data, reload, setReload }) => {
 					<div className="flex-row-between">
 						<div className="flex-row">
 							<p className="text-of-input" title="This field is required"><b>Email*: </b></p>
-							<input type="text" {...register("mail")}/>
+							<input type="text" {...register("mail", {required: true})}/>
 						</div>
 						<div className="flex-row">
 							<p className="text-of-input" title="This field is required"><b>Phone*: </b></p>
@@ -95,12 +97,19 @@ const EditProfile = ({ data, reload, setReload }) => {
 					<div className="flex-row-between">
 						<div className="flex-row">
 							<p className="text-of-input" title="This field is required"><b>Job*: </b></p>
-							<input type="text" {...register("job", {required: true})}/>
+							<input type="text" {...register("job", {required: false})}/>
 						</div>
 						<div className="flex-row">
 							<p className="text-of-input" title="This field is required"><b>Location: </b></p>
 							<input type="text" {...register("location")}/>
 						</div>
+					</div>
+					<div className="flex-row-between">
+						<div className="flex-row" style={{width: "47%"}}>
+							<p><b>Siret:</b></p>
+							<input type="text" {...register("client.info.siret")}/>
+						</div>
+
 					</div>
 					<div className="flex-col" style={{height: "100%"}}>
 						<p className="text-of-input"><b>Notes: </b></p>

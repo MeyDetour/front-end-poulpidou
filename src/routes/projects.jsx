@@ -1,62 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
 
-import { Link } from 'react-router-dom';
 
-import ProjectBox from '../components/subpages/projects/projectBox';
-
-import { getAllProjects } from '../requests/projects/getAllProjects';
-
-import { useToast } from '../hooks/useToast';
+import CreateProject from "../components/widgets/createProject";
+import ResearchProject from "../components/widgets/researchProject";
+import {useParams} from "react-router-dom";
 
 const Projects = () => {
-	const toast = useToast();
+     const {id} = useParams();
 
-	const [projects, setProjects] = useState({
-		currents: [],
-		others: []
-	});
+    const [displayWidget, setDisplayWidget] = useState(id === undefined ? "allProjects" : null);
 
-	console.log(projects)
 
-	useEffect(() => {
-		getAllProjects()
-		.then((res) => {
-			setProjects(res.value);
-		})
-		.catch((res) => toast("Error", "Projects couldn't be load."));
-	}, []);
+    return (
+        <>
+            {displayWidget === "allProjects" ? (
+                    <div
+                        id="insideWidget"
+                        className="grid-center"
+                        style={{cursor: typeof id === "undefined" ? "default" : "cursor"}}
+                    >
 
-	return (
-		<div className="scroll-container projects">
-			<h3>Current projects</h3>
-			<div className="flex-row" style={{gap: "20px"}}>
-				{
-					projects.currents.length > 0 &&
-					projects.currents.map((elm) => {
-						return (
-							<Link to={`/project/${elm.id}/specifications`}>
-								<ProjectBox project={elm} />
-							</Link>
-						);
-					})
-				}
-			</div>
-			<div className="horizontal-line" style={{marginBlock: "40px"}}></div>
-			<h3>Ended projects</h3>
-			<div className="flex-row" style={{gap: "20px"}}>
-				{
-					projects.others.length > 0 &&
-					projects.others.map((elm) => {
-						return (
-							<Link to={`/project/${elm.id}/specifications`}>
-								<ProjectBox project={elm} />
-							</Link>
-						);
-					})
-				}
-			</div>
-		</div>
-	);
+                        <ResearchProject setDisplayWidget={setDisplayWidget} />
+                    </div>
+            ) : displayWidget === "newProject" ?
+                <div
+                    id="insideWidget"
+                    className="grid-center"
+                    onClick={() => setDisplayWidget("allProjects")}
+                    style={{cursor: typeof id === "undefined" ? "default" : "cursor"}}
+                >
+                    <CreateProject setDisplayWidget={setDisplayWidget}/>
+                </div> :null
+                }
+        </>
+    );
 }
 
 export default Projects;

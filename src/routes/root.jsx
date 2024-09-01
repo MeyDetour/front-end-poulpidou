@@ -48,7 +48,7 @@ const Root = () => {
 		<>
 			<Navbar />
 			{/*<React.Suspense fallack={<div id="content">Loading...</div>}>*/}
-				<div id="content" className={"flex-col " + (location.pathname.startsWith("/client") ? "clientsContent" : null)}>
+				<div id="content" className={"flex-col " + (location.pathname.startsWith("/client") || location.pathname.startsWith("/project") ? "clientsContent" : null)}>
 					<Outlet />
 				</div>
 			{/*</React.Suspense>*/}

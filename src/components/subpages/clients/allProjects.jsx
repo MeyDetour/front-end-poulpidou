@@ -36,7 +36,7 @@ const AllProjects = () => {
 					{
 						projects.length !== 0 ?
 						projects.map((project) => {
-							const percentage = project.totalTasks === 0 ? 100 : Math.round(project.doneTasks / project.totalTasks * 100, 2);
+							const percentage = project.totalTasks === 0 ? 0 : Math.round(project.doneTasks / project.totalTasks * 100, 2);
 
 							return (
 								<Link to={`/project/${project.id}/specifications`}>
