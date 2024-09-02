@@ -12,6 +12,7 @@ const InputDropFile = () => {
 		setAreFilesUpploaded(true);
 		setFileName(acceptedFiles[0].name);
 		setValue("file", acceptedFiles);
+
 	}, []);
 
 	useEffect(() => {

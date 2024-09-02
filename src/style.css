@@ -643,6 +643,7 @@ div.input-file {
 	background: #ffe5e5;
 	color: #b94949;
 	border-radius: 6px;
+	padding: 0px 10px;
 }
 .resetButton:hover{
 	background: #ffdde5;

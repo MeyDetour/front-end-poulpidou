@@ -1,19 +1,13 @@
 import Axios from 'axios';
 
-const postTask = (data, id) => {
+const uploadSpecification = (formData, id) => {
 	console.log()
 	return new Promise((resolve, reject) => {
-		Axios.post(`${process.env.REACT_APP_API_ADRESS}/api/task/new`, 
-		{
-			name: data.title,
-			content: data.content != undefined ? data.content : "",
-			category: data.category != undefined ? data.category : "",
-			project_id: id,
-			dueDate: data.dueDate.split('-').reverse().join('/') || null,
-			status: data.status != undefined ? data.status : "waiting"
-		}, {
+		Axios.post(`${process.env.REACT_APP_API_ADRESS}/api/project/${id}/specifications/upload/pdf`, formData,
+		  {
 			headers: {
-				'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+				'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
+				'Content-Type': 'multipart/form-data'
 			}
 		})
 		.then(res => {
@@ -39,4 +33,4 @@ const postTask = (data, id) => {
 	});
 }
 
-export { postTask };
+export { uploadSpecification };

@@ -36,18 +36,6 @@ const AddSpecifications = () => {
 
 		console.log(formData.get('pdf'))
 
-		Axios.post(`https://192.168.1.135:8000/upload/pdf`, formData, {
-			headers: {
-				'Content-Type': 'multipart/form-data'
-			},
-			// httpsAgent: agent
-		})
-		.then(response => {
-			console.log('File uploaded successfully', response.data);
-		})
-		.catch(error => {
-			console.error('Error uploading file', error);
-		});
 	}
 
 	return (

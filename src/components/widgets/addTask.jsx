@@ -13,7 +13,7 @@ const AddTask = ({ values, setDisplayWidget }) => {
 	const { id } = useParams();
 	const toast = useToast();
 
-	const [isNew, _] = useState(Object.keys(values).length === 0);
+	const [isNew, setIsNew] = useState(Object.keys(values).length === 0);
 
 	const [categories, setCategories] = useState([]);
 
@@ -43,7 +43,8 @@ const AddTask = ({ values, setDisplayWidget }) => {
 	const onSubmit = (data) => {
 		data["id"] = values.id;
 		if (isNew) {
-			return postTask(data, id)
+
+		return	postTask(data,id)
 			.then(res => {
 				toast("OK", "The operation was successful.");
 				setDisplayWidget(false);
@@ -111,7 +112,7 @@ const AddTask = ({ values, setDisplayWidget }) => {
 				</div>
 				<div className="flex-row">
 					<p className="text-of-input"><b>Due date: </b></p>
-					<input type="date" {...register("dueDate", {valueAsDate: true})} />
+					<input type="date" {...register("dueDate")} />
 				</div>
 				<div className="flex-col">
 					<p className="text-of-input"><b>State: </b></p>

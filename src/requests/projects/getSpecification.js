@@ -1,28 +1,25 @@
 import Axios from 'axios';
 
-const postTask = (data, id) => {
-	console.log()
+const getSpecification = (id) => {
 	return new Promise((resolve, reject) => {
-		Axios.post(`${process.env.REACT_APP_API_ADRESS}/api/task/new`, 
-		{
-			name: data.title,
-			content: data.content != undefined ? data.content : "",
-			category: data.category != undefined ? data.category : "",
-			project_id: id,
-			dueDate: data.dueDate.split('-').reverse().join('/') || null,
-			status: data.status != undefined ? data.status : "waiting"
-		}, {
+		Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/get/${id}/specifications`, {
 			headers: {
 				'Authorization': 'Bearer ' + sessionStorage.getItem("token")
-			}
+			},
+
 		})
-		.then(res => {
-			return resolve({state: "OK", value: res.data.value})
+		.then((res) => {
+			resolve({state: "OK", value: res.data.value});
 		})
 		.catch(error => {
 			if (error.response) {
-				
-			}
+				if (error.response.status === 404) {
+					return reject({
+						state: "error", 
+						value: "The project couldn't be found."
+					});
+				}
+			} 
 			if (error.request) {
 				// No API response
 				return reject({
@@ -39,4 +36,4 @@ const postTask = (data, id) => {
 	});
 }
 
-export { postTask };
+export { getSpecification };
