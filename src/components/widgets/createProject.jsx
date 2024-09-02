@@ -119,7 +119,9 @@ const CreateProject = ({ setDisplayWidget }) => {
 		if (data.project.identity["client_id"] === null) return alert("Error !");
 		
 		newProject(data)
-		.then(res => toast(res.state, res.value))
+		.then(res =>{ toast(res.state, res.value)
+		setDisplayWidget("allProjects")}
+		)
 		.catch(res => toast(res.state, res.value));
 
 			// TO DO: Errors
@@ -225,7 +227,6 @@ const CreateProject = ({ setDisplayWidget }) => {
 												id={"project.composition.database." + value}
 												name="project.composition.database"
 												value={value}
-												options={{required: true}}
 											/>
 											<label htmlFor={"project.composition.database." + value}>
 												{value ? "Yes" : "No"}
@@ -245,7 +246,6 @@ const CreateProject = ({ setDisplayWidget }) => {
 												id={"project.composition.maquette." + value}
 												name="project.composition.maquette"
 												value={value}
-												options={{required: true}}
 											/>
 											<label htmlFor={"project.composition.maquette." + value}>
 												{value ? "Yes" : "No"}
@@ -265,7 +265,6 @@ const CreateProject = ({ setDisplayWidget }) => {
 												id={"project.composition.maintenance." + value}
 												name="project.composition.maintenance"
 												value={value}
-												options={{required: true}}
 											/>
 											<label htmlFor={"project.composition.maintenance." + value}>
 												{value ? "Yes" : "No"}

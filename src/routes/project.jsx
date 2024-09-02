@@ -165,7 +165,7 @@ const Project = () => {
 				</div>
 
 				<div className="project__content">
-					<nav className="flex-row-between">
+					<nav className="flex-row">
 						<ul className="flex-row-between sub-nav">
 							<Link to={`/project/${id}/specifications`}>
 								<li className={subpage === 'specifications' ? "selected" : null}>Technical specifications</li>

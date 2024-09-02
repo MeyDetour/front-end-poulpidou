@@ -7,7 +7,7 @@ const newProject = (data, id) => {
 		{
 			totalPrice: null,
 			estimatedPrice: data.project.estimatedPrice || null,
-			maintenancePercentage: data.project.composition.maintenanceRange || null,
+			maintenancePercentage: parseInt(data.project.composition.maintenanceRange) || null,
 			identity: {
 				name: data.project.identity.name || null,
 				note: data.project.note || null,

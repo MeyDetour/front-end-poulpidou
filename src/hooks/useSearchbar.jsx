@@ -6,6 +6,7 @@ const useSearchbar = () => {
 		const keywordsList = [...new Set(keywords.split(' '))];
 
 		dicts.forEach(dict => {
+
 			const isValueAccepted = keys.some(key => {
 				const deepKeys = key.split('.');
 				const regex = new RegExp(keywordsList.join('|'), flags);
