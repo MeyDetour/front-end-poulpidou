@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const postTask = (data, id) => {
-	console.log()
+	console.log(data)
 	return new Promise((resolve, reject) => {
 		Axios.post(`${process.env.REACT_APP_API_ADRESS}/api/task/new`, 
 		{
@@ -9,7 +9,7 @@ const postTask = (data, id) => {
 			content: data.content != undefined ? data.content : "",
 			category: data.category != undefined ? data.category : "",
 			project_id: id,
-			dueDate: data.dueDate.split('-').reverse().join('/') || null,
+			dueDate: data.dueDate ? data.dueDate.split('-').reverse().join('/') : "",
 			status: data.status != undefined ? data.status : "waiting"
 		}, {
 			headers: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -31,26 +31,24 @@ const AddTask = ({ values, setDisplayWidget }) => {
 	} = methods;
 
 	useEffect(() => {
-		console.log("VALUES", values.list)
 		setValue("title", values.title);
 		setValue("category", values.category);
 		setValue("content", values.content);
 		setValue("dueDate", values.dueDate);
-        console.log("VALUES", values.list)
 		values.list != undefined && setValue("status", values.list);
 	}, []);
 
 	const onSubmit = (data) => {
 		data["id"] = values.id;
 		if (isNew) {
-
-		return	postTask(data,id)
+			return postTask(data,id)
 			.then(res => {
 				toast("OK", "The operation was successful.");
 				setDisplayWidget(false);
 			})
 			.catch(res => toast(res.state, res.value));
 		}
+		console.log("MODIFY")
 		putTask(data, id)
 		.then(res => {
 			toast("OK", "The operation was successful.");
@@ -60,6 +58,7 @@ const AddTask = ({ values, setDisplayWidget }) => {
 	}
 
 	const onError = (error) => {
+		console.log(error)
 		if (error.title) return toast("warning", "The title field is required.");
 	}
 
@@ -73,6 +72,14 @@ const AddTask = ({ values, setDisplayWidget }) => {
 		})
 		.catch(res => toast(res.state, res.value));
 	}
+
+	const input = useRef(null);
+
+	useEffect(() => {
+		if (!input.current) return;
+
+		input.current.focus();
+	}, [input]);
 
 	return (
 		<div id="addTask" className="widget" onClick={(e) => e.stopPropagation()}>
@@ -92,7 +99,11 @@ const AddTask = ({ values, setDisplayWidget }) => {
 
 				<div className="flex-row">
 					<p className="text-of-input" title="This field is required"><b>Title*: </b></p>
-					<input type="text" {...register("title", {required: true})}/>
+					<input 
+						type="text"
+						{...register("title", {required: true})}
+						autoFocus
+					/>
 				</div>
 				<div className="flex-row">
 					<p className="text-of-input" title="This field is required"><b>Category: </b></p>

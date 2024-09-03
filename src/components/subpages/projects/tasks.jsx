@@ -71,109 +71,122 @@ const Tasks = ({ displayWidget, setDisplayWidget }) => {
 
 	return (
 		<>
-			<div className="flex-row-between tasks">
-				<div className="flex-col tasks__waiting">
-					<div>
-						<h3>Waiting</h3>
-						<div className="horizontal-line"></div>
+			<div className="flex-col" style={{height: "100%"}}>
+				<div className="flex-row-between tasks">
+					<div className="flex-col tasks__waiting">
+						<div>
+							<h3>Waiting</h3>
+							<div className="horizontal-line"></div>
+						</div>
+						<Reorder.Group
+							axis="y" 
+							onReorder={(e) => {
+								setTasksWaiting(e);
+								modifiedList.current = "waiting"
+							}}
+							values={tasksWaiting} 
+							ref={waiting_ref}
+							style={{height: "100%", overflowY: "auto"}} 
+							layoutScroll
+						>
+							{
+								tasksWaiting.length !== 0 &&
+								tasksWaiting.map((task, index) => (
+									<Task 
+										key={task.id}
+										item={task}
+										container={waiting_ref}
+										setValues={setValues}
+										setDisplayWidget={setDisplayWidget}
+										list={"waiting"}
+										setDraggedTask={setDraggedTask}
+										isDragging={isDragging}
+										setIsDragging={setIsDragging}
+									/>
+								))
+							}
+						</Reorder.Group>
 					</div>
-					<Reorder.Group
-						axis="y" 
-						onReorder={(e) => {
-							setTasksWaiting(e);
-							modifiedList.current = "waiting"
-						}}
-						values={tasksWaiting} 
-						ref={waiting_ref}
-						style={{height: "100%", overflowY: "auto"}} 
-						layoutScroll
-					>
-						{
-							tasksWaiting.length !== 0 &&
-							tasksWaiting.map((task, index) => (
-								<Task 
-									key={task.id}
-									item={task}
-									container={waiting_ref}
-									setValues={setValues}
-									setDisplayWidget={setDisplayWidget}
-									list={"waiting"}
-									setDraggedTask={setDraggedTask}
-									isDragging={isDragging}
-									setIsDragging={setIsDragging}
-								/>
-							))
-						}
-					</Reorder.Group>
-				</div>
-				<div className="flex-col tasks__in-progress">
-					<div>
-						<h3>In progress</h3>
-						<div className="horizontal-line"></div>
+					<div className="flex-col tasks__in-progress">
+						<div>
+							<h3>In progress</h3>
+							<div className="horizontal-line"></div>
+						</div>
+						<Reorder.Group
+							axis="y" 
+							onReorder={(e) => {
+								setTasksProgress(e);
+								modifiedList.current = "progress"
+							}}
+							values={tasksProgress} 
+							ref={waiting_ref}
+							style={{height: "100%", overflowY: "auto"}} 
+							layoutScroll
+						>
+							{
+								tasksProgress.length !== 0 &&
+								tasksProgress.map((task, index) => (
+									<Task 
+										key={task.id}
+										item={task}
+										container={waiting_ref}
+										setValues={setValues}
+										setDisplayWidget={setDisplayWidget}
+										list={"progress"}
+										setDraggedTask={setDraggedTask}
+										isDragging={isDragging}
+										setIsDragging={setIsDragging}
+									/>
+								))
+							}
+						</Reorder.Group>
 					</div>
-					<Reorder.Group
-						axis="y" 
-						onReorder={(e) => {
-							setTasksProgress(e);
-							modifiedList.current = "progress"
-						}}
-						values={tasksProgress} 
-						ref={waiting_ref}
-						style={{height: "100%", overflowY: "auto"}} 
-						layoutScroll
-					>
-						{
-							tasksProgress.length !== 0 &&
-							tasksProgress.map((task, index) => (
-								<Task 
-									key={task.id}
-									item={task}
-									container={waiting_ref}
-									setValues={setValues}
-									setDisplayWidget={setDisplayWidget}
-									list={"progress"}
-									setDraggedTask={setDraggedTask}
-									isDragging={isDragging}
-									setIsDragging={setIsDragging}
-								/>
-							))
-						}
-					</Reorder.Group>
-				</div>
-				<div className="flex-col tasks__done">
-					<div>
-						<h3>Done</h3>
-						<div className="horizontal-line"></div>
+					<div className="flex-col tasks__done">
+						<div>
+							<h3>Done</h3>
+							<div className="horizontal-line"></div>
+						</div>
+						<Reorder.Group
+							axis="y" 
+							onReorder={(e) => {
+								setTasksDone(e);
+								modifiedList.current = "done"
+							}}
+							values={tasksDone} 
+							ref={waiting_ref}
+							style={{height: "100%", overflowY: "auto"}} 
+							layoutScroll
+						>
+							{
+								tasksDone.length !== 0 &&
+								tasksDone.map((task, index) => (
+									<Task 
+										key={task.id}
+										item={task}
+										container={waiting_ref}
+										setValues={setValues}
+										setDisplayWidget={setDisplayWidget}
+										list={"done"}
+										setDraggedTask={setDraggedTask}
+										isDragging={isDragging}
+										setIsDragging={setIsDragging}
+									/>
+								))
+							}
+						</Reorder.Group>
 					</div>
-					<Reorder.Group
-						axis="y" 
-						onReorder={(e) => {
-							setTasksDone(e);
-							modifiedList.current = "done"
-						}}
-						values={tasksDone} 
-						ref={waiting_ref}
-						style={{height: "100%", overflowY: "auto"}} 
-						layoutScroll
-					>
-						{
-							tasksDone.length !== 0 &&
-							tasksDone.map((task, index) => (
-								<Task 
-									key={task.id}
-									item={task}
-									container={waiting_ref}
-									setValues={setValues}
-									setDisplayWidget={setDisplayWidget}
-									list={"done"}
-									setDraggedTask={setDraggedTask}
-									isDragging={isDragging}
-									setIsDragging={setIsDragging}
-								/>
-							))
-						}
-					</Reorder.Group>
 				</div>
+
+				<button 
+					onClick={(e) => setDisplayWidget(true)}
+					style={{
+						margin: "auto 20px",
+						backgroundColor: "var(--blue)",
+						color: "white",
+						border: "none"
+					}}
+				>+ New task</button>
+						
 			</div>
 
 			{

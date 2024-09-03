@@ -41,7 +41,7 @@ const Configuration = () => {
 		if (data == undefined) return toast("error", "Please reload the page, an error occured");
 
 		putSettings(data)
-		.then(res => toast(res.state, res.value))
+		.then(res => toast(res.state, "The operation was successfully."))
 		.catch(res => toast(res.state, res.value));
 	}
 
@@ -120,7 +120,7 @@ const Configuration = () => {
 			</div>
 			<div style={{width: "48%"}}>
 				<FormProvider {...formMethods}>
-					<form className="flex-col-between" style={{height: "100%"}} onSubmit={handleSubmit(onSubmit)}>
+					<form className="flex-col-between" style={{height: "100%"}} onSubmit={handleSubmit(onSubmit, console.log)}>
 						<div className="flex-col">
 							<div className="conditions-of-payement-form">
 								<div className="conditions-of-payement-form__header">

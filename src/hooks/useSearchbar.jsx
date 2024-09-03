@@ -22,7 +22,7 @@ const useSearchbar = () => {
 
 					return cell?.search(regex) !== -1
 				} catch(e) {
-					console.log(`The keys path you gave for the searchbar is uncorrect: ${keysStr.slice(0, -1)}.`);
+					return `The keys path you gave for the searchbar is uncorrect: ${keysStr.slice(0, -1)}.`
 				}
 			});
 

@@ -183,10 +183,6 @@ const Project = () => {
 								<li className={subpage === 'delete' ? "selected" : null}>Delete project</li>
 							</Link>
 						</ul>
-
-						{
-							subpage === 'tasks' ? <button onClick={(e) => setDisplayWidget(true)} style={{margin: "auto 20px"}}>+ New task</button> : null
-						}
 					</nav>
 					<div className="scroll-container">
 					{

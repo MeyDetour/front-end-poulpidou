@@ -56,7 +56,7 @@ const ResearchClient = ({ setDisplayWidget  }) => {
 						/>
 
 					</div>
-					<button onClick={()=>{setDisplayWidget("newClient")}
+					<button style={{margin: "auto 0 auto 10px", boxSizing: "content-box"}} onClick={()=>{setDisplayWidget("newClient")}
 					}>New client</button>
 				</div>
 

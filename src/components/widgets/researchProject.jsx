@@ -12,7 +12,10 @@ const ResearchClient = ({ setDisplayWidget }) => {
 		currents: [], // Notez l'utilisation de "currents" et "others"
 		others: []
 	});
-	const [clientsDisplay, setClientsDisplay] = useState([]);
+	const [projectsDisplay, setProjectsDisplay] = useState({
+		currents: [], // Notez l'utilisation de "currents" et "others"
+		others: []
+	});
 
 	const searchAmong = useSearchbar();
 	const scrollBar = useRef(null);
@@ -20,16 +23,18 @@ const ResearchClient = ({ setDisplayWidget }) => {
 
 	useEffect(() => {
 		getAllProjects()
-			.then((res) => {
-				console.log(res)
-				setProjects(res.value);
-			})
-			.catch(() => toast("Error", "Projects couldn't be loaded."));
+		.then((res) => {
+			setProjects(res.value);
+			setProjectsDisplay(res.value);
+		})
+		.catch(() => toast("Error", "Projects couldn't be loaded."));
 	}, []);
 
 	useEffect(() => {
-		const research = searchAmong([...projects.currents, ...projects.others], ["name"], search, "i");
-		setClientsDisplay([...new Set(research)]);
+		setProjectsDisplay({
+			currents: searchAmong(projects.currents, ["name"], search, "i"),
+			others: searchAmong(projects.others, ["name"], search, "i"),
+		});
 	}, [search]);
 
 	useEffect(() => {
@@ -50,7 +55,7 @@ const ResearchClient = ({ setDisplayWidget }) => {
 							onChange={(e) => setSearch(e.target.value)}
 						/>
 					</div>
-					<button onClick={() => setDisplayWidget("newProject")}>New Project</button>
+					<button style={{margin: "auto 0 auto 10px", boxSizing: "content-box"}} onClick={() => setDisplayWidget("newProject")}>New Project</button>
 				</div>
 
 				<div className="research__result">
@@ -61,8 +66,8 @@ const ResearchClient = ({ setDisplayWidget }) => {
 								<div className="flex-col sub-container">
 									<h3>Current projects</h3>
 									{
-										projects.currents.length > 0 ? (
-											projects.currents.map((project) => {
+										projectsDisplay.currents.length > 0 ? (
+											projectsDisplay.currents.map((project) => {
 												const percentage = project.totalTasks === 0 ? 0 : Math.round((project.doneTasks / project.totalTasks) * 100);
 
 												return (
@@ -115,8 +120,8 @@ const ResearchClient = ({ setDisplayWidget }) => {
 
 									<h3>Ended projects</h3>
 									{
-										projects.others.length > 0 ? (
-											projects.others.map((project) => {
+										projectsDisplay.others.length > 0 ? (
+											projectsDisplay.others.map((project) => {
 												const percentage = project.totalTasks === 0 ? 0 : Math.round((project.doneTasks / project.totalTasks) * 100);
 
 												return (

@@ -51,7 +51,7 @@ const ResearchClientChat = ({ setDisplayWidget }) => {
 	return (
 		<>
 			<div id="researchClient" className="flex-col widget" onClick={(event) => event.stopPropagation()}>
-				<div className="research__searchbar">
+				<div className="research__searchbar" style={{width: "calc(100% - 10px)"}}>
 					<input
 						type="search"
 						value={search}

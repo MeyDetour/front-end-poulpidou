@@ -29,7 +29,6 @@ const CreateProject = ({ setDisplayWidget }) => {
 					id: client.id
 				})
 			})
-			console.log(newClientsList)
 			setClients(newClientsList)
 		})
 		.catch(res => toast(res.state, res.value));
@@ -111,22 +110,19 @@ const CreateProject = ({ setDisplayWidget }) => {
 	}
 
 	const onSubmit = (data) => {
-		console.log(data)
 		data.project.identity["client_id"] = null; 
 		clients.forEach(object => {
 			if (object.name + " - " + object.mail === data.project.identity.clientName) data.project.identity["client_id"] = object.id;
 		})
+		
 		if (data.project.identity["client_id"] === null) return alert("Error !");
 		
 		newProject(data)
-		.then(res =>{ toast(res.state, res.value)
-		setDisplayWidget("allProjects")}
-		)
+		.then(res => {
+			toast(res.state, res.value)
+			setDisplayWidget("allProjects")
+		})
 		.catch(res => toast(res.state, res.value));
-
-			// TO DO: Errors
-
-		console.log(errors)
 	}
 
 	// For price estimation
