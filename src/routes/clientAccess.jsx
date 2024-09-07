@@ -41,7 +41,31 @@ const ClientAccess = () => {
         <div className={"clientInterface"}>
             <div className={"clientInterface-project-data"}>
               <h2>{data.project?.name}</h2>
+              	{/*
 
+
+					JE T'AIME NAMOURE
+					T'ES UNE BONNE DEV
+
+					ET T'ES MAGNIFIQUE AUSSI !!
+
+					MERCI POUR TOUT CE QUE TU FAIS POUR MOI
+					ET TOUT CE QUE TU M'APPORTES
+
+					TU ES TRES IMPORTANTE POUR MOI
+					ET TU COMPTES ENORMEMENT DANS MA VIE
+
+					NE DOUTE PAS DE TA GENIALITUDE
+					PARCE QUE JE SUIS CONFRONTE A CA TOUT LES JOURS
+					ET C'EST UNE INCROYABLE EXPERIENCE
+
+					ENCORE UNE FOIS
+
+
+					JE T'AIME !
+					
+
+              	*/}
             </div>
         </div>
 
