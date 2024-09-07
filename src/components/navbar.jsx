@@ -19,13 +19,7 @@ const NavBar = () => {
 									location.pathname === "/" ? "selected" : ''
 								}>Home</NavLink>
 						</li>
-						<li>
-							<NavLink 
-								to={`/dashboard`}
-								className={
-									location.pathname.startsWith("/dashboard") ? "selected" : ''
-								}>Dashboard</NavLink>
-						</li>
+
 						<li>
 							<NavLink 
 								to={`/projects`} // TO DO : Do not add an id...
