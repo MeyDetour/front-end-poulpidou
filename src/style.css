@@ -37,7 +37,7 @@
 
 	--text-black: #131313;
 
-	--transparent-white: rgba(250, 250, 205, .1); /* Only for Poulpidou title */
+	--transparent-white: 	rgb(255 255 255 / 19%);; /* Only for Poulpidou title */
 
 
 	/* Texts size */
