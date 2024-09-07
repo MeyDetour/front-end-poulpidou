@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
-
 import {useParams, Link} from 'react-router-dom';
 
 import {useToast} from '../hooks/useToast';
 
-import {getClient} from '../requests/clients/getClient';
 
-import '../css/clients.css';
+import '../css/clientInterface.css';
 
 import EditProfile from '../components/subpages/clients/editProfile';
 import AllChats from '../components/subpages/clients/allChats';
@@ -25,12 +23,12 @@ const ClientAccess = () => {
 
     const toast = useToast();
 
-    const [project, setProject] = useState({});
+    const [data, setData] = useState({});
 
     useEffect(() => {
         getClientInterface(uuid)
             .then(res => {
-                setProject(res.value);
+                setData(res.value);
                 console.log(res.value)
             })
             .catch(res => toast(res.state, res.value));
@@ -42,6 +40,7 @@ const ClientAccess = () => {
     <>
         <div className={"clientInterface"}>
             <div className={"clientInterface-project-data"}>
+              <h2>{data.project?.name}</h2>
 
             </div>
         </div>

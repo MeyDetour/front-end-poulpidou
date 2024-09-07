@@ -265,6 +265,10 @@ kbd {
 	text-align: center;
 	line-height: 20px;
 }
+
+.noBackground{
+	background: var(--white) !important;
+}
 /* --- Basic tags --- */
 
 /* Inputs styles */
