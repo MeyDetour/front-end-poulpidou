@@ -13,6 +13,9 @@ import './components/widgets/widgets.css';
 import Root from './routes/root';
 import ErrorPage from './ErrorPage';
 
+import LogIn from './routes/logIn';
+import LogUp from './routes/logUp';
+
 import HomePage from './routes/homePage';
 import Project from './routes/project';
 import Projects from './routes/projects';
@@ -20,9 +23,6 @@ import Chats from './routes/chats';
 import Settings from './routes/settings';
 import Clients from './routes/clients';
 import Credits from "./routes/credits";
-
-import { connectUser } from './requests/connectUser';
-connectUser()
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -66,6 +66,12 @@ const router = createBrowserRouter([
 		path: "/settings/:subpage",
 		element: <Settings />,
 	}],
+}, {
+	path: "/login",
+	element: <LogIn />,
+}, {
+	path: "/logup",
+	element: <LogUp />,
 }, {
 	path: "*",
 	element: <ErrorPage />,

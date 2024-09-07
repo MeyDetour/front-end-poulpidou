@@ -32,4 +32,4 @@ const useKeyBindings = (defaultValue, keysList, sticky = false) => {
 	return sticky ? [key, resetKey] : key;
 }
 
-export default useKeyBindings;
+export { useKeyBindings };

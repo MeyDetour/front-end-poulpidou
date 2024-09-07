@@ -289,6 +289,7 @@ img[src="pictures/icons/trash.svg"]:active {
 	background-color: rgba(0, 0, 0, .15);
 }
 input[type="text"],
+input[type="password"],
 input[type="mail"], 
 input[type="search"], 
 input[type="time"], 
@@ -649,6 +650,54 @@ div.input-file {
 	background: #ffdde5;
 }
 /* --- Button --- */
+
+/* LogIn page */
+.log-in, .log-up {
+	align-items: center;
+}
+.log-in label, .log-up label {
+	color: var(--black);
+	text-align: center;
+
+	font-size: 20px;
+	font-weight: bold;
+}
+.log-in .form-side input:not([type="submit"]), 
+.log-up .form-side input:not([type="submit"]) {
+	width: 20vw;
+	margin-top: 5px;
+}
+.log-in .form-side, .log-up .form-side {
+	width: 35%;
+	height: fit-content;
+
+	gap: 50px;
+
+	align-items: center;
+}
+.log-in .hello-side, .log-up .hello-side {
+	width: 65%;
+}
+.log-in .hello-side > div, .log-up .hello-side > div {
+	width: calc(100% - 2vw);
+	height: calc(100vh - 2vw);
+	margin: calc(1vw);
+
+	background-color: var(--white);
+
+	border-radius: 50px;
+}
+.log-in .hello-side h3, .log-up .hello-side h3 {
+	color: var(--blue);
+	font-size: 50px;
+	text-align: center;
+}
+.log-in .hello-side p, .log-up .hello-side p {
+	color: var(--blue);
+	text-align: center;
+}
+.log-in .hello-side a, .log-up .hello-side a { color: var(--blue); }
+/* --- LogIn page --- */
 
 /* Error page */
 #error-page .img-container {

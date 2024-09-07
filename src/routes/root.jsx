@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios';
 
 // Hooks
-import useKeyBindings from '../hooks/useKeyBindings';
+import { useKeyBindings } from '../hooks/useKeyBindings';
 
 // Components
 import Navbar from '../components/navbar';
@@ -25,10 +25,6 @@ const Root = () => {
 
 	const [keyPressed, resetKeyPressed] = useKeyBindings(null, ['k', 'n'], true);
 	const [widget, setWidget] = useState(null);
-
-	// useEffect(() => {
-	// 	console.log("Keys pressed: Ctrl+" + keyPressed);
-	// }, [keyPressed]);
 
 	useEffect(() => {
 		const handleKeyDown = (e) => {
