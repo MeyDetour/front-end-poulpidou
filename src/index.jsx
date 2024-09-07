@@ -2,10 +2,10 @@ import React from 'react';
 
 import ReactDOM from 'react-dom/client';
 import {
-	createBrowserRouter,
-	RouterProvider
+    createBrowserRouter,
+    RouterProvider
 } from 'react-router-dom';
-import { pdfjs } from 'react-pdf'; 
+import {pdfjs} from 'react-pdf';
 
 import './style.css';
 import './components/widgets/widgets.css';
@@ -23,69 +23,73 @@ import Chats from './routes/chats';
 import Settings from './routes/settings';
 import Clients from './routes/clients';
 import Credits from "./routes/credits";
+import ClientAccess from "./routes/clientAccess";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 // import reportWebVitals from './reportWebVitals';
 const router = createBrowserRouter([
-{
-	path: "/",
-	element: <Root />,
-	errorElement: <ErrorPage />,
-	children: [{
-		path: "/",
-		element: <HomePage />,
-	}, {
-		path: "/home",
-		element: <HomePage />,
-	}, {
-		path: "/projects",
-		element: <Projects />,
-	}, {
-		path: "/project/:id",
-		element: <Project />,
-	}, {
-		path: "/project/:id/:subpage",
-		element: <Project />,
-	}, {
-		path: "/chats/",
-		element: <Chats />,
-	}, {
-		path: "/chat/:id",
-		element: <Chats />,
-	}, {
-		path: "/clients",
-		element: <Clients />,
-	}, {
-		path: "/client/:id",
-		element: <Clients />,
-	}, {
-		path: "/client/:id/:subpage",
-		element: <Clients />,
-	}, {
-		path: "/settings/:subpage",
-		element: <Settings />,
-	}],
-}, {
-	path: "/login",
-	element: <LogIn />,
-}, {
-	path: "/logup",
-	element: <LogUp />,
-}, {
-	path: "*",
-	element: <ErrorPage />,
-}, {
-		path: "/credits",
-		element: <Credits />,
-	}
+    {
+        path: "/",
+        element: <Root/>,
+        errorElement: <ErrorPage/>,
+        children: [{
+            path: "/",
+            element: <HomePage/>,
+        }, {
+            path: "/home",
+            element: <HomePage/>,
+        }, {
+            path: "/projects",
+            element: <Projects/>,
+        }, {
+            path: "/project/:id",
+            element: <Project/>,
+        }, {
+            path: "/project/:id/:subpage",
+            element: <Project/>,
+        }, {
+            path: "/chats/",
+            element: <Chats/>,
+        }, {
+            path: "/chat/:id",
+            element: <Chats/>,
+        }, {
+            path: "/clients",
+            element: <Clients/>,
+        }, {
+            path: "/client/:id",
+            element: <Clients/>,
+        }, {
+            path: "/client/:id/:subpage",
+            element: <Clients/>,
+        }, {
+            path: "/settings/:subpage",
+            element: <Settings/>,
+        }],
+    }, {
+        path: "/login",
+        element: <LogIn/>,
+    }, {
+        path: "/logup",
+        element: <LogUp/>,
+    }, {
+        path: "*",
+        element: <ErrorPage/>,
+    }, {
+        path: "/credits",
+        element: <Credits/>,
+    }, {
+        path: "/client-access/:uuid",
+        element: <ClientAccess/>,
+    }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	// <React.StrictMode>
-		<RouterProvider router={router} />
-	// </React.StrictMode>
+    // <React.StrictMode>
+    <RouterProvider router={router}/>
+    // </React.StrictMode>
 );
 
 // reportWebVitals();
