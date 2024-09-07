@@ -4,12 +4,11 @@ const useSearchbar = () => {
 
 		// Delete all doubles in keywords
 		const keywordsList = [...new Set(keywords.split(' '))];
+		const regex = new RegExp(keywordsList.join('|'), flags);
 
 		dicts.forEach(dict => {
-
 			const isValueAccepted = keys.some(key => {
 				const deepKeys = key.split('.');
-				const regex = new RegExp(keywordsList.join('|'), flags);
 
 				let cell = dict;
 				let keysStr = "";
@@ -17,12 +16,13 @@ const useSearchbar = () => {
 				try {
 					deepKeys.forEach(deepKey => {
 						cell = cell[deepKey];
-						keysStr += deepKey + "."
+						keysStr += deepKey + ".";
 					});
 
-					return cell?.search(regex) !== -1
+					return cell?.search(regex) !== -1;
 				} catch(e) {
-					return `The keys path you gave for the searchbar is uncorrect: ${keysStr.slice(0, -1)}.`
+					console.log(`The keys path you gave for the searchbar is uncorrect: ${keysStr.slice(0, -1)}.`);
+					return false;
 				}
 			});
 
