@@ -359,6 +359,8 @@ button {
 	cursor: pointer;
 
 	transition: .2s;
+
+	cursor: pointer;
 }
 button:hover:not(.Toastify__close-button.Toastify__close-button--light) { background-color: var(--button-hover-grey) }
 
@@ -377,6 +379,7 @@ input[type="submit"] {
 input[type="submit"]:hover { background-color: var(--blue-light-2); }
 input[type="submit"]:active { background-color: var(--blue); }
 
+input[type="reset"] { cursor: pointer; }
 input[type="range"] {
 	-webkit-appearance: none;
 	background-color: var(--input-grey);

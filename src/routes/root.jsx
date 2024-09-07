@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,8 +21,25 @@ import AddSpecifications from '../components/widgets/addSpecifications';
 
 const Root = () => {
 	const location = useLocation();
+	const navigate = useNavigate();
 
-	const token = createRef();
+	// Automatic log out if token doesn't exist
+	useEffect(() => {
+		const events = ['click', 'dblclick', 'mousemove', 'wheel'];
+
+		const handleUserConnection = () => {
+			if (!sessionStorage.getItem("token"))  {
+				return navigate('/login');
+			}
+		}
+
+		events.forEach(event => document.addEventListener(event, handleUserConnection));
+
+		return () => {
+			events.forEach(event => document.removeEventListener(event, handleUserConnection));
+		};
+	});
+
 
 	const [keyPressed, resetKeyPressed] = useKeyBindings(null, ['k', 'n'], true);
 	const [widget, setWidget] = useState(null);

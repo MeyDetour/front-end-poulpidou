@@ -37,8 +37,12 @@ const putProject = (data, id) => {
 			return resolve({state: "OK", value: res.data.value})
 		})
 		.catch(error => {
-			if (error.response) {
-				
+			if (error.response.status === 401) {
+				sessionStorage.removeItem("token");
+				return reject({
+					state: "error", 
+					value: "Your account just expired, please log in to continue your work."
+				})
 			}
 			if (error.request) {
 				// No API response

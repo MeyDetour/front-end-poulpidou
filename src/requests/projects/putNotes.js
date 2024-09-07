@@ -15,8 +15,12 @@ const putNotes = (data, id) => {
 			return resolve({state: "OK", value: "Notes were successfuly saved."})
 		})
 		.catch(error => {
-			if (error.response) {
-				console.log(error)
+			if (error.response.status === 401) {
+				sessionStorage.removeItem("token");
+				return reject({
+					state: "error", 
+					value: "Your account just expired, please log in to continue your work."
+				})
 			}
 			if (error.request) {
 				// No API response

@@ -10,8 +10,12 @@ const getClients = () => {
 		})
 		.then(res => resolve({state: res.state, res.value}))
 		.catch(res => {
-			if (error.response) {
-				// Verify 401
+			if (error.response.status === 401) {
+				sessionStorage.removeItem("token");
+				return reject({
+					state: "error", 
+					value: "Your account just expired, please log in to continue your work."
+				})
 			}
 			if (error.request) {
 				// No API response

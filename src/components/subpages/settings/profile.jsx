@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {getClients} from "../../../requests/widgets/getClients";
 
+import {getClients} from "../../../requests/widgets/getClients";
 import { useToast } from '../../../hooks/useToast';
 import {getLogs} from "../../../requests/globals/getLogs";
 import {getCurrentUser} from "../../../requests/settings/getCurrentUser";
@@ -10,7 +10,9 @@ import {putCurrentUser} from "../../../requests/settings/putCurrentUser";
 
 const Logs = () => {
 	const [reset, setReset] = useState(false);
+
 	const toast = useToast();
+
 	useEffect(() => {
 		getCurrentUser()
 			.then(res => {
@@ -87,8 +89,13 @@ const Logs = () => {
 
 					<div className="flex-row" style={{marginBottom: "20px", gap: "10px"}}>
 						<input type="submit" value="Save changes"/>
-						<input type="reset" className={"resetButton"} onClick={()=>setReset(true)} value="Abort changes"/>
+						<input type="reset" className="resetButton" onClick={()=>setReset(true)} value="Abort changes"/>
 					</div>
+
+					<button type="reset" onClick={(e)=> {
+						e.preventDefault();
+						sessionStorage.removeItem("token");
+					}}>Disconnect</button>
 				</form>
 			</div>
 		</>
