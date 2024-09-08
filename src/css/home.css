@@ -1,0 +1,28 @@
+.hor-radio {
+	width: fit-content;
+	height: 31px;
+
+	border-radius: 5px;
+
+	background-color: var(--input-grey);
+
+	gap: 5px;
+	align-items: center;
+}
+.hor-radio__opt {
+	width: fit-content;
+	height: 22px;
+	padding: 2px 5px;
+
+	border-radius: 4px;
+
+	line-height: 22px;
+	color: var(--text-grey);
+
+	cursor: pointer;
+
+	transition: .2s;
+}
+.hor-radio__opt:first-child { margin-left: 3px; }
+.hor-radio__opt:last-child { margin-right: 3px; }
+.hor-radio__opt.selected { background-color: var(--grey-light-4-hover); }

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import '../css/home.css';
 
 import LineChart from '../components/subpages/home/lineChart';
 
 const HomePage = () => {
+	const [type, setType] = useState();
+	const [time, setTime] = useState();
+
 	return (
 		<>
 			<div className="scroll-container">
@@ -17,14 +21,19 @@ const HomePage = () => {
 				<div className="horizontal-line"></div>
 				<div className="flex-col-between chart-section">
 					<h2>Some stats just for you:</h2>
-					<div className="flex-row" style={{gap: "100px", marginTop: "20px"}}>
-						<select name="" id="">
+					<div className="flex-row" style={{gap: "50px", marginTop: "20px"}}>
+						<select name="" id="" value={type} onChange={e => setType(e.target.value)}>
 							<option value="incomes">Incomes</option>
-							<option value="incomes">Project</option>
-							<option value="incomes">Tasks</option>
+							<option value="project">Project</option>
+							<option value="tasks">Tasks</option>
 						</select>
+						<div className="flex-row hor-radio">
+							<div className={`hor-radio__opt ${time === '10yrs' && 'selected'}`} onClick={() => setTime('10yrs')}>10 yrs</div>
+							<div className={`hor-radio__opt ${time === '1yr' && 'selected'}`} onClick={() => setTime('1yr')}>1 yr</div>
+							<div className={`hor-radio__opt ${time === '1m' && 'selected'}`} onClick={() => setTime('1m')}>1 m</div>
+						</div>
 					</div>
-					<LineChart />
+					<LineChart type={type} time={time} />
 				</div>
 			</div>
 		</>
