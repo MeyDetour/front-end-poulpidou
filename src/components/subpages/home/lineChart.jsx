@@ -42,7 +42,7 @@ const LineChart = ({ type, time }) => {
 				// border: { display: false },
 				grid: {
 					display: false,
-					borderWidth: 3
+					borderWidth: 3,
 				},
 				ticks: { display: false }
 			},
@@ -68,24 +68,29 @@ const LineChart = ({ type, time }) => {
 				{x: 1, y: 8},
 				{x: 2, y: 12}
 			],
-			borderColor: "#ff6384",
-			backgroundColor: "#ffb1c1",
+			borderColor: "#FF6384",
+			backgroundColor: (context) => {
+				const bgColor = [];
+
+				if (!context.chart.chartArea) return;
+				const {
+					ctx,
+					data,
+					chartArea: { top, bottom }
+				} = context.chart;
+
+				const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+				gradient.addColorStop(0, "#FFB1C1");
+				gradient.addColorStop(1, "#FCFCFC");
+				return gradient;
+			},
 			tension: .1,
-			order: 1,
-			z: 1,
-			pointRadius: 5,
-     		pointHoverRadius: 10,
-		}, {
-			data: [
-				{x: 0, y: 0},
-				{x: 1, y: 0},
-				{x: 2, y: 0}
-			],
-			backgroundColor: "#ffb1c110",
 			borderWidth: 1,
-			borderColor: "transparent",
-			fill: 0,
-			radius: 0
+			fill: "start",
+			pointRadius: 5,
+			pointHoverRadius: 10,
+			order: 4,
+			z: 4,
 		}, {
 			label: 'Forecast',
 			data: [
@@ -95,12 +100,28 @@ const LineChart = ({ type, time }) => {
 				{x: 5, y: 9}
 			],
 			borderColor: "#ffcd56",
-			backgroundColor: "#ffe6aa",
+			backgroundColor: (context) => {
+				const bgColor = [];
+
+				if (!context.chart.chartArea) return;
+				const {
+					ctx,
+					data,
+					chartArea: { top, bottom }
+				} = context.chart;
+
+				const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+				gradient.addColorStop(0, "#FFE6AA");
+				gradient.addColorStop(1, "#FCFCFC");
+				return gradient;
+			},
+			borderWidth: 1,
+			fill: "start",
 			tension: .1,
-			order: 2,
-			z: 2,
 			pointRadius: 5,
-    		pointHoverRadius: 10
+			pointHoverRadius: 10,
+			order: 2,
+			z: 2
 		}]
 	};
 
@@ -118,20 +139,20 @@ const LineChart = ({ type, time }) => {
 			ctx.save();
 			ctx.beginPath();
 			ctx.moveTo(x, yScale.top);
-			ctx.lineTo(x, yScale.bottom);
+			ctx.lineTo(x, yScale.bottom - 15);
 			ctx.lineWidth = 4;
-			ctx.strokeStyle = '#FFE9B4';  // Couleur de la ligne
+			ctx.strokeStyle = '#6779A6';  // Couleur de la ligne
 			ctx.lineCap = "round";
 			ctx.setLineDash([5, 15]);
 			ctx.stroke();
 			ctx.restore();
 
 			// Écrire le texte "TODAY" en dessous
-			// ctx.save();
-			// ctx.textAlign = 'center';
-			// ctx.fillStyle = '#ffcd56';
-			// ctx.fillText("TODAY", x, yScale.bottom + 20);  // Position du texte
-			// ctx.restore();
+			ctx.save();
+			ctx.textAlign = 'center';
+			ctx.fillStyle = '#6779A6';
+			ctx.fillText("TODAY", x, yScale.bottom - 3);  // Position du texte
+			ctx.restore();
 		}
 	};
 
