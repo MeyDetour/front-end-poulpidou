@@ -25,8 +25,8 @@ const Chats = (props) => {
 	}
 
 	const [userID, setUserID] = useState(null);
-	const user_firstName = "Maxence";
-	const user_lastName = "ABRILE";
+	const user_firstName = " ";
+	const user_lastName = " ";
 
 	const [chat, setChat] = useState({});
 	const [client, setClient] = useState({});
@@ -37,19 +37,21 @@ const Chats = (props) => {
 		if (input.current === null) return;
 		if (userID === null) return toast("error", "An error occured, please reload the page.");
 
-		setMessages([...messages, {
-			content: input.current.value,
-			datetime: "02/08/2024 16:00",
-			author: {
-				id: userID,
-				firstName: user_firstName,
-				lastName: user_lastName,
-			}
-		}]);
+
 		
 		sendMessage(input.current.value,chat.project_id)
 			.then(res => {
+				console.log(res.value)
 				toast(res.state, "message send")
+				setMessages([...messages, {
+					content: res.value.content,
+					datetime: res.value.datetime,
+					author: {
+						id: res.value.author.id,
+						firstName: res.value.author.firstName,
+						lastName: res.value.author.lastName,
+					}
+				}]);
 			})
 			.catch(res => toast(res.state, res.value));
 

@@ -49,7 +49,9 @@ const Logs = () => {
 		if (data == undefined) return toast("error", "Please reload the page, an error occured");
 
 		putCurrentUser(data)
-			.then(res => toast(res.state, res.value))
+			.then(res => {toast(res.state, res.value)
+			setReset(true)
+			})
 			.catch(res => toast(res.state, res.value));
 	}
 
@@ -62,11 +64,11 @@ const Logs = () => {
 
 					<div className="flex-row">
 						<p className="text-of-input" title="This field is required"><b>First name: </b></p>
-						<input type="text" {...register("lastName", {required: true})}/>
+						<input type="text" {...register("firstName", {required: true})}/>
 					</div>
 					<div className="flex-row">
 						<p className="text-of-input" title="This field is required"><b>Last name: </b></p>
-						<input type="text" {...register("firstName", {required: true})}/>
+						<input type="text" {...register("lastName", {required: true})}/>
 					</div>
 					<div className="flex-row-between">
 
