@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
 const getChart = (type, time) => {
+    console.log(time,type)
     return new Promise((resolve, reject) => {
         Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/statistic`,
             {
@@ -23,7 +24,7 @@ const getChart = (type, time) => {
                         value: "Your account just expired, please log in to continue your work."
                     })
                 }
-                if (error.request) {
+                if (error.request) { console.log(error.response.data)
                     // No API response
                     return reject({
                         state: "error",

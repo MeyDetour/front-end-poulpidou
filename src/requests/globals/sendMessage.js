@@ -23,7 +23,7 @@ const sendMessage = (content, id) => {
 					value: "Your account just expired, please log in to continue your work."
 				})
 			}
-			if (error.request) {
+			if (error.request) { console.log(error.response.data)
 				// No API response
 				return reject({
 					state: "error",

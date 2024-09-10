@@ -2,6 +2,8 @@ import Axios from 'axios';
 
 const newProject = (data, id) => {
 	console.log(data.project)
+	let a = String(data.project.composition.isPaying) || null
+	console.log(typeof a)
 	return new Promise((resolve, reject) => {
 		Axios.post(`${process.env.REACT_APP_API_ADRESS}/api/project/new`,
 		{
@@ -44,7 +46,8 @@ const newProject = (data, id) => {
 					value: "Your account just expired, please log in to continue your work."
 				})
 			}
-			if (error.request) {
+
+			if (error.request) { console.log(error.response.data)
 				// No API response
 				return reject({
 					state: "error",

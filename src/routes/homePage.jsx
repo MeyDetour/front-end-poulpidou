@@ -9,14 +9,16 @@ import {useToast} from "../hooks/useToast";
 const HomePage = () => {
 	const [type, setType] = useState("projects");
 	const [time, setTime] = useState("1m");
+	const [values, setValues] = useState({});
 
 	const toast = useToast();
 	console.log( type)
 	console.log(time)
 	useEffect(() => {
-		getChart()
+		getChart(type,time)
 			.then(res => {
-
+				console.log(res)
+				setValues(res.value)
 			})
 			.catch(res => toast(res.state, res.value));
 	}, [type,time])
@@ -47,7 +49,7 @@ const HomePage = () => {
 							<div className={`hor-radio__opt ${time === '1m' && 'selected'}`} onClick={() => setTime('1m')}>1 m</div>
 						</div>
 					</div>
-					<LineChart type={type} time={time} />
+					<LineChart values={values} />
 				</div>
 			</div>
 		</>

@@ -22,7 +22,7 @@ ChartJS.register(
 	Legend
 );
 
-const LineChart = ({ type, time }) => {
+const LineChart = ({ values }) => {
 
 	const options = {
 		responsive: true,
@@ -58,16 +58,15 @@ const LineChart = ({ type, time }) => {
 		},
 		maintainAspectRatio: false
 	};
-
+	const formattedData = Object.keys(values).map(key => {
+		return { x: parseInt(key), y: values[key] };
+	});
+	console.log(formattedData)
 	const data = {
 		labels: [0, 1, 2, 3, 4, 5],
 		datasets: [{
 			label: 'Past',
-			data: [
-				{x: 0, y: 10},
-				{x: 1, y: 8},
-				{x: 2, y: 12}
-			],
+			data: formattedData,
 			borderColor: "#FF6384",
 			backgroundColor: (context) => {
 				const bgColor = [];

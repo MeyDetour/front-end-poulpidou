@@ -18,7 +18,7 @@ const getClientInterface = (uuid) => {
 					})
 				}
 			}
-			if (error.request) {
+			if (error.request) { console.log(error.response.data)
 				// No API response
 				return reject({
 					state: "error",

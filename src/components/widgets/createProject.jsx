@@ -116,7 +116,7 @@ const CreateProject = ({ setDisplayWidget }) => {
 		})
 		
 		if (data.project.identity["client_id"] === null) return alert("Error !");
-		
+
 		newProject(data)
 		.then(res => {
 			toast(res.state, res.value)
@@ -203,7 +203,6 @@ const CreateProject = ({ setDisplayWidget }) => {
 												id={"project.composition.isPaying." + value}
 												name="project.composition.isPaying"
 												value={value}
-												options={{required: true}}
 											/>
 											<label htmlFor={"project.composition.isPaying." + value}>
 												{value ? "Yes" : "No"}
