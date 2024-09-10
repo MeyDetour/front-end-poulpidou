@@ -1,6 +1,7 @@
 import { Line } from 'react-chartjs-2';
 import { 
 	Chart as ChartJS,
+	Filler,
 	CategoryScale,
 	LinearScale, 
 	PointElement,
@@ -11,6 +12,7 @@ import {
 } from 'chart.js';
 
 ChartJS.register(
+	Filler,
 	CategoryScale,
 	LinearScale, 
 	PointElement,
@@ -35,6 +37,25 @@ const LineChart = ({ type, time }) => {
 			},
 			verticalLine: {}
 		},
+		scales: {
+			x: {
+				// border: { display: false },
+				grid: {
+					display: false,
+					borderWidth: 3
+				},
+				ticks: { display: false }
+			},
+			y: {
+				// border: { display: false },
+				grid: {
+					display: false,
+					borderWidth: 3,
+				},
+				ticks: { display: false }
+			}
+
+		},
 		maintainAspectRatio: false
 	};
 
@@ -51,7 +72,20 @@ const LineChart = ({ type, time }) => {
 			backgroundColor: "#ffb1c1",
 			tension: .1,
 			order: 1,
-			z: 1
+			z: 1,
+			pointRadius: 5,
+     		pointHoverRadius: 10,
+		}, {
+			data: [
+				{x: 0, y: 0},
+				{x: 1, y: 0},
+				{x: 2, y: 0}
+			],
+			backgroundColor: "#ffb1c110",
+			borderWidth: 1,
+			borderColor: "transparent",
+			fill: 0,
+			radius: 0
 		}, {
 			label: 'Forecast',
 			data: [
@@ -64,7 +98,9 @@ const LineChart = ({ type, time }) => {
 			backgroundColor: "#ffe6aa",
 			tension: .1,
 			order: 2,
-			z: 2
+			z: 2,
+			pointRadius: 5,
+    		pointHoverRadius: 10
 		}]
 	};
 
@@ -84,7 +120,9 @@ const LineChart = ({ type, time }) => {
 			ctx.moveTo(x, yScale.top);
 			ctx.lineTo(x, yScale.bottom);
 			ctx.lineWidth = 4;
-			ctx.strokeStyle = '#ffcd56';  // Couleur de la ligne
+			ctx.strokeStyle = '#FFE9B4';  // Couleur de la ligne
+			ctx.lineCap = "round";
+			ctx.setLineDash([5, 15]);
 			ctx.stroke();
 			ctx.restore();
 
@@ -99,7 +137,7 @@ const LineChart = ({ type, time }) => {
 
 
 	return (
-		<div style={{marginTop: "20px", height: "400px"}}>
+		<div style={{marginTop: "20px", height: "300px"}}>
 			<Line
 				options={options}
 				data={data}
