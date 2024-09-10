@@ -6,7 +6,8 @@ import LineChart from '../components/subpages/home/lineChart';
 const HomePage = () => {
 	const [type, setType] = useState();
 	const [time, setTime] = useState();
-
+	console.log( type)
+	console.log(time)
 	return (
 		<>
 			<div className="scroll-container">
@@ -24,7 +25,7 @@ const HomePage = () => {
 					<div className="flex-row" style={{gap: "50px", marginTop: "20px"}}>
 						<select name="" id="" value={type} onChange={e => setType(e.target.value)}>
 							<option value="incomes">Incomes</option>
-							<option value="project">Project</option>
+							<option value="projects">Projects</option>
 							<option value="tasks">Tasks</option>
 						</select>
 						<div className="flex-row hor-radio">
