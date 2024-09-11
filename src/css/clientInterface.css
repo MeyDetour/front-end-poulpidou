@@ -31,6 +31,7 @@
     box-sizing: border-box;
 
 }
+
 .clientInterface-messages {
 
     height: 93%;
@@ -47,12 +48,13 @@
     box-sizing: border-box;
 }
 
-.placeholderOfChat{
+.placeholderOfChat {
     color: #e1dfdf !important;
     font-size: 30px;
     text-align: center;
     margin-top: 29px;
 }
+
 .clientInterface-messages .client-message, .clientInterface-messages .user-message {
     padding: 14px 11px;
     border-radius: 5px;
@@ -74,21 +76,73 @@
 
     margin-bottom: 14px;
 }
+
 .clientInterface-messages .message__head h4 {
     color: #0000009e !important;
 }
-.message_content{
+
+.message_content {
     color: #00000082;
 }
-.message_date{
+
+.message_date {
 
     color: #00000082;
     font-weight: 400;
     font-style: italic;
 }
+
 /* -- End of MESSAGERIE ---- */
 
+/* ---- OPTION DETAILS ---- */
+.clientInterface-project-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
 
+    height: 90%;
+
+    width: 43%;
+
+    border: 2px solid var(--grey-light-3);
+    background: var(--white);
+
+    border-radius: 10px;
+
+    padding: 25px;
+    box-sizing: border-box;
+
+}
+
+.clientInterface-project-options span{
+
+    font-size: 19px;
+    color: var(--grey) !important;
+    font-weight: 300;
+}
+.clientInterface-project-options .oneDetail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48%;
+    height: 45%;
+}
+.clientInterface-project-options .separateur {
+    height: 1px;
+    width: 100%;
+    background: var(--grey-light-3);
+    margin-block: 20px;
+}
+.clientInterface-project-options h4{
+    color: var(--grey);
+    font-size: 25px;
+
+    margin-top: 59px;
+}
+/* ---- END OF OPTION DETAILS ---- */
 .clientInterface-project-data {
 
     color: var(--white);

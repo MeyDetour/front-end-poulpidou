@@ -32,6 +32,37 @@ const ClientAccess = () => {
     const [client, setClient] = useState(null);
     const [data, setData] = useState(null);
 
+    const optionAssociationName = {
+        "mailServer": "Service d'envoi d'email",
+        "phoneServer": "Envoi de message automatique",
+        "payingMethods": "Méthodes de paiement",
+        "account": "Gestion des comptes",
+        "images": "Gestion des images"
+    };
+    const typeAssociationName = {
+        "showcase": "Site vitrine",
+        "eCommerce": "Site e-commerce",
+        "software": "Logiciel",
+        "app": "Application",
+        "forum": "Forum de discussion",
+        "blog": "Blog",
+        "videoGame": "Jeu vidéo",
+        "api": "API (Interface de Programmation)"
+    };
+    const deviceAssociationName = {
+        "mobile": "Smart Phone",
+        "computer": "Ordinateur",
+        "television": "Télévision",
+        "printer": "Impression"
+    };
+    const frameworkAssociationName = {
+        "symfony": "Symfony",
+        "django": "Django",
+        "react": "React",
+        "vue": "Vue.js",
+        "angular": "Angular"
+    };
+
     useEffect(() => {
         getClientInterface(uuid)
             .then(res => {
@@ -58,8 +89,8 @@ const ClientAccess = () => {
     const isLastMessageOwn = useRef(false);
     const addMessage = () => {
         if (input.current === null) return;
-      const content = input.current.value
-        sendMessage( content, uuid)
+        const content = input.current.value
+        sendMessage(content, uuid)
             .then(res => {
                 toast(res.state, "message send")
                 setMessages([...messages, {
@@ -121,8 +152,86 @@ const ClientAccess = () => {
                             <img src="pictures/icons/send-messages-icon.svg" alt="Send" onClick={(e) => addMessage()}/>
                         </div>
                     </div>
-                    <div className={"clientInterface-proj!ect-options"}>
+                    <div className={"clientInterface-project-options"}>
+                        {data.project?.database ||
+                        data.project?.maquette  ||
+                        data.project?.maintenance   ||
+                        data.project?.options.length != 0 ||
+                        data.project?.devices.length != 0 ||
+                        data.project?.type.length != 0 ||
+                        data.project?.framework.length != 0 ? <>
 
+                            {data.project?.type.length != 0 ?
+                                <>
+                                    <div className={"oneDetail"}>
+                                        <h4>Type</h4>
+                                        <div className={"separateur"}></div>
+
+                                        {
+                                            (data.project?.type).map((type, index) => {
+                                                return (<span key={index}>  {typeAssociationName[type]}</span>)
+                                            })
+                                        }
+                                    </div>
+
+                                </>
+                                : null
+                            } {data.project?.database   || data.project?.options.length != 0 || data.project?.maquette || data.project?.maintenance ?
+                            <>
+                                <div className={"oneDetail"}>
+                                    <h4>Options</h4>
+                                    <div className={"separateur"}></div>
+                                    {data.project?.database ?
+                                        <span>Base de donnée</span> : null
+                                    }
+                                    {data.project?.maquette ?
+                                        <span>Prototype & plan du site & design</span> : null
+                                    }
+                                    {data.project?.maintenance ?
+                                        <span>Maintenance</span> : null
+                                    }
+                                    {data.project?.options.length != 0 ?
+                                        (data.project?.options).map((option, index) => {
+                                            return (<span key={index}>  {optionAssociationName[option]}</span>)
+                                        }) : null
+                                    }
+                                </div>
+
+                            </>
+                            : null
+                        }
+                            {data.project?.devices.length != 0 ?
+                                <>
+                                    <div className={"oneDetail"}>
+                                        <h4>Support compatible</h4>
+                                        <div className={"separateur"}></div>
+
+                                        {(data.project?.devices).map((device, index) => {
+                                            return (<span key={index}>  {deviceAssociationName[device]}</span>)
+                                        })
+                                        }
+                                    </div>
+
+                                </>
+                                : null
+                            } {data.project?.framework.length != 0 ?
+                            <>
+                                <div className={"oneDetail"}>
+                                    <h4>Technologie utilisé(s)</h4>
+                                    <div className={"separateur"}></div>
+
+                                    {(data.project?.framework).map((frame, index) => {
+                                        return (<span key={index}>  {frameworkAssociationName[frame]}</span>)
+                                    })
+                                    }
+                                </div>
+
+                            </>
+                            : null
+                        }
+                        </> :
+                        <><p className={"placeholderOfChat"}>Il n'y a aucun detail sur votre projet</p></>
+                        }
                     </div>
 
                     <div className={"clientInterface-project-data"}>
@@ -137,7 +246,7 @@ const ClientAccess = () => {
                         <h2>Le projet</h2>
                         <span>{data.project?.startDate ? "Début : " + data.project?.startDate : "Aucune date de début spécifiée"}</span>
                         <span>{data.project?.endDate ? "Fin : " + data.project?.endDate : "Aucune date de fin spécifiée"}</span>
-                        <span>{data.project?.price ? "Prix total : " + data.project?.price : ""}</span>
+                        <span>{data.project?.price && data.project?.isPaying ? "Prix total : " + data.project?.price : ""}</span>
                         <span>{data.project?.maintenancePercentage && data.project?.price ? "Prix de la maintenance : " + (data.project?.price * data.project?.maintenancePercentage) / 100 + " €/an" : ""}</span>
 
                         <h2>Modalités de paiement</h2>

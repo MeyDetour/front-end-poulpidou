@@ -145,7 +145,7 @@ const EditProject = ({data}) => {
     const onSubmit = (data) => {
         putProject(data, id)
             .then(res => {
-                toast(res.state, res.value)
+                toast(res.state," ")
                 window.location = `/project/${id}/specifications`
             })
             .catch(res => toast(res.state, res.value));
