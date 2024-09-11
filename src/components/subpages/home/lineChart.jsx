@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 import { 
 	Chart as ChartJS,
@@ -23,6 +24,8 @@ ChartJS.register(
 );
 
 const LineChart = ({ values }) => {
+	const [valuesNumber, setValuesNumber] = useState(0);
+	useEffect(() => setValuesNumber(Object.keys(values).length), [values]);
 
 	const options = {
 		responsive: true,
@@ -58,12 +61,14 @@ const LineChart = ({ values }) => {
 		},
 		maintainAspectRatio: false
 	};
+
 	const formattedData = Object.keys(values).map(key => {
-		return { x: parseInt(key), y: values[key] };
+		return { x: parseInt(key - 1), y: values[key] };
 	});
+
 	console.log(formattedData)
 	const data = {
-		labels: [0, 1, 2, 3, 4, 5],
+		labels: [...Array(valuesNumber + 3).keys()],
 		datasets: [{
 			label: 'Past',
 			data: formattedData,
@@ -79,11 +84,11 @@ const LineChart = ({ values }) => {
 				} = context.chart;
 
 				const gradient = ctx.createLinearGradient(0, top, 0, bottom);
-				gradient.addColorStop(0, "#FFB1C1");
-				gradient.addColorStop(1, "#FCFCFC");
+				gradient.addColorStop(0, "rgba(255, 177, 193, 1)");
+				gradient.addColorStop(1, "rgba(255, 177, 193, 0)");
 				return gradient;
 			},
-			tension: .1,
+			tension: .2,
 			borderWidth: 1,
 			fill: "start",
 			pointRadius: 5,
@@ -93,12 +98,12 @@ const LineChart = ({ values }) => {
 		}, {
 			label: 'Forecast',
 			data: [
-				{x: 2, y: 12},
-				{x: 3, y: 5},
-				{x: 4, y: 4},
-				{x: 5, y: 9}
+				{x: valuesNumber - 1, y: 12},
+				{x: valuesNumber - 1 + 1, y: 5},
+				{x: valuesNumber - 1 + 2, y: 4},
+				{x: valuesNumber - 1 + 3, y: 9}
 			],
-			borderColor: "#ffcd56",
+			borderColor: "#FFCD56",
 			backgroundColor: (context) => {
 				const bgColor = [];
 
@@ -110,13 +115,13 @@ const LineChart = ({ values }) => {
 				} = context.chart;
 
 				const gradient = ctx.createLinearGradient(0, top, 0, bottom);
-				gradient.addColorStop(0, "#FFE6AA");
-				gradient.addColorStop(1, "#FCFCFC");
+				gradient.addColorStop(0, "rgba(255, 230, 170, 1)");
+				gradient.addColorStop(1, "rgba(255, 230, 170, 0)");
 				return gradient;
 			},
 			borderWidth: 1,
 			fill: "start",
-			tension: .1,
+			tension: .2,
 			pointRadius: 5,
 			pointHoverRadius: 10,
 			order: 2,
@@ -128,7 +133,7 @@ const LineChart = ({ values }) => {
 		id: 'verticalLine',
 		afterDatasetsDraw: (chart) => {
 			const ctx = chart.ctx;
-			const index = 2;  // Position où la ligne doit être dessinée (basée sur l'index du point)
+			const index = valuesNumber;  // Position où la ligne doit être dessinée (basée sur l'index du point)
 			const xScale = chart.scales.x;
 			const yScale = chart.scales.y;
 			
@@ -154,6 +159,8 @@ const LineChart = ({ values }) => {
 			ctx.restore();
 		}
 	};
+
+	console.log(Object.keys(values).length)
 
 
 	return (
