@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLinearRegression } from '../../../hooks/useLinearRegression';
+
 import { Line } from 'react-chartjs-2';
 import { 
 	Chart as ChartJS,
@@ -66,7 +68,9 @@ const LineChart = ({ values }) => {
 		return { x: parseInt(key - 1), y: values[key] };
 	});
 
-	console.log(formattedData)
+	const linearReg = useLinearRegression();
+	const func = linearReg(formattedData, 'x', 'y');
+
 	const data = {
 		labels: [...Array(valuesNumber + 3).keys()],
 		datasets: [{
@@ -88,7 +92,7 @@ const LineChart = ({ values }) => {
 				gradient.addColorStop(1, "rgba(255, 177, 193, 0)");
 				return gradient;
 			},
-			tension: .2,
+			tension: .4,
 			borderWidth: 1,
 			fill: "start",
 			pointRadius: 5,
@@ -98,10 +102,10 @@ const LineChart = ({ values }) => {
 		}, {
 			label: 'Forecast',
 			data: [
-				{x: valuesNumber - 1, y: 12},
-				{x: valuesNumber - 1 + 1, y: 5},
-				{x: valuesNumber - 1 + 2, y: 4},
-				{x: valuesNumber - 1 + 3, y: 9}
+				formattedData.at(-1),
+				{x: valuesNumber - 1 + 1, y: func(valuesNumber - 1 + 1)},
+				{x: valuesNumber - 1 + 2, y: func(valuesNumber - 1 + 2)},
+				{x: valuesNumber - 1 + 3, y: func(valuesNumber - 1 + 3)}
 			],
 			borderColor: "#FFCD56",
 			backgroundColor: (context) => {
@@ -121,7 +125,7 @@ const LineChart = ({ values }) => {
 			},
 			borderWidth: 1,
 			fill: "start",
-			tension: .2,
+			tension: .4,
 			pointRadius: 5,
 			pointHoverRadius: 10,
 			order: 2,
@@ -159,9 +163,6 @@ const LineChart = ({ values }) => {
 			ctx.restore();
 		}
 	};
-
-	console.log(Object.keys(values).length)
-
 
 	return (
 		<div style={{marginTop: "20px", height: "300px"}}>

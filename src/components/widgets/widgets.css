@@ -236,7 +236,7 @@ h3.widget-title {
 	min-width: fit-content;
 	line-height: 31px;
 }
-#newClient input[type="text"], #newClient input[type="mail"] {
+#newClient input[type="text"], #newClient input[type="email"] {
 	width: calc(100% - 10px);
 	margin-left: 10px;
 }

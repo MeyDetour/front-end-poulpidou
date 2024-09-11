@@ -1,3 +1,22 @@
+.tasks-to-do {
+	width: calc(50% - 20px);
+	min-height: calc(70px * 3 + 10px * 3 + 10px);
+	height: fit-content;
+	max-height: calc(70px * 5 + 10px * 5 + 10px);
+
+	position: relative;
+}
+
+.current-projects {
+	width: calc(50% - 20px);
+	min-height: calc(70px * 3 + 10px * 3 + 10px);
+	height: fit-content;
+	max-height: calc(70px * 5 + 10px * 5 + 10px);
+
+	position: relative;
+}
+.current-projects__content { gap: 10px; }
+
 .hor-radio {
 	width: fit-content;
 	height: 31px;

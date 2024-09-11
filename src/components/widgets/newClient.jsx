@@ -56,7 +56,7 @@ const NewClient = ({setDisplayWidget }) => {
 					<div className="flex-row-between">
 						<div className="flex-row" style={{width: "47%"}}>
 							<p><b>Mail*:</b></p>
-							<input type="mail" {...register("client.contact.mail",{required: true})}/>
+							<input type="email" {...register("client.contact.mail",{required: true})}/>
 						</div>
 						<div className="flex-row" style={{width: "47%"}}>
 							<p><b>Phone:</b></p>
