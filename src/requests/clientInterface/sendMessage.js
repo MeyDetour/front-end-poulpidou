@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const sendMessage = (content, id) => {
-
+	console.log(content,id)
 	return new Promise((resolve, reject) => {
 		Axios.post(`${process.env.REACT_APP_API_ADRESS}/message`,
 		{

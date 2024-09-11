@@ -48,9 +48,6 @@ const ClientAccess = () => {
             .catch(res => toast(res.state, res.value));
 
     }, []);
-    console.log(chat)
-    console.log(client)
-    console.log(messages)
     const association = {
         "CHEQUE": "Chèque",
         "CASH": "Espèce",
@@ -61,13 +58,12 @@ const ClientAccess = () => {
     const isLastMessageOwn = useRef(false);
     const addMessage = () => {
         if (input.current === null) return;
-
-
-        sendMessage(input.current.value, uuid)
+      const content = input.current.value
+        sendMessage( content, uuid)
             .then(res => {
                 toast(res.state, "message send")
                 setMessages([...messages, {
-                    content: input.current.value,
+                    content: content,
                     datetime: "02/08/2024 16:00",
                     author: {
                         id: client.id,
@@ -87,13 +83,14 @@ const ClientAccess = () => {
                 <div className={"clientInterface"}>
 
                     <div className={"clientInterface-messagerie"}>
+
                         <div className=" clientInterface-messages" ref={scrollContainer}>
+
                             {
                                 messages.length > 0 ?
                                     messages.map((message, index) => {
 
                                         const isOwnMessage = message.author.id === client.id;
-                                        const needToDisplayName = isLastMessageOwn.current !== isOwnMessage;
                                         console.log(message, isOwnMessage)
                                         console.log(message.author)
                                         isLastMessageOwn.current = isOwnMessage;
@@ -105,7 +102,7 @@ const ClientAccess = () => {
 
                                                 <div className="message__head">
 
-                                                    <h4>{!isOwnMessage ? message.author.lastName + " " + message.author.firstName : "You"}</h4>
+                                                    <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
 
                                                     <p className={"message_date"}>{message.datetime}</p>
                                                 </div>
@@ -115,6 +112,9 @@ const ClientAccess = () => {
                                         );
                                     }) : null
                             }
+                            <p className={"placeholderOfChat"}>
+                                Project Chat: Discuss Here with Your Project Manager
+                            </p>
                         </div>
                         <div className="flex-row chats-page__input">
                             <textarea ref={input}></textarea>
