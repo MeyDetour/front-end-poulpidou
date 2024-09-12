@@ -70,7 +70,7 @@ const HomePage = () => {
 										const percentage = project.totalTasks === 0 ? 0 : Math.round(project.doneTasks / project.totalTasks * 100, 2);
 										console.log(project)
 										return (
-											<Link to={`/project/${project.id}/specifications`}>
+											<Link to={`/project/${project.id}/specifications`} key={project}>
 												<div className="flex-col project" style={{gap: "5px"}}>
 													<div className="flex-row-between">
 														<div className="flex-row" style={{gap: "10px"}}>
@@ -124,7 +124,7 @@ const HomePage = () => {
 							<div className={`hor-radio__opt ${time === '1m' && 'selected'}`} onClick={() => setTime('1m')}>1 m</div>
 						</div>
 					</div>
-					<LineChart values={values} />
+					<LineChart values={values} time={time} />
 				</div>
 			</div>
 		</>

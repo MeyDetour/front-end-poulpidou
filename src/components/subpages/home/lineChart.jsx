@@ -25,7 +25,7 @@ ChartJS.register(
 	Legend
 );
 
-const LineChart = ({ values }) => {
+const LineChart = ({ values, time }) => {
 	const [valuesNumber, setValuesNumber] = useState(0);
 	useEffect(() => setValuesNumber(Object.keys(values).length), [values]);
 
@@ -64,74 +64,37 @@ const LineChart = ({ values }) => {
 		maintainAspectRatio: false
 	};
 
-	const formattedData = Object.keys(values).map(key => {
-		return { x: parseInt(key - 1), y: values[key] };
-	});
+	const formattedData = (function () {
+		let elm = [...Array(time === "10yrs" && 120 || time === "1yr" && 12 || time === "1m" && 30).keys()];
+
+		const formattedValues = Object.keys(values).map(key => {
+			return { x: parseInt(key - 1), y: values[key] };
+		});
+
+		Object.keys(formattedValues).forEach(key => {
+			elm.splice(formattedValues[key].x, 1);
+		});
+
+		elm = elm.map(elm => ({x: elm, y: 0}));
+
+		elm.forEach(obj => {
+			formattedValues.splice(obj.x, 0, obj);
+		});
+
+		return formattedValues;
+	})();
+
+	useEffect(() => {
+		setValuesNumber(formattedData.length);
+		console.log(formattedData)
+	}, [values, formattedData]);
 
 	const linearReg = useLinearRegression();
-	const func = linearReg(formattedData, 'x', 'y');
 
-	const data = {
-		labels: [...Array(valuesNumber + 3).keys()],
-		datasets: [{
-			label: 'Past',
-			data: formattedData,
-			borderColor: "#FF6384",
-			backgroundColor: (context) => {
-				const bgColor = [];
-
-				if (!context.chart.chartArea) return;
-				const {
-					ctx,
-					data,
-					chartArea: { top, bottom }
-				} = context.chart;
-
-				const gradient = ctx.createLinearGradient(0, top, 0, bottom);
-				gradient.addColorStop(0, "rgba(255, 177, 193, 1)");
-				gradient.addColorStop(1, "rgba(255, 177, 193, 0)");
-				return gradient;
-			},
-			tension: .4,
-			borderWidth: 1,
-			fill: "start",
-			pointRadius: 5,
-			pointHoverRadius: 10,
-			order: 4,
-			z: 4,
-		}, {
-			label: 'Forecast',
-			data: [
-				formattedData.at(-1),
-				{x: valuesNumber - 1 + 1, y: func(valuesNumber - 1 + 1)},
-				{x: valuesNumber - 1 + 2, y: func(valuesNumber - 1 + 2)},
-				{x: valuesNumber - 1 + 3, y: func(valuesNumber - 1 + 3)}
-			],
-			borderColor: "#FFCD56",
-			backgroundColor: (context) => {
-				const bgColor = [];
-
-				if (!context.chart.chartArea) return;
-				const {
-					ctx,
-					data,
-					chartArea: { top, bottom }
-				} = context.chart;
-
-				const gradient = ctx.createLinearGradient(0, top, 0, bottom);
-				gradient.addColorStop(0, "rgba(255, 230, 170, 1)");
-				gradient.addColorStop(1, "rgba(255, 230, 170, 0)");
-				return gradient;
-			},
-			borderWidth: 1,
-			fill: "start",
-			tension: .4,
-			pointRadius: 5,
-			pointHoverRadius: 10,
-			order: 2,
-			z: 2
-		}]
-	};
+	const [data, setData] = useState({
+		labels: [],
+		datasets: [{}]
+	});
 
 	const verticalLinePlugin = {
 		id: 'verticalLine',
@@ -163,6 +126,75 @@ const LineChart = ({ values }) => {
 			ctx.restore();
 		}
 	};
+
+	useEffect(() => {
+		if (Object.keys(values).length === 0) return;
+
+		const func = linearReg(formattedData, 'x', 'y');
+
+		setData({
+			labels: [...Array(valuesNumber + 3).keys()],
+			datasets: [{
+				label: 'Past',
+				data: formattedData,
+				borderColor: "#FF6384",
+				backgroundColor: (context) => {
+					const bgColor = [];
+
+					if (!context.chart.chartArea) return;
+					const {
+						ctx,
+						data,
+						chartArea: { top, bottom }
+					} = context.chart;
+
+					const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+					gradient.addColorStop(0, "rgba(255, 177, 193, 1)");
+					gradient.addColorStop(1, "rgba(255, 177, 193, 0)");
+					return gradient;
+				},
+				tension: .4,
+				borderWidth: 1,
+				fill: "start",
+				pointRadius: 4,
+				pointHoverRadius: 6,
+				order: 4,
+				z: 4,
+			}, {
+				label: 'Forecast',
+				data: [
+					formattedData.at(-1),
+					{x: valuesNumber, y: func(valuesNumber)},
+					{x: valuesNumber + 1, y: func(valuesNumber + 1)},
+					{x: valuesNumber + 2, y: func(valuesNumber + 2)}
+				],
+				borderColor: "#FFCD56",
+				backgroundColor: (context) => {
+					const bgColor = [];
+
+					if (!context.chart.chartArea) return;
+					const {
+						ctx,
+						data,
+						chartArea: { top, bottom }
+					} = context.chart;
+
+					const gradient = ctx.createLinearGradient(0, top, 0, bottom);
+					gradient.addColorStop(0, "rgba(255, 230, 170, 1)");
+					gradient.addColorStop(1, "rgba(255, 230, 170, 0)");
+					return gradient;
+				},
+				borderWidth: 1,
+				fill: "start",
+				tension: 0,
+				pointRadius: 4,
+				pointHoverRadius: 6,
+				order: 2,
+				z: 2
+			}
+			]
+		});
+	}, [values])
 
 	return (
 		<div style={{marginTop: "20px", height: "300px"}}>
