@@ -112,127 +112,210 @@ const ClientAccess = () => {
         chat && data ?
             <>
                 <div className={"clientInterface"}>
+                    <div className={"clientInterface-container flex-row"}>
 
-                    <div className={"clientInterface-messagerie"}>
+                        <div className={"clientInterface-messagerie"}>
 
-                        <div className=" clientInterface-messages" ref={scrollContainer}>
+                            <div className=" clientInterface-messages" ref={scrollContainer}>
 
-                            {
-                                messages.length > 0 ?
-                                    messages.map((message, index) => {
+                                {
+                                    messages.length > 0 ?
+                                        messages.map((message, index) => {
 
-                                        const isOwnMessage = message.author.id === client.id;
-                                        console.log(message, isOwnMessage)
-                                        console.log(message.author)
-                                        isLastMessageOwn.current = isOwnMessage;
+                                            const isOwnMessage = message.author.id === client.id;
+                                            console.log(message, isOwnMessage)
+                                            console.log(message.author)
+                                            isLastMessageOwn.current = isOwnMessage;
 
-                                        return (
-                                            <div
-                                                className={"flex-col " + (!isOwnMessage ? "user-message" : "client-message")}
-                                                key={index}>
+                                            return (
+                                                <div
+                                                    className={"flex-col " + (!isOwnMessage ? "user-message" : "client-message")}
+                                                    key={index}>
 
-                                                <div className="message__head">
+                                                    <div className="message__head">
 
-                                                    <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
+                                                        <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
 
-                                                    <p className={"message_date"}>{message.datetime}</p>
+                                                        <p className={"message_date"}>{message.datetime}</p>
+                                                    </div>
+                                                    <p className={"message_content"}>{message.content}</p>
+
                                                 </div>
-                                                <p className={"message_content"}>{message.content}</p>
-
-                                            </div>
-                                        );
-                                    }) : null
-                            }
-                            <p className={"placeholderOfChat"}>
-                                Project Chat: Discuss Here with Your Project Manager
-                            </p>
-                        </div>
-                        <div className="flex-row chats-page__input">
-                            <textarea ref={input}></textarea>
-                            <img src="pictures/icons/send-messages-icon.svg" alt="Send" onClick={(e) => addMessage()}/>
-                        </div>
-                    </div>
-                    <div className={"clientInterface-project-options"}>
-                        {data.project?.database ||
-                        data.project?.maquette  ||
-                        data.project?.maintenance   ||
-                        data.project?.options.length != 0 ||
-                        data.project?.devices.length != 0 ||
-                        data.project?.type.length != 0 ||
-                        data.project?.framework.length != 0 ? <>
-
-                            {data.project?.type.length != 0 ?
-                                <>
-                                    <div className={"oneDetail"}>
-                                        <h4>Type</h4>
-                                        <div className={"separateur"}></div>
-
-                                        {
-                                            (data.project?.type).map((type, index) => {
-                                                return (<span key={index}>  {typeAssociationName[type]}</span>)
-                                            })
-                                        }
-                                    </div>
-
-                                </>
-                                : null
-                            } {data.project?.database   || data.project?.options.length != 0 || data.project?.maquette || data.project?.maintenance ?
-                            <>
-                                <div className={"oneDetail"}>
-                                    <h4>Options</h4>
-                                    <div className={"separateur"}></div>
-                                    {data.project?.database ?
-                                        <span>Base de donnée</span> : null
-                                    }
-                                    {data.project?.maquette ?
-                                        <span>Prototype & plan du site & design</span> : null
-                                    }
-                                    {data.project?.maintenance ?
-                                        <span>Maintenance</span> : null
-                                    }
-                                    {data.project?.options.length != 0 ?
-                                        (data.project?.options).map((option, index) => {
-                                            return (<span key={index}>  {optionAssociationName[option]}</span>)
+                                            );
                                         }) : null
-                                    }
-                                </div>
+                                }
+                                <p className={"placeholderOfChat"}>
+                                    Project Chat: Discuss Here with Your Project Manager
+                                </p>
+                            </div>
+                            <div className="flex-row chats-page__input">
+                                <textarea ref={input}></textarea>
+                                <img src="pictures/icons/send-messages-icon.svg" alt="Send"
+                                     onClick={(e) => addMessage()}/>
+                            </div>
+                        </div>
+                        <div className={"clientInterface-project-options"}>
+                            {data.project?.database ||
+                            data.project?.maquette ||
+                            data.project?.maintenance ||
+                            data.project?.options.length != 0 ||
+                            data.project?.devices.length != 0 ||
+                            data.project?.type.length != 0 ||
+                            data.project?.framework.length != 0 ? <>
 
-                            </>
-                            : null
-                        }
-                            {data.project?.devices.length != 0 ?
-                                <>
-                                    <div className={"oneDetail"}>
-                                        <h4>Support compatible</h4>
-                                        <div className={"separateur"}></div>
+                                    {data.project?.type.length != 0 ?
+                                        <>
+                                            <div className={"oneDetail"}>
+                                                <h4>Type</h4>
+                                                <div className={"separateur"}></div>
 
-                                        {(data.project?.devices).map((device, index) => {
-                                            return (<span key={index}>  {deviceAssociationName[device]}</span>)
-                                        })
-                                        }
-                                    </div>
+                                                {
+                                                    (data.project?.type).map((type, index) => {
+                                                        return (<span key={index}>  {typeAssociationName[type]}</span>)
+                                                    })
+                                                }
+                                            </div>
 
-                                </>
-                                : null
-                            } {data.project?.framework.length != 0 ?
-                            <>
-                                <div className={"oneDetail"}>
-                                    <h4>Technologie utilisé(s)</h4>
-                                    <div className={"separateur"}></div>
+                                        </>
+                                        : null
+                                    } {data.project?.database || data.project?.options.length != 0 || data.project?.maquette || data.project?.maintenance ?
+                                    <>
+                                        <div className={"oneDetail"}>
+                                            <h4>Options</h4>
+                                            <div className={"separateur"}></div>
+                                            {data.project?.database ?
+                                                <span>Base de donnée</span> : null
+                                            }
+                                            {data.project?.maquette ?
+                                                <span>Prototype & plan du site & design</span> : null
+                                            }
+                                            {data.project?.maintenance ?
+                                                <span>Maintenance</span> : null
+                                            }
+                                            {data.project?.options.length != 0 ?
+                                                (data.project?.options).map((option, index) => {
+                                                    return (<span key={index}>  {optionAssociationName[option]}</span>)
+                                                }) : null
+                                            }
+                                        </div>
 
-                                    {(data.project?.framework).map((frame, index) => {
-                                        return (<span key={index}>  {frameworkAssociationName[frame]}</span>)
-                                    })
-                                    }
-                                </div>
+                                    </>
+                                    : null
+                                }
+                                    {data.project?.devices.length != 0 ?
+                                        <>
+                                            <div className={"oneDetail"}>
+                                                <h4>Support compatible</h4>
+                                                <div className={"separateur"}></div>
 
-                            </>
-                            : null
-                        }
-                        </> :
-                        <><p className={"placeholderOfChat"}>Il n'y a aucun detail sur votre projet</p></>
-                        }
+                                                {(data.project?.devices).map((device, index) => {
+                                                    return (<span key={index}>  {deviceAssociationName[device]}</span>)
+                                                })
+                                                }
+                                            </div>
+
+                                        </>
+                                        : null
+                                    } {data.project?.framework.length != 0 ?
+                                    <>
+                                        <div className={"oneDetail"}>
+                                            <h4>Technologie utilisé(s)</h4>
+                                            <div className={"separateur"}></div>
+
+                                            {(data.project?.framework).map((frame, index) => {
+                                                return (<span key={index}>  {frameworkAssociationName[frame]}</span>)
+                                            })
+                                            }
+                                        </div>
+
+                                    </>
+                                    : null
+                                }
+                                </> :
+                                <><p className={"placeholderOfChat"}>Il n'y a aucun detail sur votre projet</p></>
+                            }
+                        </div>
+
                     </div>
+
+
+                    <div className="clientInterface-container ">
+                        <div className="clientInterface-payment-conditions">
+                            <h3>Terms and Conditions</h3>
+
+                            <section>
+                                <span>Late Payment Consequences</span>
+                                <p>In the event of a late payment, project delivery may be delayed, potentially
+                                    extending
+                                    beyond the originally agreed deadline.</p>
+                            </section>
+                            <section>
+                                <span>Dispute Resolution</span>
+                                <p>In case of disagreement, parties will attempt to resolve the issue amicably through
+                                    discussion and negotiation. If unresolved, parties may choose to engage a neutral
+                                    mediator or arbitrator to assist in resolving the dispute.</p>
+                            </section>
+                            <section>
+                                <span>Project Cancellation</span>
+                                <ul>
+                                    <li><u>Full Refund:</u> If the project is canceled before work begins, a full refund
+                                        may
+                                        be issued.
+                                    </li>
+                                    <li><u>Partial Refund:</u> If the project is canceled after work has started, a
+                                        partial
+                                        refund reflecting the work completed may be considered.
+                                    </li>
+                                    <li><u>No Refund:</u> No refund may be provided if a significant portion of the
+                                        project
+                                        has been completed.
+                                    </li>
+                                </ul>
+                            </section>
+                            <section>
+                                <span>Non-Payment</span>
+                                <p>In case of non-payment, no penalty fees will be charged, but services will be
+                                    suspended
+                                    until payment is received.</p>
+                            </section>
+                            <section>
+                                <span>Confidentiality Agreements</span>
+                                <p>Both parties agree to maintain confidentiality of all proprietary and sensitive
+                                    information disclosed during the project. This agreement remains in effect even
+                                    after
+                                    the project is completed.</p>
+                            </section>
+                            <section>
+                                <span>Contract Termination Conditions</span>
+                                <p><u>Breach of Contract:</u> The contract may be terminated if either party fails to
+                                    meet
+                                    its obligations, including:</p>
+                                <ul>
+                                    <li>Non-payment by the client.</li>
+                                    <li>Failure to deliver services by the provider as agreed upon.</li>
+                                    <li>Breach of confidentiality agreements.</li>
+                                </ul>
+                                <p><u>Mutual Agreement:</u> The contract can be terminated at any time if both parties
+                                    agree.</p>
+                            </section>
+                            <section>
+                                <span>Payment Milestones</span>
+                                <ul>
+                                    <li><u>Initial Deposit:</u> A percentage of the total cost paid upfront to initiate
+                                        the
+                                        project.
+                                    </li>
+                                    <li><u>Progress Payments:</u> Payments made at specific stages of project completion
+                                        (e.g., 25%, 50%, and 75% completion).
+                                    </li>
+                                    <li><u>Final Payment:</u> The remaining balance is due upon project completion and
+                                        client approval.
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+                    </div>
+
 
                     <div className={"clientInterface-project-data"}>
                         <h2 className={"title"}>{data.project?.name}</h2>
@@ -258,8 +341,6 @@ const ClientAccess = () => {
                             : ""}</span>
                     </div>
                 </div>
-
-
             </> :
             <h1 className={"resetButton"}>Aucun projet disponible. <br/> Le projet que vous recherchez n'existe pas ou a
                 été

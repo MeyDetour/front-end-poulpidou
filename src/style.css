@@ -268,6 +268,9 @@ kbd {
 
 .noBackground{
 	background: var(--white) !important;
+
+	overflow: auto !important;
+	overflow-x: hidden !important;
 }
 /* --- Basic tags --- */
 

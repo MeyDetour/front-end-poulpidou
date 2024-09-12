@@ -1,15 +1,21 @@
 
 .clientInterface {
     width: 100vw;
-    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+}
+
+.clientInterface-container {
+    width: 74vw;
+    padding: 30px 48px;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
-
-    padding: 0px 0px 0px 54px;
-    box-sizing: border-box;
 }
 
 /* ----- MESSAGERIE -------- */
@@ -18,8 +24,8 @@
     flex-direction: column;
     justify-content: space-between;
 
-    height: 90%;
-    width: 27%;
+    height: 90vh;
+    width: 48%;
 
     border: 2px solid var(--grey-light-3);
     background: var(--white);
@@ -103,9 +109,9 @@
     align-items: center;
     gap: 2px;
 
-    height: 90%;
+    height: 90vh;
 
-    width: 43%;
+    width: 48%;
 
     border: 2px solid var(--grey-light-3);
     background: var(--white);
@@ -117,38 +123,69 @@
 
 }
 
-.clientInterface-project-options span{
+.clientInterface-project-options span {
 
     font-size: 19px;
     color: var(--grey) !important;
     font-weight: 300;
 }
-.clientInterface-project-options .oneDetail{
+
+.clientInterface-project-options .oneDetail {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 48%;
     height: 45%;
 }
+
 .clientInterface-project-options .separateur {
     height: 1px;
     width: 100%;
     background: var(--grey-light-3);
     margin-block: 20px;
 }
-.clientInterface-project-options h4{
+
+.clientInterface-project-options h4 {
     color: var(--grey);
     font-size: 25px;
 
     margin-top: 59px;
 }
+
 /* ---- END OF OPTION DETAILS ---- */
+/* ---- CONDITIONS OF PAYEMENT ---- */
+.clientInterface-payment-conditions {
+    background: var(--blue-light-4);
+    border: var(--blue-light-3) 2px solid;
+    padding: 50px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.clientInterface-payment-conditions h3{
+    font-size: 48px;
+    font-weight: bold;
+
+}
+.clientInterface-payment-conditions section{
+    margin-block: 50px;
+}
+
+.clientInterface-payment-conditions ul{
+    margin: 0;
+    padding: 0;
+}
+/* ---- END OF CONDITIONS OF PAYEMENT ---- */
+/* ---- DATA FIXED AT RIGHT ---- */
 .clientInterface-project-data {
+    position: fixed;
+    top: 0%;
+    right: 0%;
 
     color: var(--white);
 
     height: 100vh;
-    width: 25%;
+    width: 25vw;
 
     display: flex;
     flex-direction: column;
