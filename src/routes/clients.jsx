@@ -54,7 +54,7 @@ const Clients = () => {
 		setDisplayWidget(null);
 	}
 	const closeNewClientAndDisplayWidget = () => {
-		 setDisplayWidget("allClients");
+	 	setDisplayWidget("allClients");
 	}
 
 	return (
@@ -72,8 +72,7 @@ const Clients = () => {
 									You can find this icon on each project thumbnail. Go to Client -> All Projects -> Choose a project and click the icon.
 								</p>
 								<img src="pictures/icons/link-icon.svg" alt="link" onClick={() => {
-									navigator.clipboard.writeText(window.location.origin + "/client-access/" + client.lastUuidProject);
-									toast("OK", "The last client project page link was copied to your clipboard.")
+									toast("warning", "This button is simply for display purposes, therefore it doesn't copy any link.")
 								}}/>
 							</div>
 							<div className="flex-row-between client-data__data">

@@ -115,38 +115,39 @@ const ClientAccess = () => {
                     <div className={"clientInterface-container flex-row"}>
 
                         <div className={"clientInterface-messagerie"}>
+                            <div className="scroll-container clientInterface-messages">
+                                <div ref={scrollContainer}>
 
-                            <div className=" clientInterface-messages" ref={scrollContainer}>
+                                    {
+                                        messages.length > 0 ?
+                                            messages.map((message, index) => {
 
-                                {
-                                    messages.length > 0 ?
-                                        messages.map((message, index) => {
+                                                const isOwnMessage = message.author.id === client.id;
+                                                console.log(message, isOwnMessage)
+                                                console.log(message.author)
+                                                isLastMessageOwn.current = isOwnMessage;
 
-                                            const isOwnMessage = message.author.id === client.id;
-                                            console.log(message, isOwnMessage)
-                                            console.log(message.author)
-                                            isLastMessageOwn.current = isOwnMessage;
+                                                return (
+                                                    <div
+                                                        className={"flex-col " + (!isOwnMessage ? "user-message" : "client-message")}
+                                                        key={index}>
 
-                                            return (
-                                                <div
-                                                    className={"flex-col " + (!isOwnMessage ? "user-message" : "client-message")}
-                                                    key={index}>
+                                                        <div className="message__head">
 
-                                                    <div className="message__head">
+                                                            <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
 
-                                                        <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
+                                                            <p className={"message_date"}>{message.datetime}</p>
+                                                        </div>
+                                                        <p className={"message_content"}>{message.content}</p>
 
-                                                        <p className={"message_date"}>{message.datetime}</p>
                                                     </div>
-                                                    <p className={"message_content"}>{message.content}</p>
-
-                                                </div>
-                                            );
-                                        }) : null
-                                }
-                                <p className={"placeholderOfChat"}>
-                                    Project Chat: Discuss Here with Your Project Manager
-                                </p>
+                                                );
+                                            }) : null
+                                    }
+                                    <p className={"placeholderOfChat"}>
+                                        Project Chat: Discuss Here with Your Project Manager
+                                    </p>
+                                </div>
                             </div>
                             <div className="flex-row chats-page__input">
                                 <textarea ref={input}></textarea>
