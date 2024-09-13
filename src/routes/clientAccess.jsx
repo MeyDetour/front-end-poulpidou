@@ -1,22 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useParams} from 'react-router-dom';
-
+import { Beforeunload } from 'react-beforeunload';
 import {useToast} from '../hooks/useToast';
 
 
 import '../css/clientInterface.css';
 
-import EditProfile from '../components/subpages/clients/editProfile';
-import AllChats from '../components/subpages/clients/allChats';
-import AllProjects from '../components/subpages/clients/allProjects';
-import AllInvoices from '../components/subpages/clients/allInvoices';
-
-import ResearchClient from '../components/widgets/researchClient';
-import Delete from "../components/subpages/clients/delete";
-import NewClient from "../components/widgets/newClient";
 import {getClientInterface} from "../requests/clientInterface/getClientInterface";
 import {getChat} from "../requests/clientInterface/getChat";
 import {sendMessage} from "../requests/clientInterface/sendMessage";
+import {setOfflineOnline} from "../requests/clientInterface/setOfflineOnline";
 
 
 const ClientAccess = () => {
@@ -70,6 +63,13 @@ const ClientAccess = () => {
                 console.log(res.value)
             })
             .catch(res => toast(res.state, res.value));
+        setOfflineOnline(true, uuid)
+            .then(res => {
+                console.log(res.value)
+            })
+            .catch(res => toast(res.state, res.value)
+            );
+
         getChat(uuid)
             .then(res => {
                 setChat(res.value.chat);
@@ -79,6 +79,7 @@ const ClientAccess = () => {
             .catch(res => toast(res.state, res.value));
 
     }, []);
+    
     const association = {
         "CHEQUE": "Chèque",
         "CASH": "Espèce",
@@ -87,6 +88,14 @@ const ClientAccess = () => {
     const input = useRef();
     const scrollContainer = useRef();
     const isLastMessageOwn = useRef(false);
+    const setOfflineBeforeUnload = ()=>{
+        setOfflineOnline(false, uuid)
+            .then(res => {
+                console.log(res.value)
+            })
+            .catch(res => toast(res.state, res.value)
+            );
+    }
     const addMessage = () => {
         if (input.current === null) return;
         const content = input.current.value
@@ -111,43 +120,44 @@ const ClientAccess = () => {
     return (
         chat && data ?
             <>
+                <Beforeunload onBeforeunload={() => setOfflineBeforeUnload()}>
+
                 <div className={"clientInterface"}>
                     <div className={"clientInterface-container flex-row"}>
 
                         <div className={"clientInterface-messagerie"}>
-                            <div className="scroll-container clientInterface-messages">
-                                <div ref={scrollContainer}>
+                            <div className="scroll-container clientInterface-messages" ref={scrollContainer}>
 
-                                    {
-                                        messages.length > 0 ?
-                                            messages.map((message, index) => {
+                                {
+                                    messages.length > 0 ?
+                                        messages.map((message, index) => {
 
-                                                const isOwnMessage = message.author.id === client.id;
-                                                console.log(message, isOwnMessage)
-                                                console.log(message.author)
-                                                isLastMessageOwn.current = isOwnMessage;
+                                            const isOwnMessage = message.author.id === client.id;
+                                            console.log(message, isOwnMessage)
+                                            console.log(message.author)
+                                            isLastMessageOwn.current = isOwnMessage;
 
-                                                return (
-                                                    <div
-                                                        className={"flex-col " + (!isOwnMessage ? "user-message" : "client-message")}
-                                                        key={index}>
+                                            return (
+                                                <div
+                                                    className={"flex-col " + (!isOwnMessage ? "user-message" : "client-message")}
+                                                    key={index}>
 
-                                                        <div className="message__head">
+                                                    <div className="message__head">
 
-                                                            <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
+                                                        <h4>{!isOwnMessage ? message.author.lastName && message.author.firstName ? message.author.lastName + " " + message.author.firstName : message.author.email : "You"}</h4>
 
-                                                            <p className={"message_date"}>{message.datetime}</p>
-                                                        </div>
-                                                        <p className={"message_content"}>{message.content}</p>
-
+                                                        <p className={"message_date"}>{message.datetime}</p>
                                                     </div>
-                                                );
-                                            }) : null
-                                    }
-                                    <p className={"placeholderOfChat"}>
-                                        Project Chat: Discuss Here with Your Project Manager
-                                    </p>
-                                </div>
+                                                    <p className={"message_content"}>{message.content}</p>
+
+                                                </div>
+                                            );
+                                        }) : null
+                                }
+                                <p className={"placeholderOfChat"}>
+                                    Project Chat: Discuss Here with Your Project Manager
+                                </p>
+
                             </div>
                             <div className="flex-row chats-page__input">
                                 <textarea ref={input}></textarea>
@@ -342,10 +352,14 @@ const ClientAccess = () => {
                             : ""}</span>
                     </div>
                 </div>
+                </Beforeunload>
             </> :
             <h1 className={"resetButton"}>Aucun projet disponible. <br/> Le projet que vous recherchez n'existe pas ou a
                 été
                 supprimé.</h1>
+
+
+
 
     )
 

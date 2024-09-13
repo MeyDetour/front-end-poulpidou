@@ -84,8 +84,8 @@ const ResearchClientChat = ({ setDisplayWidget }) => {
 																			<p><i>{elm.lastMessage ? elm.lastMessage : "There are no messages sent in this chat yet."}</i></p>
 																		</div>
 																		<div>
-																			<div className={ elm.online ? "online" : "offline" }></div>
-																			<p>{ elm.online ? "Online" : "Offline" }</p>
+																			<div className={ elm.client.online ? "online" : "offline" }></div>
+																			<p>{ elm.client.online ? "Online" : "Offline" }</p>
 																		</div>
 																	</div>
 																</Link>
