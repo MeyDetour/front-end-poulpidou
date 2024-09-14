@@ -26,4 +26,7 @@ download_dependencies:
 	@echo [Downloading]: react-toastify
 	@npm install react-toastify@latest --save
 
+	@echo [Downloading]: react-beforeunload
+	@npm i react-beforeunload --save
+
 	@echo [STATE]: Operation successful

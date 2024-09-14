@@ -145,8 +145,8 @@ const EditProject = ({data}) => {
     const onSubmit = (data) => {
         putProject(data, id)
             .then(res => {
-                toast(res.state," ")
-                window.location = `/project/${id}/specifications`
+                toast(res.state, "Values were succesfuly updated.")
+                // window.location = `/project/${id}/specifications`
             })
             .catch(res => toast(res.state, res.value));
 
@@ -160,8 +160,11 @@ const EditProject = ({data}) => {
     return (
         <div className="edit-project">
             <FormProvider {...formMethods}>
-                <form className="flex-col" onChange={() => calculateCost(getValues())}
-                      onSubmit={handleSubmit(onSubmit)}>
+                <form 
+                    className="flex-col"
+                    onChange={() => calculateCost(getValues())}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
                     <div className="flex-col data-separation">
                         <p><sub>Project identity data</sub></p>
                         <div className="horizontal-line"></div>

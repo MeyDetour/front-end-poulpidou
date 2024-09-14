@@ -120,7 +120,7 @@ const ClientAccess = () => {
     return (
         chat && data ?
             <>
-                <Beforeunload onBeforeunload={() => setOfflineBeforeUnload()}>
+                <Beforeunload onBeforeUnload={() => setOfflineBeforeUnload()}>
 
                 <div className={"clientInterface"}>
                     <div className={"clientInterface-container flex-row"}>
