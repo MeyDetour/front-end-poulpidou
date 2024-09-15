@@ -17,15 +17,7 @@ const EditProject = ({data}) => {
 
     // const [cost, setCost] = useState(0);
 
-    const [clients, setClients] = useState([{
-        name: "Gaëlle GHIZOLI",
-        mail: "gaëlle.ghizoli@outlook.com",
-        id: 0
-    }, {
-        name: "Maxence ABRILE",
-        mail: "maxenceabrile@icloud.com",
-        id: 1
-    }]);
+    const [createdAt, setCreatedAt] = useState("");
 
     const formMethods = useForm();
     const {
@@ -50,6 +42,7 @@ const EditProject = ({data}) => {
         console.log(data)
 
         // Identity
+        setCreatedAt(data.identity?.createdAt)
         setValue("project.identity.name", data.identity?.name);
         setValue("project.identity.startDate", data.identity?.startDateBaseFormat);
         setValue("project.identity.endDate", data.identity?.endDateBaseFormat);
@@ -146,7 +139,7 @@ const EditProject = ({data}) => {
         putProject(data, id)
             .then(res => {
                 toast(res.state, "Values were succesfuly updated.")
-                // window.location = `/project/${id}/specifications`
+                window.location = `/project/${id}/specifications`
             })
             .catch(res => toast(res.state, res.value));
 
@@ -158,15 +151,21 @@ const EditProject = ({data}) => {
     const maintenance = watch("project.composition.maintenance", '');
 
     return (
+
         <div className="edit-project">
+
             <FormProvider {...formMethods}>
-                <form 
+                <form
                     className="flex-col"
                     onChange={() => calculateCost(getValues())}
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <div className="flex-col data-separation">
-                        <p><sub>Project identity data</sub></p>
+                        <div className={"flex-row-between"}>
+
+                            <p><sub>Project identity data</sub></p>
+                            <span>Created at {createdAt}</span>
+                        </div>
                         <div className="horizontal-line"></div>
                     </div>
 

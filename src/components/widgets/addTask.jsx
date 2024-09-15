@@ -8,6 +8,7 @@ import { delTask } from '../../requests/projects/delTask';
 
 import { useToast } from '../../hooks/useToast';
 import Logs from "../subpages/settings/logs";
+import {setCurrentUncurrent} from "../../requests/projects/setCurrentUncurrent";
 
 const AddTask = ({ values, setDisplayWidget }) => {
 	const { id } = useParams();
@@ -45,6 +46,9 @@ const AddTask = ({ values, setDisplayWidget }) => {
 			.then(res => {
 				toast("OK", "The operation was successful.");
 				setDisplayWidget(false);
+				setCurrentUncurrent(true, id)
+					.then(res => {
+					})
 			})
 			.catch(res => toast(res.state, res.value));
 		}

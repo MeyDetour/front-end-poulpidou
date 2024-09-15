@@ -4,18 +4,17 @@ import { Link } from 'react-router-dom';
 import '../css/home.css';
 
 import LineChart from '../components/subpages/home/lineChart';
-import {getCurrentUser} from "../requests/settings/getCurrentUser";
 import {getChart} from "../requests/home/getChart";
 import { getNextTasks } from "../requests/home/getNextTasks";
-import { getCurrentProjects } from "../requests/home/getCurrentProjects";
 import {useToast} from "../hooks/useToast";
+import {getCurrentProjects} from "../requests/home/getCurrentProjects";
 
 const HomePage = () => {
 	const [tasks, setTasks] = useState([]);
 	const [projects, setProjects] = useState([]);
 
 	const [type, setType] = useState("projects");
-	const [time, setTime] = useState("1m");
+	const [time, setTime] = useState("30days");
 	const [values, setValues] = useState({});
 
 	const toast = useToast();
@@ -53,6 +52,11 @@ const HomePage = () => {
 						<div className="tasks-to-do__content">
 							{
 								tasks && tasks.map(task => {
+									return (
+										<div className="task">
+											<span>{task.projectName}</span>
+										</div>
+									)
 
 								})
 							}
@@ -119,9 +123,11 @@ const HomePage = () => {
 							<option value="tasks">Tasks</option>
 						</select>
 						<div className="flex-row hor-radio">
-							<div className={`hor-radio__opt ${time === '10yrs' && 'selected'}`} onClick={() => setTime('10yrs')}>10 yrs</div>
-							<div className={`hor-radio__opt ${time === '1yr' && 'selected'}`} onClick={() => setTime('1yr')}>1 yr</div>
-							<div className={`hor-radio__opt ${time === '1m' && 'selected'}`} onClick={() => setTime('1m')}>1 m</div>
+							<div className={`hor-radio__opt ${time === '10years' && 'selected'}`} onClick={() => setTime('10years')}>10 years</div>
+							<div className={`hor-radio__opt ${time === '1year' && 'selected'}`} onClick={() => setTime('1year')}>1 year</div>
+							<div className={`hor-radio__opt ${time === '3months' && 'selected'}`} onClick={() => setTime('3months')}>3 months</div>
+							<div className={`hor-radio__opt ${time === '30days' && 'selected'}`} onClick={() => setTime('30days')}>30 days</div>
+							<div className={`hor-radio__opt ${time === '7days' && 'selected'}`} onClick={() => setTime('7days')}>7 days</div>
 						</div>
 					</div>
 					<LineChart values={values} time={time} />

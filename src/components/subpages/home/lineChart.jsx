@@ -26,6 +26,7 @@ ChartJS.register(
 );
 
 const LineChart = ({ values, time }) => {
+	console.log("values in linehcart",values);
 	const [valuesNumber, setValuesNumber] = useState(0);
 	useEffect(() => setValuesNumber(Object.keys(values).length), [values]);
 
@@ -65,7 +66,9 @@ const LineChart = ({ values, time }) => {
 	};
 
 	const formattedData = (function () {
-		let elm = [...Array(time === "10yrs" && 120 || time === "1yr" && 12 || time === "1m" && 30).keys()];
+		if(values.length == 0) {return []}
+
+		let elm = [...Array(time === "10years" && 120 || time === "1year" && 12 || time === "3months" && 90 || time === "30days" && 30 || time === "7days" && 7).keys()];
 
 		const formattedValues = Object.keys(values).map(key => {
 			return { x: parseInt(key - 1), y: values[key] };
@@ -80,11 +83,11 @@ const LineChart = ({ values, time }) => {
 		elm.forEach(obj => {
 			formattedValues.splice(obj.x, 0, obj);
 		});
-
 		return formattedValues;
 	})();
 
 	useEffect(() => {
+
 		setValuesNumber(formattedData.length);
 		console.log(formattedData)
 	}, [values, formattedData]);
