@@ -66,13 +66,14 @@ const LineChart = ({ values, time }) => {
 	const formattedData = (function () {
 		if (values.length == 0) return [];
 
-		let elm = [...Array(time === "10years" && 120 || time === "1year" && 12 || time === "3months" && 90 || time === "30days" && 30 || time === "7days" && 7).keys()];
+		let elm = [...Array(time === "10years" && 120 || time === "1year" && 12 || time === "3months" && 90 || time === "30days" && 29 || time === "7days" && 6).keys()];
 
 		const formattedValues = Object.keys(values).map(key => {
-			return { x: parseInt(key - 1), y: values[key] };
+			return { x: parseInt(key), y: values[key] };
 		});
 
 		Object.keys(formattedValues).forEach(key => {
+			console.log(formattedValues[key], elm[formattedValues[key].x])
 			elm.splice(formattedValues[key].x, 1);
 		});
 
@@ -127,7 +128,7 @@ const LineChart = ({ values, time }) => {
 
 	useEffect(() => {
 		const func = linearReg(formattedData, 'x', 'y');
-
+		
 		setData({
 			labels: [...Array(valuesNumber.current + 3).keys()],
 			datasets: [{
