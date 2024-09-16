@@ -3,50 +3,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSearchbar } from '../../hooks/useSearchbar';
 
 import { Link } from 'react-router-dom';
+import {getAllProjects} from "../../requests/projects/getAllProjects";
+import {useToast} from "../../hooks/useToast";
+import {getClients} from "../../requests/widgets/getClients";
 
 const Searchbar = () => {
 	const [search, setSearch] = useState('');
-	
-	const [projectsResult, setProjectsResult] = useState([{
-		id: 0,
-		name: "FB-Database",
-		firstName: "Maxence",
-		lastName: "ABRILE"
-	}, {
-		id: 1,
-		name: "OSIMI",
-		firstName: "Maxence",
-		lastName: "Maxence"
-	}, {
-		id: 2,
-		name: "ITOW",
-		firstName: "Maxence",
-		lastName: "ABRILE"
-	}, {
-		id: 3,
-		name: "Poulpidou",
-		firstName: "Mey",
-		lastName: "DETOUR"
-	}]);
+	const toast = useToast();
+	const [projectsResult, setProjectsResult] = useState([]);
 	const [projectsResultDisplay, setProjectsResultDisplay] = useState([]);
 
-	const [clientsResult, setClientsResult] = useState([{
-		id: 0,
-		firstName: "Maxence",
-		lastName: "ABRILE"
-	}, {
-		id: 1,
-		firstName: "Maxence",
-		lastName: "Maxence"
-	}, {
-		id: 2,
-		firstName: "Maxence",
-		lastName: "ABRILE2"
-	}, {
-		id: 3,
-		firstName: "Mey",
-		lastName: "DETOUR"
-	}]);
+	const [clientsResult, setClientsResult] = useState([]);
 	const [clientsResultDisplay, setClientsResultDisplay] = useState([]);
 
 	// const [tabsResult, setTabsResult] = useState([]);
@@ -87,6 +54,18 @@ const Searchbar = () => {
 
 		searchbar.current.focus();
 	}, [searchbar]);
+	useEffect(() => {
+		getAllProjects()
+			.then((res) => {
+				setProjectsResult(res.value);
+			})
+			.catch(() => toast("Error", "Projects couldn't be loaded."));
+		getClients()
+			.then(res => {
+				setClientsResult(res.value)
+			})
+			.catch(res => toast(res.state, res.value));
+	}, []);
 
 	return (
 		<>
@@ -109,12 +88,13 @@ const Searchbar = () => {
 									<h3 className="widget-title">Projects</h3>
 									<div className="sub-container">
 										{
-											projectsResultDisplay.map((elm) => {
+											[...projectsResultDisplay].map((elm) => {
+												console.log(elm)
 												return (
-													<Link to={elm.link}>
+													<Link to={window.location.origin + "/client-access/" + elm.uuid}>
 														<div className="flex-row long-result">
 															<p>{elm.name}
-																<sub>{elm.meta}</sub>
+																<sub>{elm.createdAt}</sub>
 															</p>
 														</div>
 													</Link>
@@ -132,7 +112,7 @@ const Searchbar = () => {
 									<h3 className="widget-title">Clients</h3>
 									<div className="sub-container">
 										{
-											clientsResultDisplay.map((elm) => {
+											[...clientsResultDisplay].map((elm) => {
 												return (
 													<Link to={elm.link}>
 														<div className="flex-row long-result">

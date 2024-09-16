@@ -13,7 +13,7 @@ import {setOfflineOnline} from "../requests/clientInterface/setOfflineOnline";
 
 
 const ClientAccess = () => {
-    const [reload, setReload] = useState(0);
+
     const [displayProjectData, setDisplayProjectData] = useState(true);
     const [displayMessagerie, setDisplayMessagerie] = useState(true);
     const [displayOptions, setDisplayOptions] = useState(true);

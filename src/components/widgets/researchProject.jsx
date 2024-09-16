@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useToast } from '../../hooks/useToast';
 import { useSearchbar } from '../../hooks/useSearchbar';
 import {getAllProjects} from "../../requests/projects/getAllProjects";
+import {getCurrentOrNotCurrentProjects} from "../../requests/projects/getCurrentOrNotCurrentProjects";
 
 const ResearchClient = ({ setDisplayWidget }) => {
 	const toast = useToast();
@@ -22,7 +23,7 @@ const ResearchClient = ({ setDisplayWidget }) => {
 	const searchbar = useRef(null);
 
 	useEffect(() => {
-		getAllProjects()
+		getCurrentOrNotCurrentProjects()
 		.then((res) => {
 			setProjects(res.value);
 			setProjectsDisplay(res.value);

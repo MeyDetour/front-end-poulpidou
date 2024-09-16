@@ -1,8 +1,8 @@
 import Axios from 'axios';
 
-const getAllProjects = () => {
+const getCurrentOrNotCurrentProjects = () => {
 	return new Promise((resolve, reject) => {
-		Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/projects`, {
+		Axios.get(`${process.env.REACT_APP_API_ADRESS}/api/your/projects`, {
 			headers: {
 				'Authorization': 'Bearer ' + sessionStorage.getItem("token")
 			},
@@ -36,4 +36,4 @@ const getAllProjects = () => {
 	});
 }
 
-export { getAllProjects };
+export { getCurrentOrNotCurrentProjects };
