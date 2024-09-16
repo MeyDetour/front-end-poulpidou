@@ -359,7 +359,7 @@ const ClientAccess = () => {
                                         X </span>
 
 
-                            <h2 className={"title"}>{data.project?.name}</h2>
+                            <h2  className={"title"}>{data.project?.name}</h2>
 
                             <h2>Responsable du projet</h2>
                             <span>{data.projectOwner?.firstName && data.projectOwner?.lastName ? data.projectOwner?.firstName + " " + data.projectOwner?.lastName : ""}</span>
