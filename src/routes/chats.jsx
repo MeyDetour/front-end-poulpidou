@@ -41,7 +41,6 @@ const Chats = (props) => {
 		
 		sendMessage(input.current.value,chat.project_id)
 			.then(res => {
-				console.log(res.value)
 				toast(res.state, "message send")
 				setMessages([...messages, {
 					content: res.value.content,
@@ -94,7 +93,7 @@ const Chats = (props) => {
 					<div className="flex-row-between chats-page__header">
 						<div className="flex-col">
 							<div className="flex-row">
-								<h3>{client.lastName} {client.firstName}</h3>
+								<h3>{client.lastName} {client.firstName}: {chat.name}</h3>
 								<div className="flex-row">
 									<div className={client.online ? "online" : "offline"}></div> 
 									<p>{ client.online ? "Online" : "Offline" }</p>

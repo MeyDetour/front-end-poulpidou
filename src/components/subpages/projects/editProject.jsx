@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useForm, FormProvider} from "react-hook-form";
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 import InputCheckbox from '../../assets/inputCheckbox';
 import InputRadio from '../../assets/inputRadio';
@@ -14,6 +14,8 @@ const EditProject = ({data}) => {
     const {id} = useParams();
 
     const toast = useToast();
+
+    const navigate = useNavigate();
 
     // const [cost, setCost] = useState(0);
 
@@ -139,7 +141,7 @@ const EditProject = ({data}) => {
         putProject(data, id)
             .then(res => {
                 toast(res.state, "Values were succesfuly updated.")
-                window.location = `/project/${id}/specifications`
+                navigate(`/project/${id}/specifications`)
             })
             .catch(res => toast(res.state, res.value));
 
