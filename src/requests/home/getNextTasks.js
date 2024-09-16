@@ -9,7 +9,7 @@ const getNextTasks = () => {
 			}
 		})
 		.then((res) => {
-			return [];
+
 			return resolve({state: "OK", value: res.data.value});
 		})
 		.catch(error => {

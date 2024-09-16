@@ -41,6 +41,7 @@
 .clientInterface-messages {
 
     height: 93%;
+    width: 100%;
 
     gap: 15px;
     display: flex;
@@ -96,6 +97,8 @@
     color: #00000082;
     font-weight: 400;
     font-style: italic;
+
+    text-align: end;
 }
 
 /* -- End of MESSAGERIE ---- */
@@ -128,6 +131,8 @@
     font-size: 19px;
     color: var(--grey) !important;
     font-weight: 300;
+
+    text-align: center;
 }
 
 .clientInterface-project-options .oneDetail {
@@ -150,6 +155,8 @@
     font-size: 25px;
 
     margin-top: 59px;
+
+    text-align: center;
 }
 
 /* ---- END OF OPTION DETAILS ---- */
@@ -162,19 +169,21 @@
     border-radius: 10px;
 }
 
-.clientInterface-payment-conditions h3{
+.clientInterface-payment-conditions h3 {
     font-size: 48px;
     font-weight: bold;
 
 }
-.clientInterface-payment-conditions section{
+
+.clientInterface-payment-conditions section {
     margin-block: 50px;
 }
 
-.clientInterface-payment-conditions ul{
+.clientInterface-payment-conditions ul {
     margin: 0;
     padding: 0;
 }
+
 /* ---- END OF CONDITIONS OF PAYEMENT ---- */
 /* ---- DATA FIXED AT RIGHT ---- */
 .clientInterface-project-data {
@@ -201,6 +210,49 @@
        top: 0%;*/
 }
 
+.clientInterface-nav{
+    width: calc(100% - 6%);
+
+    display: none;
+    position: absolute;
+
+
+    left: 3%;
+    top: 0%;
+
+}
+.clientInterface-nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+}
+.clientInterface-nav img{
+    height: 25px;
+}
+.clientInterface-project-icon, .clientInterface-project-data-icon {
+
+    padding: 10px 15px;
+    box-sizing: border-box;
+    width: fit-content;
+
+    background: var(--blue-light-2);
+
+    border-radius: 20px;
+
+
+    box-shadow: #00000014 4px 4px 4px;
+
+    color: var(--white);
+    font-weight: bold;
+}
+.clientInterface-project-data-icon{
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    display: none;
+}
 .clientInterface-project-data .title {
     font-size: 32px !important;
     margin-top: 0 !important;
@@ -213,4 +265,82 @@
     font-weight: bold;
     margin-top: 45px;
     margin-bottom: 10px;
+}
+
+@media screen and (max-device-width: 1350px) {
+    /* ---GLOBAL----*/
+    .clientInterface-container {
+box-sizing: border-box;
+        padding: 20px 14px;
+        width: 100vw;
+    }
+
+    .clientInterface-messagerie, .clientInterface-project-options {
+        padding: 9px;
+    }
+
+
+    /* ---  MESSAGERIE ----*/
+    /* ---  OPTIONS ----*/
+    /* ---PROJECT DATA ----*/
+    .clientInterface-nav{
+        display: flex;
+    }
+    .clientInterface-project-icon__options,  .clientInterface-project-icon__conditions ,  .clientInterface-project-icon__messagerie{
+        display: none;
+    }
+    .clientInterface-project-data-icon{
+        display: block;
+    }
+    .clientInterface-project-data {
+
+        height: 100vh;
+        width: 100vw;
+    }
+}
+
+@media screen and (max-device-width: 1000px) {
+    /* ---  OPTIONS ----*/
+    .clientInterface-project-options h4 {
+        font-size: 21px;
+    }
+}
+
+
+@media screen and (max-device-width: 850px) {
+    /* ---GLOBAL----*/
+    .clientInterface{
+
+        padding-top: 9vh;
+    }
+    .clientInterface-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .clientInterface-messagerie, .clientInterface-project-options {
+        height: 86vh;
+        width: 67%;
+    }
+
+
+    .clientInterface-project-icon__options,  .clientInterface-project-icon__conditions ,  .clientInterface-project-icon__messagerie{
+        display: block;
+    }
+}
+@media screen and (max-device-width: 600px) {
+    /* ---GLOBAL----*/
+
+    .clientInterface-messagerie, .clientInterface-project-options {
+
+        width: 85%;
+    }
+}@media screen and (max-device-width: 450px) {
+    /* ---GLOBAL----*/
+
+    .clientInterface-messagerie, .clientInterface-project-options {
+
+        width: 100%;
+    }
 }

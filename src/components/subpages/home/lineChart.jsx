@@ -26,7 +26,7 @@ ChartJS.register(
 );
 
 const LineChart = ({ values, time }) => {
-	console.log("values in linehcart",values);
+
 	const [valuesNumber, setValuesNumber] = useState(0);
 	useEffect(() => setValuesNumber(Object.keys(values).length), [values]);
 
@@ -89,7 +89,7 @@ const LineChart = ({ values, time }) => {
 	useEffect(() => {
 
 		setValuesNumber(formattedData.length);
-		console.log(formattedData)
+
 	}, [values, formattedData]);
 
 	const linearReg = useLinearRegression();

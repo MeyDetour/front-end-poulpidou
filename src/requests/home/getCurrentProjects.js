@@ -9,8 +9,7 @@ const getCurrentProjects = () => {
 			}
 		})
 		.then((res) => {
-			console.log(res.data.value)
-			return resolve({state: "OK", value: res.data.value.currents});
+			return resolve({state: "OK", value: res.data.value});
 		})
 		.catch(error => {
 			if (error.response.status === 401) {
