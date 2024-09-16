@@ -26,9 +26,7 @@ ChartJS.register(
 );
 
 const LineChart = ({ values, time }) => {
-
-	const [valuesNumber, setValuesNumber] = useState(0);
-	useEffect(() => setValuesNumber(Object.keys(values).length), [values]);
+	const valuesNumber = useRef(0);
 
 	const options = {
 		responsive: true,
@@ -66,7 +64,7 @@ const LineChart = ({ values, time }) => {
 	};
 
 	const formattedData = (function () {
-		if(values.length == 0) {return []}
+		if (values.length == 0) return [];
 
 		let elm = [...Array(time === "10years" && 120 || time === "1year" && 12 || time === "3months" && 90 || time === "30days" && 30 || time === "7days" && 7).keys()];
 
@@ -83,14 +81,11 @@ const LineChart = ({ values, time }) => {
 		elm.forEach(obj => {
 			formattedValues.splice(obj.x, 0, obj);
 		});
+
+		valuesNumber.current = formattedValues.length;
+
 		return formattedValues;
 	})();
-
-	useEffect(() => {
-
-		setValuesNumber(formattedData.length);
-
-	}, [values, formattedData]);
 
 	const linearReg = useLinearRegression();
 
@@ -103,7 +98,7 @@ const LineChart = ({ values, time }) => {
 		id: 'verticalLine',
 		afterDatasetsDraw: (chart) => {
 			const ctx = chart.ctx;
-			const index = valuesNumber;  // Position où la ligne doit être dessinée (basée sur l'index du point)
+			const index = valuesNumber.current - 1;  // Position où la ligne doit être dessinée (basée sur l'index du point)
 			const xScale = chart.scales.x;
 			const yScale = chart.scales.y;
 			
@@ -131,12 +126,10 @@ const LineChart = ({ values, time }) => {
 	};
 
 	useEffect(() => {
-		if (Object.keys(values).length === 0) return;
-
 		const func = linearReg(formattedData, 'x', 'y');
 
 		setData({
-			labels: [...Array(valuesNumber + 3).keys()],
+			labels: [...Array(valuesNumber.current + 3).keys()],
 			datasets: [{
 				label: 'Past',
 				data: formattedData,
@@ -167,9 +160,9 @@ const LineChart = ({ values, time }) => {
 				label: 'Forecast',
 				data: [
 					formattedData.at(-1),
-					{x: valuesNumber, y: func(valuesNumber)},
-					{x: valuesNumber + 1, y: func(valuesNumber + 1)},
-					{x: valuesNumber + 2, y: func(valuesNumber + 2)}
+					{x: valuesNumber.current, y: func(valuesNumber.current)},
+					{x: valuesNumber.current + 1, y: func(valuesNumber.current + 1)},
+					{x: valuesNumber.current + 2, y: func(valuesNumber.current + 2)}
 				],
 				borderColor: "#FFCD56",
 				backgroundColor: (context) => {
@@ -194,10 +187,9 @@ const LineChart = ({ values, time }) => {
 				pointHoverRadius: 6,
 				order: 2,
 				z: 2
-			}
-			]
+			}]
 		});
-	}, [values])
+	}, [values, valuesNumber.current])
 
 	return (
 		<div style={{marginTop: "20px", height: "300px"}}>

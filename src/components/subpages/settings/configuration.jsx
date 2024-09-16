@@ -45,6 +45,10 @@ const Configuration = () => {
 		.catch(res => toast(res.state, res.value));
 	}
 
+	const onError = (error) => {
+		if (error.payments) toast("warning", "Payments checkboxes are required (at least one)");
+	}
+
 	return (
 		<div className="flex-row-between container">
 			<div className="conditions-of-payement">
@@ -120,7 +124,7 @@ const Configuration = () => {
 			</div>
 			<div style={{width: "48%"}}>
 				<FormProvider {...formMethods}>
-					<form className="flex-col-between" style={{height: "100%"}} onSubmit={handleSubmit(onSubmit, console.log)}>
+					<form className="flex-col-between" style={{height: "100%"}} onSubmit={handleSubmit(onSubmit, onError)}>
 						<div className="flex-col">
 							<div className="conditions-of-payement-form">
 								<div className="conditions-of-payement-form__header">
@@ -174,7 +178,9 @@ const Configuration = () => {
 																<InputCheckbox 
 																	id={"payments-" + val}
 																	name="payments"
-																   value={val}/>
+																   	value={val}
+																   	options={{required: true}}
+																   />
 																<label htmlFor={"payments-" + val}>
 																	{
 																		val === "CHEQUE"
