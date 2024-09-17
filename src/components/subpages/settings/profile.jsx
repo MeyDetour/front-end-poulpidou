@@ -12,6 +12,7 @@ import {exportData} from "../../../requests/settings/exportData";
 
 const Logs = () => {
     const [reset, setReset] = useState(false);
+    const [urlExport, setUrlExport] = useState(false);
 
     const toast = useToast();
 
@@ -31,6 +32,15 @@ const Logs = () => {
 
 
     }, [reset])
+    useEffect(() => {
+        exportData()
+            .then(response => {
+                console.log(response.value.fileUrl)
+                setUrlExport(response.value.filePath)
+            })  // Récupérer le fichier sous forme de Blob
+
+            .catch(res => toast(res.state, res.value));
+    }, [])
 
 
     const onError = (error) => {
@@ -66,14 +76,14 @@ const Logs = () => {
         console.log("to export data")
         exportData()
             .then(response => {
-                const url =  response.value.filePath;
+                const url =  response.value.fileUrl;
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', response.value.fileName);
                 document.body.appendChild(link);
                 link.click();
                 link.parentNode.removeChild(link);
-                toast(response.data,"Data Exported")
+                toast(response.state,"Data Exported")
             })  // Récupérer le fichier sous forme de Blob
 
             .catch(res => toast(res.state, res.value));
@@ -129,6 +139,7 @@ const Logs = () => {
                                    value="Abort changes"/>
                         </div>
                         <div className="flex-row" style={{marginBottom: "20px", gap: "10px"}}>
+                            <a download={"https://poulpi-back.md-genos.com/exportData/20240917125436.json"} href="/settings/profile">click here</a>
                             <button onClick={() => exportDataFct()}>Export Data</button>
                             <button>Import Data</button>
 
