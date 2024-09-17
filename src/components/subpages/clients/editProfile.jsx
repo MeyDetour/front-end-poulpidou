@@ -92,24 +92,24 @@ const EditProfile = ({ data, reload, setReload }) => {
 							<input type="text" {...register("mail", {required: true})}/>
 						</div>
 						<div className="flex-row">
-							<p className="text-of-input" title="This field is required"><b>Phone*: </b></p>
+							<p className="text-of-input" ><b>Phone : </b></p>
 							<input type="text" {...register("phone")}/>
 						</div>
 					</div>
 					<div className="flex-row-between">
 						<div className="flex-row">
-							<p className="text-of-input" title="This field is required"><b>Job*: </b></p>
+							<p className="text-of-input" ><b>Job : </b></p>
 							<input type="text" {...register("job", {required: false})}/>
 						</div>
 						<div className="flex-row">
-							<p className="text-of-input" title="This field is required"><b>Location: </b></p>
+							<p className="text-of-input" ><b>Location : </b></p>
 							<input type="text" {...register("location")}/>
 						</div>
 					</div>
 					<div className="flex-row-between">
 						<div className="flex-row" style={{width: "47%"}}>
-							<p><b>Siret:</b></p>
-							<input type="text" {...register("client.info.siret")}/>
+							<p className="text-of-input" ><b>Siret : </b></p>
+							<input type="text" {...register("siret")}/>
 						</div>
 
 					</div>

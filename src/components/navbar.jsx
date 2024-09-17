@@ -12,7 +12,7 @@ const NavBar = () => {
 					<h1>Poulpidou</h1>
 					<ul>
 						<li>
-							<NavLink 
+							<NavLink
 								to={`/home`}
 								className={
 									location.pathname.startsWith("/home") ||
@@ -21,38 +21,39 @@ const NavBar = () => {
 						</li>
 
 						<li>
-							<NavLink 
+							<NavLink
 								to={`/projects`} // TO DO : Do not add an id...
 								className={
 									location.pathname.startsWith("/project") ? "selected" : ''
 								}>Projects</NavLink>
 						</li>
 						<li>
-							<NavLink 
+							<NavLink
 								to={`/chats`}
 								className={
 									location.pathname.startsWith("/chat") ? "selected" : ''
 								}>Chats</NavLink>
 						</li>
 						<li>
-							<NavLink 
+							<NavLink
 								to={`/clients`}
 								className={
 									location.pathname.startsWith("/client") ? "selected" : ''
 								}>Clients</NavLink>
 						</li>
 						<li>
-							<NavLink 
-								to={`/settings/configuration`}
-								className={
-									location.pathname.startsWith("/settings") ? "selected" : ''
-								}>Settings</NavLink>
-						</li>	<li>
 							<NavLink
 								to={`/credits`}
 								className={
 									location.pathname.startsWith("/credits") ? "selected" : ''
 								}>Credits</NavLink>
+						</li>
+						<li>
+							<NavLink
+								to={`/settings/configuration`}
+								className={
+									location.pathname.startsWith("/settings") ? "selected" : ''
+								}>Settings</NavLink>
 						</li>
 					</ul>
 				</div>
